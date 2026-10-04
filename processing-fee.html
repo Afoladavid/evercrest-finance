@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Clearance Processing Fee | Ever Crest Finance Bank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            --bg: #f5f7fb;
+            --surface: #fff;
+            --group: #fbfcfe;
+            --ink: #0b2340;
+            --soft: #5b6f86;
+            --line: #d5dee8;
+            --gold: #ffc93c;
+            --ok: #12a06b;
+            --bad: #d64535;
+            --shadow: 0 20px 50px -30px rgba(11, 35, 64, .35)
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            scroll-padding-top: env(safe-area-inset-top, 0px)
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--ink);
+            font: 15px/1.5 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+        }
+
+        .top {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            z-index: 20;
+            background: rgba(255, 255, 255, .94);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .top .in {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: -.01em
+        }
+
+        .brand i {
+            font-style: normal;
+            color: #e0a800
+        }
+
+        .badge-admin {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: #fff8e6;
+            border: 1px solid var(--gold);
+            color: #b8860b;
+            font-size: .7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            margin-left: 8px
+        }
+
+        .av {
+            text-decoration: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .82rem
+        }
+
+        main {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 24px 18px 60px
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 14px;
+            color: var(--ink);
+            font-weight: 700;
+            font-size: .85rem;
+            text-decoration: underline
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 4vw, 1.9rem);
+            margin: 0 0 2px;
+            letter-spacing: -.02em;
+            font-weight: 800
+        }
+
+        .sub {
+            color: var(--soft);
+            margin: 0 0 20px;
+            font-size: .9rem
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 20px 18px;
+            box-shadow: var(--shadow);
+            margin-bottom: 18px
+        }
+
+        .card h2 {
+            margin: 0 0 4px;
+            font-size: 1.1rem;
+            font-weight: 800
+        }
+
+        .card .hint {
+            color: var(--soft);
+            font-size: .85rem;
+            margin: 0 0 16px
+        }
+
+        .current-fee {
+            margin-bottom: 20px
+        }
+
+        .current-fee .cf-label {
+            font-size: .72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            color: var(--soft)
+        }
+
+        .current-fee .cf-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -.02em;
+            line-height: 1.1
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            font-size: .85rem;
+            margin-bottom: 6px
+        }
+
+        .field {
+            margin-bottom: 16px
+        }
+
+        input[type=number],
+        input[type=text],
+        select {
+            width: 100%;
+            font: inherit;
+            color: var(--ink);
+            background: #fff;
+            border: 1.5px solid var(--line);
+            border-radius: 12px;
+            padding: 12px 14px;
+            min-height: 46px
+        }
+
+        input:focus-visible,
+        select:focus-visible,
+        button:focus-visible {
+            outline: 3px solid rgba(255, 201, 60, .7);
+            outline-offset: 2px;
+            border-color: var(--ink)
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .row .field {
+            flex: 1;
+            min-width: 140px;
+            margin-bottom: 0
+        }
+
+        .btn {
+            font: inherit;
+            font-weight: 700;
+            font-size: .9rem;
+            border-radius: 12px;
+            padding: 12px 20px;
+            min-height: 46px;
+            cursor: pointer;
+            border: 1.5px solid var(--ink);
+            background: #fff;
+            color: var(--ink)
+        }
+
+        .btn:hover {
+            background: #eef2f8
+        }
+
+        .btn-primary {
+            background: var(--ink);
+            color: #fff;
+            border-color: var(--ink)
+        }
+
+        .btn-primary:hover {
+            background: #123a68
+        }
+
+        .btn-primary:disabled {
+            opacity: .6;
+            cursor: not-allowed
+        }
+
+        .warn {
+            background: var(--gold);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin: 0 0 16px;
+            font-weight: 600;
+            font-size: .88rem;
+            color: var(--ink)
+        }
+
+        .snack {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 0px) + 12px);
+            left: 50%;
+            z-index: 99;
+            width: min(92vw, 460px);
+            padding: 13px 16px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: .9rem;
+            background: var(--ink);
+            box-shadow: 0 14px 34px -12px rgba(11, 35, 64, .6);
+            transform: translate(-50%, -160%);
+            opacity: 0;
+            transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .3s;
+            pointer-events: none
+        }
+
+        .snack.show {
+            transform: translate(-50%, 0);
+            opacity: 1
+        }
+
+        .snack.success {
+            background: var(--ok)
+        }
+
+        .snack.error {
+            background: var(--bad)
+        }
+
+        @media (max-width: 480px) {
+            main {
+                padding: 18px 14px 40px
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="snack" id="snack" role="status" aria-live="polite"></div>
+
+    <header class="top">
+        <div class="in">
+            <div class="brand"><i>Ever</i> Crest Finance Bank <span class="badge-admin">Admin</span></div>
+            <a class="av" id="avatar" href="#">AD</a>
+        </div>
+    </header>
+
+    <main>
+        <a class="back" href="admin.html">&larr; Back to admin dashboard</a>
+        <h1>Clearance Processing Fee</h1>
+        <p class="sub">Set the wire transfer clearance fee displayed to users on the Clearance Fee Payment page.</p>
+
+        <section class="card">
+            <h2>Current fee</h2>
+            <p class="hint">This is the amount users currently see on their clearance page.</p>
+            <div class="current-fee">
+                <div class="cf-label">Clearance fee</div>
+                <div class="cf-value" id="currentFee">$0.00</div>
+            </div>
+
+            <div class="warn">
+                <strong>Note:</strong> Updating the fee takes effect immediately for all users.
+            </div>
+
+            <form id="feeForm">
+                <div class="row">
+                    <div class="field">
+                        <label for="amount">Amount</label>
+                        <input type="number" id="amount" step="0.01" min="0" placeholder="0.00" required>
+                    </div>
+                    <div class="field">
+                        <label for="currency">Currency</label>
+                        <select id="currency">
+                            <option value="USD">USD — US Dollar</option>
+                            <option value="NGN">NGN — Nigerian Naira</option>
+                            <option value="GBP">GBP — British Pound</option>
+                            <option value="EUR">EUR — Euro</option>
+                            <option value="GHS">GHS — Ghanaian Cedi</option>
+                            <option value="KES">KES — Kenyan Shilling</option>
+                            <option value="ZAR">ZAR — South African Rand</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;">
+                    <button class="btn btn-primary" type="submit" id="saveBtn">Update Clearance Fee</button>
+                    <button class="btn" type="button" id="resetBtn">Reset to $0.00</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { getDatabase, ref, get, set, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBH0n84QTvGBWaSlJdO6AoUU6IRuJETHLA",
+            authDomain: "ever-crest-finance-bank.firebaseapp.com",
+            projectId: "ever-crest-finance-bank",
+            storageBucket: "ever-crest-finance-bank.firebasestorage.app",
+            messagingSenderId: "469287844559",
+            appId: "1:469287844559:web:4f219675a1055533be95ba"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        const $ = i => document.getElementById(i);
+        let timer;
+        function toast(msg, type = 'info', ms = 4000) {
+            const s = $('snack');
+            s.textContent = msg;
+            s.className = 'snack ' + type;
+            void s.offsetWidth;
+            s.classList.add('show');
+            clearTimeout(timer);
+            timer = setTimeout(() => s.classList.remove('show'), ms);
+        }
+
+        function fmt(amount, currency) {
+            try {
+                return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(amount);
+            } catch (_) {
+                return currency + ' ' + amount.toFixed(2);
+            }
+        }
+
+        let currentFee = { amount: 0, currency: 'USD' };
+
+        (async () => {
+            await auth.authStateReady();
+            const user = auth.currentUser;
+            if (!user) { location.replace('login.html'); return; }
+
+            // Load admin initials
+            try {
+                const u = await get(ref(db, 'users/' + user.uid));
+                if (u.exists()) {
+                    const d = u.val();
+                    const initials = ((d.firstName || '?')[0] + ((d.lastName || '')[0] || '')).toUpperCase();
+                    $('avatar').textContent = initials || 'AD';
+                }
+            } catch (_) { /* ignore */ }
+
+            // Live-load current fee
+            onValue(ref(db, 'settings/clearanceFee'), (snap) => {
+                const v = snap.exists() ? snap.val() : null;
+                currentFee = {
+                    amount: Number(v && v.amount) || 0,
+                    currency: (v && v.currency) || 'USD'
+                };
+                $('currentFee').textContent = fmt(currentFee.amount, currentFee.currency);
+                $('amount').value = currentFee.amount.toFixed(2);
+                $('currency').value = currentFee.currency;
+            });
+        })();
+
+        $('feeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = $('saveBtn');
+            const amount = Number($('amount').value);
+            const currency = $('currency').value;
+
+            if (!isFinite(amount) || amount < 0) {
+                toast('Please enter a valid non-negative amount.', 'error');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Saving…';
+            try {
+                await set(ref(db, 'settings/clearanceFee'), {
+                    amount,
+                    currency,
+                    updatedAt: Date.now(),
+                    updatedBy: auth.currentUser.uid
+                });
+                toast('Clearance fee updated to ' + fmt(amount, currency) + '.', 'success', 4000);
+            } catch (err) {
+                console.error(err);
+                toast('Could not update clearance fee. Try again.', 'error', 5000);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Update Clearance Fee';
+            }
+        });
+
+        $('resetBtn').addEventListener('click', async () => {
+            $('amount').value = '0.00';
+            $('currency').value = 'USD';
+            try {
+                await set(ref(db, 'settings/clearanceFee'), {
+                    amount: 0,
+                    currency: 'USD',
+                    updatedAt: Date.now(),
+                    updatedBy: auth.currentUser.uid
+                });
+                toast('Clearance fee reset to $0.00.', 'success', 4000);
+            } catch (err) {
+                console.error(err);
+                toast('Could not reset clearance fee.', 'error', 5000);
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Help Center | Ever Crest Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            --bg: #f5f7fb;
+            --surface: #fff;
+            --group: #fbfcfe;
+            --ink: #0b2340;
+            --soft: #5b6f86;
+            --line: #d5dee8;
+            --gold: #ffc93c;
+            --ok: #12a06b;
+            --bad: #d64535;
+            --ring: rgba(11, 35, 64, .14);
+            --shadow: 0 20px 50px -30px rgba(11, 35, 64, .35)
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--ink);
+            font: 15px/1.5 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+        }
+
+        [hidden] {
+            display: none !important
+        }
+
+        .top {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            z-index: 20;
+            background: rgba(255, 255, 255, .94);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .top .in {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: -.01em
+        }
+
+        .brand i {
+            font-style: normal;
+            color: #e0a800
+        }
+
+        .badge-admin {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: #fff8e6;
+            border: 1px solid var(--gold);
+            color: #b8860b;
+            font-size: .7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            margin-left: 8px
+        }
+
+        .av {
+            text-decoration: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .82rem
+        }
+
+        main {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 22px 18px 60px
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 4vw, 1.9rem);
+            margin: 0 0 2px;
+            letter-spacing: -.02em;
+            font-weight: 800
+        }
+
+        .sub {
+            color: var(--soft);
+            margin: 0 0 18px;
+            font-size: .9rem
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 12px;
+            color: var(--ink);
+            font-weight: 700;
+            text-decoration: none;
+            font-size: .88rem
+        }
+
+        .back-link:hover {
+            text-decoration: underline
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 18px 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 18px
+        }
+
+        .panel-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+            flex-wrap: wrap
+        }
+
+        .panel-head h2 {
+            margin: 0;
+            font-size: 1.05rem;
+            font-weight: 800
+        }
+
+        .panel-head .ph-sub {
+            font-size: .82rem;
+            color: var(--soft)
+        }
+
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 14px;
+            background: var(--group);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            cursor: pointer;
+            color: inherit;
+            width: 100%;
+            text-decoration: none
+        }
+
+        .list-item:hover {
+            border-color: var(--ink);
+            background: #fff
+        }
+
+        .li-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+            flex: 1
+        }
+
+        .avatar {
+            flex: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .82rem
+        }
+
+        .li-name {
+            font-weight: 700;
+            font-size: .92rem;
+            word-break: break-word
+        }
+
+        .li-meta {
+            font-size: .78rem;
+            color: var(--soft);
+            word-break: break-all
+        }
+
+        .li-right {
+            flex: none;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: .72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            background: #fff8e6;
+            color: #b8860b
+        }
+
+        #chatMessages {
+            max-height: 420px;
+            overflow-y: auto;
+            padding: 8px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .bubble {
+            max-width: 78%;
+            padding: 10px 14px;
+            border-radius: 14px;
+            font-size: .88rem;
+            line-height: 1.45
+        }
+
+        .bubble.admin {
+            background: var(--ink);
+            color: #fff;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px
+        }
+
+        .bubble.user {
+            background: #eef2f8;
+            color: var(--ink);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px
+        }
+
+        .bubble .meta {
+            font-size: .68rem;
+            opacity: .7;
+            margin-top: 4px
+        }
+
+        .chat-form {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px
+        }
+
+        .chat-form input {
+            flex: 1;
+            height: 46px;
+            padding: 0 14px;
+            font: inherit;
+            font-size: 16px;
+            color: var(--ink);
+            background: var(--group);
+            border: 1.5px solid var(--line);
+            border-radius: 8px;
+            outline: 0
+        }
+
+        .chat-form input:focus {
+            background: #fff;
+            border-color: var(--ink);
+            box-shadow: 0 0 0 4px var(--ring)
+        }
+
+        .btn-mini {
+            height: 34px;
+            padding: 0 14px;
+            border-radius: 999px;
+            border: 1.5px solid var(--ink);
+            background: #fff;
+            color: var(--ink);
+            font: inherit;
+            font-weight: 700;
+            font-size: .82rem;
+            cursor: pointer
+        }
+
+        .btn-lg {
+            height: 46px;
+            padding: 0 22px;
+            border-radius: 999px;
+            border: 1.5px solid var(--gold);
+            background: var(--gold);
+            color: var(--ink);
+            font: inherit;
+            font-weight: 800;
+            font-size: .9rem;
+            cursor: pointer
+        }
+
+        .empty {
+            text-align: center;
+            padding: 28px 12px;
+            color: var(--soft);
+            font-size: .88rem
+        }
+
+        .loading-row {
+            padding: 24px;
+            text-align: center;
+            color: var(--soft);
+            font-size: .88rem
+        }
+
+        .snack {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 0px) + 12px);
+            left: 50%;
+            z-index: 99;
+            width: min(92vw, 460px);
+            padding: 13px 16px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: .9rem;
+            background: var(--ink);
+            box-shadow: 0 14px 34px -12px rgba(11, 35, 64, .6);
+            transform: translate(-50%, -160%);
+            opacity: 0;
+            transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .3s;
+            pointer-events: none
+        }
+
+        .snack.show {
+            transform: translate(-50%, 0);
+            opacity: 1
+        }
+
+        .snack.success {
+            background: var(--ok)
+        }
+
+        .snack.error {
+            background: var(--bad)
+        }
+
+        @media(max-width:560px) {
+            .li-right {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 6px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="snack" id="snack"></div>
+    <header class="top">
+        <div class="in">
+            <div class="brand"><i>Ever</i> Crest Finance Bank <span class="badge-admin">Admin</span></div>
+            <a class="av" id="avatar" href="admin.html">AD</a>
+        </div>
+    </header>
+    <main>
+        <a class="back-link" href="admin.html">&larr; Back to Dashboard</a>
+        <h1>Help Center</h1>
+        <p class="sub">Chat with users. Select a user to start a conversation.</p>
+
+        <div class="panel" id="usersPanel">
+            <div class="panel-head">
+                <h2>Users with Chats</h2>
+                <div class="ph-sub" id="usersCount">—</div>
+            </div>
+            <div id="usersList" class="list">
+                <div class="loading-row">Loading chats…</div>
+            </div>
+        </div>
+
+        <div class="panel" id="chatPanel" hidden>
+            <div class="panel-head">
+                <h2 id="chatTitle">Chat</h2>
+                <button class="btn-mini" id="backBtn">Back to Users</button>
+            </div>
+            <div id="chatMessages"></div>
+            <form class="chat-form" id="chatForm">
+                <input id="chatInput" type="text" placeholder="Type a message…" autocomplete="off">
+                <button class="btn-lg" type="submit">Send</button>
+            </form>
+        </div>
+    </main>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { getDatabase, ref, get, push, set, update, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBH0n84QTvGBWaSlJdO6AoUU6IRuJETHLA",
+            authDomain: "ever-crest-finance-bank.firebaseapp.com",
+            projectId: "ever-crest-finance-bank",
+            storageBucket: "ever-crest-finance-bank.firebasestorage.app",
+            messagingSenderId: "469287844559",
+            appId: "1:469287844559:web:4f219675a1055533be95ba"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+        const $ = i => document.getElementById(i);
+        const fmtDate = t => t ? new Date(Number(t)).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '';
+        const fullName = u => [u && u.firstName, u && u.lastName].filter(Boolean).join(' ').trim() || 'Unnamed user';
+        const initials = u => (((u && u.firstName || '?')[0]) + ((u && u.lastName || '')[0] || '')).toUpperCase();
+        const escapeHtml = s => String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        let snackTimer;
+        function toast(msg, type = 'info', ms = 5000) {
+            const s = $('snack'); s.textContent = msg; s.className = 'snack ' + type;
+            void s.offsetWidth; s.classList.add('show');
+            clearTimeout(snackTimer); snackTimer = setTimeout(() => s.classList.remove('show'), ms);
+        }
+
+        let allUsers = [];
+        let activeUid = null;
+        let chatUnsub = null;
+
+        (async () => {
+            await auth.authStateReady();
+            const user = auth.currentUser;
+            if (!user) { location.replace('login.html'); return; }
+            const adminSnap = await get(ref(db, 'users/' + user.uid));
+            const adminProf = adminSnap.exists() ? adminSnap.val() : {};
+            $('avatar').textContent = initials(adminProf) || 'AD';
+
+            const snap = await get(ref(db, 'users'));
+            if (snap.exists()) snap.forEach(c => allUsers.push({ uid: c.key, profile: c.val() || {} }));
+            loadChats();
+        })();
+
+        async function loadChats() {
+            const container = $('usersList');
+            if (allUsers.length === 0) { container.innerHTML = '<div class="empty">No users found.</div>'; return; }
+            const items = [];
+            for (const u of allUsers) {
+                try {
+                    const snap = await get(ref(db, 'chats/' + u.uid));
+                    if (snap.exists()) {
+                        const msgArr = Object.values(snap.val());
+                        const last = msgArr.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))[0];
+                        const unread = msgArr.filter(m => m.from === 'user' && !m.readByAdmin).length;
+                        items.push({ uid: u.uid, profile: u.profile, last, unread });
+                    } else {
+                        items.push({ uid: u.uid, profile: u.profile, last: null, unread: 0 });
+                    }
+                } catch (_) {
+                    items.push({ uid: u.uid, profile: u.profile, last: null, unread: 0 });
+                }
+            }
+            items.sort((a, b) => {
+                if (a.unread !== b.unread) return b.unread - a.unread;
+                return (b.last?.createdAt || 0) - (a.last?.createdAt || 0);
+            });
+            $('usersCount').textContent = items.length + ' user' + (items.length === 1 ? '' : 's');
+            container.innerHTML = '';
+            items.forEach(item => {
+                const preview = item.last ? (item.last.from === 'admin' ? 'You: ' : '') + item.last.text : 'No messages yet';
+                const row = document.createElement('div');
+                row.className = 'list-item';
+                row.innerHTML = `
+                    <div class="li-left">
+                        <div class="avatar">${initials(item.profile)}</div>
+                        <div>
+                            <div class="li-name">${fullName(item.profile)}</div>
+                            <div class="li-meta" style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(preview)}</div>
+                        </div>
+                    </div>
+                    <div class="li-right">
+                        ${item.unread > 0 ? `<span class="pill">${item.unread} new</span>` : ''}
+                        <span class="pill">Open</span>
+                    </div>
+                `;
+                row.addEventListener('click', () => openChat(item.uid));
+                container.appendChild(row);
+            });
+        }
+
+        function openChat(uid) {
+            activeUid = uid;
+            const u = allUsers.find(x => x.uid === uid);
+            $('usersPanel').hidden = true;
+            $('chatPanel').hidden = false;
+            $('chatTitle').textContent = 'Chat with ' + (u ? fullName(u.profile) : 'User');
+            subscribe();
+            $('chatInput').focus();
+        }
+
+        function subscribe() {
+            if (chatUnsub) chatUnsub();
+            chatUnsub = onValue(ref(db, 'chats/' + activeUid), (snap) => {
+                const c = $('chatMessages');
+                c.innerHTML = '';
+                if (!snap.exists()) {
+                    c.innerHTML = '<div class="empty">No messages yet. Start the conversation.</div>';
+                    return;
+                }
+                const arr = Object.keys(snap.val()).map(k => ({ id: k, ...snap.val()[k] }))
+                    .sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+                arr.forEach(m => {
+                    const isAdmin = m.from === 'admin';
+                    const div = document.createElement('div');
+                    div.className = 'bubble ' + (isAdmin ? 'admin' : 'user');
+                    div.innerHTML = `
+                        <div>${escapeHtml(m.text)}</div>
+                        <div class="meta">${isAdmin ? 'Admin' : 'User'} • ${fmtDate(m.createdAt)}</div>
+                    `;
+                    c.appendChild(div);
+                });
+                c.scrollTop = c.scrollHeight;
+                markRead();
+            });
+        }
+
+        async function markRead() {
+            try {
+                const snap = await get(ref(db, 'chats/' + activeUid));
+                if (!snap.exists()) return;
+                const updates = {};
+                snap.forEach(child => {
+                    const m = child.val();
+                    if (m.from === 'user' && !m.readByAdmin) updates[child.key + '/readByAdmin'] = true;
+                });
+                if (Object.keys(updates).length > 0) await update(ref(db, 'chats/' + activeUid), updates);
+            } catch (_) { }
+        }
+
+        $('backBtn').addEventListener('click', () => {
+            if (chatUnsub) { chatUnsub(); chatUnsub = null; }
+            activeUid = null;
+            $('chatPanel').hidden = true;
+            $('usersPanel').hidden = false;
+            loadChats();
+        });
+
+        $('chatForm').addEventListener('submit', async e => {
+            e.preventDefault();
+            if (!activeUid) return;
+            const input = $('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+            input.value = '';
+            try {
+                const now = Date.now();
+                const msgRef = push(ref(db, 'chats/' + activeUid));
+                await set(msgRef, {
+                    from: 'admin', text, createdAt: now,
+                    readByUser: false, readByAdmin: true
+                });
+                await update(ref(db, 'chatMeta/' + activeUid), {
+                    lastMessage: text, lastFrom: 'admin', lastAt: now
+                });
+                const notifRef = push(ref(db, 'notifications/' + activeUid));
+                await set(notifRef, {
+                    title: 'New Message from Support',
+                    message: text.length > 120 ? text.slice(0, 120) + '…' : text,
+                    createdAt: now, read: false, type: 'chat_message', from: 'admin'
+                });
+            } catch (e) {
+                console.error(e);
+                toast('Could not send message.', 'error', 5000);
+            }
+        });
+    </script>
+</body>
+
+</html>

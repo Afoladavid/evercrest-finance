@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Admin Dashboard | Ever Crest Finance Bank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            --bg: #f5f7fb;
+            --surface: #fff;
+            --group: #fbfcfe;
+            --ink: #0b2340;
+            --soft: #5b6f86;
+            --line: #d5dee8;
+            --gold: #ffc93c;
+            --ok: #12a06b;
+            --bad: #d64535;
+            --ring: rgba(11, 35, 64, .14);
+            --shadow: 0 20px 50px -30px rgba(11, 35, 64, .35)
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit
+        }
+
+        html {
+            height: 100%;
+            -webkit-text-size-adjust: 100%
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--ink);
+            font: 15px/1.5 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+        }
+
+        [hidden] {
+            display: none !important
+        }
+
+        .top {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            z-index: 20;
+            background: rgba(255, 255, 255, .94);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .top .in {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: -.01em
+        }
+
+        .brand i {
+            font-style: normal;
+            color: #e0a800
+        }
+
+        .badge-admin {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: #fff8e6;
+            border: 1px solid var(--gold);
+            color: #b8860b;
+            font-size: .7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            margin-left: 8px
+        }
+
+        .av {
+            text-decoration: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .82rem
+        }
+
+        .btn-mini {
+            height: 34px;
+            padding: 0 14px;
+            border-radius: 999px;
+            border: 1.5px solid var(--ink);
+            background: #fff;
+            color: var(--ink);
+            font: inherit;
+            font-weight: 700;
+            font-size: .82rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            position: relative
+        }
+
+        .btn-mini:hover {
+            filter: brightness(.96)
+        }
+
+        main {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 22px 18px 60px
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 4vw, 1.9rem);
+            margin: 0 0 2px;
+            letter-spacing: -.02em;
+            font-weight: 800
+        }
+
+        .sub {
+            color: var(--soft);
+            margin: 0 0 18px;
+            font-size: .9rem
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 22px
+        }
+
+        .stat {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: var(--shadow)
+        }
+
+        .stat .label {
+            font-size: .72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            color: var(--soft);
+            margin-bottom: 6px
+        }
+
+        .stat .value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -.02em;
+            color: var(--ink);
+            line-height: 1.1
+        }
+
+        .stat .meta {
+            font-size: .78rem;
+            color: var(--soft);
+            margin-top: 4px
+        }
+
+        .stat.gold {
+            background: linear-gradient(135deg, #fff 0%, #fff8e6 100%);
+            border-color: #ffe9a8
+        }
+
+        .stat.gold .value {
+            color: #b8860b
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin-bottom: 22px
+        }
+
+        .action-card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 18px;
+            box-shadow: var(--shadow);
+            text-decoration: none;
+            color: var(--ink);
+            transition: transform .15s, border-color .2s;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            position: relative
+        }
+
+        .action-card:hover {
+            border-color: var(--ink);
+            transform: translateY(-1px)
+        }
+
+        .action-card:active {
+            transform: scale(.99)
+        }
+
+        .action-card .ac-title {
+            font-weight: 800;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .action-card .ac-sub {
+            font-size: .8rem;
+            color: var(--soft);
+            line-height: 1.5
+        }
+
+        .action-card .ac-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--group);
+            border: 1px solid var(--line);
+            display: grid;
+            place-items: center;
+            font-size: 1.1rem
+        }
+
+        .action-card .ac-count {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: var(--gold);
+            color: var(--ink);
+            font-size: .7rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 999px;
+            min-width: 24px;
+            text-align: center
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 18px 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 18px
+        }
+
+        .panel-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+            flex-wrap: wrap
+        }
+
+        .panel-head h2 {
+            margin: 0;
+            font-size: 1.05rem;
+            font-weight: 800;
+            letter-spacing: -.01em
+        }
+
+        .panel-head .ph-sub {
+            font-size: .82rem;
+            color: var(--soft)
+        }
+
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 14px;
+            background: var(--group);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            text-decoration: none;
+            color: inherit;
+            width: 100%;
+            transition: border-color .2s, background .2s
+        }
+
+        .list-item:hover {
+            border-color: var(--ink);
+            background: #fff
+        }
+
+        .li-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+            flex: 1
+        }
+
+        .avatar {
+            flex: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .82rem
+        }
+
+        .li-name {
+            font-weight: 700;
+            color: var(--ink);
+            font-size: .92rem;
+            word-break: break-word
+        }
+
+        .li-meta {
+            font-size: .78rem;
+            color: var(--soft);
+            word-break: break-all
+        }
+
+        .li-right {
+            flex: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: .72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .04em
+        }
+
+        .pill.pending {
+            background: #fff8e6;
+            color: #b8860b
+        }
+
+        .pill.processing {
+            background: #e0f2fe;
+            color: #0369a1
+        }
+
+        .pill.completed,
+        .pill.approved {
+            background: #e3f6ee;
+            color: #0b6b47
+        }
+
+        .pill.failed {
+            background: #fbe7e4;
+            color: #a3291c
+        }
+
+        .empty {
+            text-align: center;
+            padding: 28px 12px;
+            color: var(--soft);
+            font-size: .88rem
+        }
+
+        .loading-row {
+            padding: 24px;
+            text-align: center;
+            color: var(--soft);
+            font-size: .88rem
+        }
+
+        .snack {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 0px) + 12px);
+            left: 50%;
+            z-index: 99;
+            width: min(92vw, 460px);
+            padding: 13px 16px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: .9rem;
+            background: var(--ink);
+            box-shadow: 0 14px 34px -12px rgba(11, 35, 64, .6);
+            transform: translate(-50%, -160%);
+            opacity: 0;
+            transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .3s;
+            pointer-events: none
+        }
+
+        .snack.show {
+            transform: translate(-50%, 0);
+            opacity: 1
+        }
+
+        .snack.success {
+            background: var(--ok)
+        }
+
+        .snack.error {
+            background: var(--bad)
+        }
+
+        .chat-badge {
+            position: relative
+        }
+
+        .chat-badge::after {
+            content: attr(data-count);
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--bad);
+            color: #fff;
+            font-size: .65rem;
+            font-weight: 800;
+            min-width: 18px;
+            height: 18px;
+            border-radius: 9px;
+            display: grid;
+            place-items: center;
+            padding: 0 4px
+        }
+
+        @media(max-width:560px) {
+            .li-right {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 6px
+            }
+
+            .stat .value {
+                font-size: 1.5rem
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="snack" id="snack" role="status" aria-live="polite"></div>
+
+    <header class="top">
+        <div class="in">
+            <div class="brand"><i>Ever</i> Crest Finance Bank <span class="badge-admin">Admin</span></div>
+            <div style="display:flex;align-items:center;gap:8px;">
+                <a class="btn-mini" href="help-center.html">
+                    💬 Help Center
+                    <span id="chatUnreadBadge" class="chat-badge" data-count="New" style="display:none;"></span>
+                </a>
+                <a class="av" id="avatar" href="#">AD</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h1>Admin Dashboard</h1>
+        <p class="sub">Overview of users and withdrawal activity.</p>
+
+        <div class="stats">
+            <div class="stat gold">
+                <div class="label">Total Users</div>
+                <div class="value" id="statUsers">—</div>
+                <div class="meta">Registered accounts</div>
+            </div>
+            <div class="stat">
+                <div class="label">Withdrawal Requests</div>
+                <div class="value" id="statWithdrawals">—</div>
+                <div class="meta">All time</div>
+            </div>
+            <div class="stat">
+                <div class="label">Pending Requests</div>
+                <div class="value" id="statPending">—</div>
+                <div class="meta">Awaiting action</div>
+            </div>
+            <div class="stat">
+                <div class="label">Approved Requests</div>
+                <div class="value" id="statApproved">—</div>
+                <div class="meta">Granted successfully</div>
+            </div>
+            <div class="stat gold">
+                <div class="label">Clearance Forms</div>
+                <div class="value" id="statClearance">—</div>
+                <div class="meta">Forms submitted</div>
+            </div>
+            <div class="stat gold">
+                <div class="label">Clearance Fee Payments</div>
+                <div class="value" id="statFeePayments">—</div>
+                <div class="meta">Pending approval</div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <a class="action-card" href="users.html">
+                <div class="ac-icon">👥</div>
+                <div class="ac-title">Manage Users</div>
+                <div class="ac-sub">View all users and their withdrawal requests.</div>
+            </a>
+            <a class="action-card" href="wallet.html">
+                <div class="ac-icon">💳</div>
+                <div class="ac-title">Assign Wallet Address</div>
+                <div class="ac-sub">Set or update a user's wallet address.</div>
+            </a>
+            <a class="action-card" href="percent.html">
+                <div class="ac-icon">%</div>
+                <div class="ac-title">Update User Percent</div>
+                <div class="ac-sub">Change the asset percentage for a user.</div>
+            </a>
+            <a class="action-card" href="deposits.html">
+                <div class="ac-icon">🖼️</div>
+                <div class="ac-title">View Upload Cards</div>
+                <div class="ac-sub">View and approve gift card deposits.</div>
+            </a>
+            <a class="action-card" href="update-balance.html">
+                <div class="ac-icon">💰</div>
+                <div class="ac-title">Update User Account Balance</div>
+                <div class="ac-sub">Add or adjust a user's account balance.</div>
+            </a>
+            <a class="action-card" href="all-transactions.html">
+                <div class="ac-icon">📊</div>
+                <div class="ac-title">View All Transactions</div>
+                <div class="ac-sub">See all deposit transactions from users.</div>
+            </a>
+            <a class="action-card" href="clearance-data-preview.html">
+                <div class="ac-icon">📋</div>
+                <div class="ac-title">Clearance Form</div>
+                <div class="ac-sub">Users whose clearance form has been submitted.</div>
+                <span class="ac-count" id="clearanceCountCard" hidden>0</span>
+            </a>
+
+            <!-- Add/Update Clearance Processing Fee -->
+            <a class="action-card" href="processing-fee.html">
+                <div class="ac-icon">⚙️</div>
+                <div class="ac-title">Add/Update Clearance Processing Fee</div>
+                <div class="ac-sub">Set the wire transfer clearance fee shown to users.</div>
+                <span class="ac-count" id="feeCountCard" hidden>0</span>
+            </a>
+
+            <!-- Clearance Fee Payments (users who clicked Have Paid) -->
+            <a class="action-card" href="clearance-payments.html">
+                <div class="ac-icon"></div>
+                <div class="ac-title">Clearance Fee Payments</div>
+                <div class="ac-sub">Review users who have paid and approve clearance.</div>
+                <span class="ac-count" id="feePaymentsCountCard" hidden>0</span>
+            </a>
+
+            <!-- Withdrawal Fixed Amount -->
+            <a class="action-card" href="pre-list-all-users.html">
+                <div class="ac-icon">🔒</div>
+                <div class="ac-title">Withdrawal Fixed Amount</div>
+                <div class="ac-sub">Assign the fixed amount each user can withdraw.</div>
+            </a>
+
+            <!--  NEW CARD: View and Activate Section B -->
+            <a class="action-card" href="section-b.html">
+                <div class="ac-icon">💬</div>
+                <div class="ac-title">View and Activate Section B</div>
+                <div class="ac-sub">Users with Clearance Completed. Activate chat with admin.</div>
+                <span class="ac-count" id="sectionBCountCard" hidden>0</span>
+            </a>
+
+
+            <!-- Delete User -->
+            <a class="action-card" href="delete-user.html">
+                <div class="ac-icon">🗑️</div>
+                <div class="ac-title">Delete/Block User</div>
+                <div class="ac-sub">Remove a user and all their data from the database.</div>
+            </a>
+        </div>
+
+        <div class="panel">
+            <div class="panel-head">
+                <h2>Recent Withdrawal Requests</h2>
+                <div class="ph-sub">Latest across all users</div>
+            </div>
+            <div id="recentWithdrawals">
+                <div class="loading-row">Loading…</div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { getDatabase, ref, get, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBH0n84QTvGBWaSlJdO6AoUU6IRuJETHLA",
+            authDomain: "ever-crest-finance-bank.firebaseapp.com",
+            projectId: "ever-crest-finance-bank",
+            storageBucket: "ever-crest-finance-bank.firebasestorage.app",
+            messagingSenderId: "469287844559",
+            appId: "1:469287844559:web:4f219675a1055533be95ba"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        const $ = i => document.getElementById(i);
+        const LOCALE = { NGN: 'en-NG', USD: 'en-US', GBP: 'en-GB', EUR: 'en-IE', GHS: 'en-GH', KES: 'en-KE', ZAR: 'en-ZA' };
+        const money = (n, c = 'USD') => { try { return new Intl.NumberFormat(LOCALE[c] || 'en', { style: 'currency', currency: c }).format(Number(n) || 0); } catch (_) { return c + ' ' + (Number(n) || 0).toFixed(2); } };
+        const fullName = u => [u && u.firstName, u && u.lastName].filter(Boolean).join(' ').trim() || 'Unnamed user';
+        const initials = u => (((u && u.firstName || '?')[0]) + ((u && u.lastName || '')[0] || '')).toUpperCase();
+        const statusPill = (status) => {
+            const s = String(status || 'pending').toLowerCase();
+            const cls = (s === 'approved' || s === 'completed' || s === 'successful') ? 'approved' : (s === 'processing') ? 'processing' : (s === 'failed') ? 'failed' : 'pending';
+            const label = cls === 'approved' ? 'Approved' : cls === 'processing' ? 'Processing' : cls === 'failed' ? 'Failed' : 'Pending';
+            return { cls, label };
+        };
+
+        let allUsers = [], allTransactions = {};
+
+        async function loadUsers() {
+            const snap = await get(ref(db, 'users'));
+            if (!snap.exists()) { allUsers = []; return; }
+            const arr = [];
+            snap.forEach(child => arr.push({ uid: child.key, profile: child.val() || {} }));
+            arr.sort((a, b) => fullName(a.profile).localeCompare(fullName(b.profile)));
+            allUsers = arr;
+        }
+
+        async function loadAllTransactions() {
+            allTransactions = {};
+            if (allUsers.length === 0) return;
+            const results = await Promise.all(allUsers.map(u =>
+                get(ref(db, 'transactions/' + u.uid)).then(s => ({ uid: u.uid, snap: s })).catch(() => ({ uid: u.uid, snap: null }))
+            ));
+            results.forEach(({ uid, snap }) => {
+                allTransactions[uid] = {};
+                if (snap && snap.exists()) snap.forEach(child => allTransactions[uid][child.key] = child.val() || {});
+            });
+        }
+
+        function renderStats() {
+            let withdrawalCount = 0, pendingCount = 0, approvedCount = 0;
+            const all = [];
+            allUsers.forEach(u => {
+                const txs = allTransactions[u.uid] || {};
+                Object.keys(txs).forEach(refNo => {
+                    const tx = txs[refNo];
+                    if (tx && tx.type === 'withdrawal') {
+                        withdrawalCount++;
+                        const st = String(tx.status || 'pending').toLowerCase();
+                        if (st === 'approved' || st === 'completed' || st === 'successful') approvedCount++;
+                        else if (st === 'pending' || st === 'processing') pendingCount++;
+                        all.push({ uid: u.uid, profile: u.profile, refNo, tx });
+                    }
+                });
+            });
+            $('statUsers').textContent = allUsers.length;
+            $('statWithdrawals').textContent = withdrawalCount;
+            $('statPending').textContent = pendingCount;
+            $('statApproved').textContent = approvedCount;
+
+            all.sort((a, b) => Number(b.tx.createdAt || 0) - Number(a.tx.createdAt || 0));
+            const recent = all.slice(0, 5);
+            const container = $('recentWithdrawals');
+            if (recent.length === 0) { container.innerHTML = '<div class="empty">No withdrawal requests yet.</div>'; return; }
+            container.innerHTML = '';
+            const list = document.createElement('div');
+            list.className = 'list';
+            recent.forEach(r => {
+                const { cls, label } = statusPill(r.tx.status);
+                const a = document.createElement('a');
+                a.className = 'list-item';
+                a.href = `request-detail.html?uid=${encodeURIComponent(r.uid)}&ref=${encodeURIComponent(r.refNo)}`;
+                a.innerHTML = `
+                    <div class="li-left">
+                        <div class="avatar">${initials(r.profile)}</div>
+                        <div>
+                            <div class="li-name">${fullName(r.profile)}</div>
+                            <div class="li-meta">${r.tx.reference || r.refNo} • ${money(r.tx.amount, r.tx.currency || 'USD')}</div>
+                        </div>
+                    </div>
+                    <div class="li-right"><span class="pill ${cls}">${label}</span></div>
+                `;
+                list.appendChild(a);
+            });
+            container.appendChild(list);
+        }
+
+        // Count clearance forms — total number of SUBMITTED forms
+        function countClearanceForms() {
+            onValue(ref(db, 'clearance_form'), (snap) => {
+                let count = 0;
+                if (snap.exists()) {
+                    snap.forEach(userNode => {
+                        userNode.forEach(entry => {
+                            const v = entry.val() || {};
+                            if (v.submittedAt) count++;
+                        });
+                    });
+                }
+                $('statClearance').textContent = count;
+                const card = $('clearanceCountCard');
+                if (count > 0) { card.textContent = count > 99 ? '99+' : String(count); card.hidden = false; }
+                else { card.hidden = true; }
+            }, (err) => {
+                console.warn('clearance_form read failed:', err?.message);
+                $('statClearance').textContent = '0';
+                $('clearanceCountCard').hidden = true;
+            });
+        }
+
+        // Count clearance fee payments that are pending
+        function countClearanceFeePayments() {
+            onValue(ref(db, 'clearance_payments'), (snap) => {
+                let pending = 0, total = 0;
+                if (snap.exists()) {
+                    snap.forEach(child => {
+                        const v = child.val() || {};
+                        if (v.status) total++;
+                        if (v.status === 'pending') pending++;
+                    });
+                }
+                $('statFeePayments').textContent = pending;
+                const card = $('feePaymentsCountCard');
+                if (pending > 0) { card.textContent = pending > 99 ? '99+' : String(pending); card.hidden = false; }
+                else { card.hidden = true; }
+            }, (err) => {
+                console.warn('clearance_payments read failed:', err?.message);
+                $('statFeePayments').textContent = '0';
+                $('feePaymentsCountCard').hidden = true;
+            });
+        }
+
+        // Section B: users with Clearance Completed (fee approved) who are NOT yet activated
+        function countSectionBWaiting() {
+            let payments = {}, users = {};
+            const redraw = () => {
+                let waiting = 0;
+                Object.keys(payments).forEach(uid => {
+                    if ((payments[uid] || {}).status === 'approved' && !(users[uid] && users[uid].sectionBActivated === true)) waiting++;
+                });
+                const card = $('sectionBCountCard');
+                if (waiting > 0) { card.textContent = waiting > 99 ? '99+' : String(waiting); card.hidden = false; }
+                else { card.hidden = true; }
+            };
+            onValue(ref(db, 'clearance_payments'), snap => {
+                payments = snap.exists() ? snap.val() : {};
+                redraw();
+            }, err => { console.warn('section B payments read failed:', err?.message); $('sectionBCountCard').hidden = true; });
+            onValue(ref(db, 'users'), snap => {
+                users = snap.exists() ? snap.val() : {};
+                redraw();
+            }, err => { console.warn('section B users read failed:', err?.message); });
+        }
+
+        // Show current clearance fee badge on the action card
+        function showCurrentFeeBadge() {
+            onValue(ref(db, 'settings/clearanceFee'), (snap) => {
+                const v = snap.exists() ? snap.val() : null;
+                const badge = $('feeCountCard');
+                if (v && Number(v.amount) > 0) {
+                    let label;
+                    try {
+                        label = new Intl.NumberFormat('en-US',
+                            { style: 'currency', currency: v.currency || 'USD' }).format(Number(v.amount));
+                    } catch (_) { label = (v.currency || 'USD') + ' ' + Number(v.amount).toFixed(2); }
+                    badge.textContent = label;
+                    badge.hidden = false;
+                } else {
+                    badge.hidden = true;
+                }
+            });
+        }
+
+        // unread chat badge
+        onValue(ref(db, 'chats'), (snap) => {
+            let total = 0;
+            if (snap.exists()) {
+                snap.forEach(userChat => userChat.forEach(msgSnap => {
+                    const m = msgSnap.val();
+                    if (m.from === 'user' && !m.readByAdmin) total++;
+                }));
+            }
+            const badge = $('chatUnreadBadge');
+            if (total > 0) { badge.textContent = total > 99 ? '99+' : String(total); badge.style.display = ''; }
+            else badge.style.display = 'none';
+        });
+
+        (async () => {
+            await auth.authStateReady();
+            const user = auth.currentUser;
+            if (!user) { location.replace('login.html'); return; }
+            const u = await get(ref(db, 'users/' + user.uid));
+            const prof = u.exists() ? u.val() : {};
+            $('avatar').textContent = initials(prof) || 'AD';
+            await loadUsers();
+            await loadAllTransactions();
+            renderStats();
+            countClearanceForms();
+            countClearanceFeePayments();
+            countSectionBWaiting();
+            showCurrentFeeBadge();
+        })();
+    </script>
+</body>
+
+</html>

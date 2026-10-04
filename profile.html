@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Profile | Ever Crest Finance Bank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            --bg: #f5f7fb;
+            --surface: #fff;
+            --ink: #0b2340;
+            --soft: #5b6f86;
+            --line: #d5dee8;
+            --gold: #ffc93c;
+            --ok: #12a06b;
+            --bad: #d64535;
+            --shadow: 0 20px 50px -30px rgba(11, 35, 64, .35)
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit
+        }
+
+        html {
+            height: 100%;
+            -webkit-text-size-adjust: 100%;
+            scroll-padding-top: env(safe-area-inset-top, 0px)
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--ink);
+            font: 15px/1.5 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+        }
+
+        [hidden] {
+            display: none !important
+        }
+
+        .top {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            z-index: 20;
+            background: rgba(255, 255, 255, .94);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .top .in {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: -.01em
+        }
+
+        .brand i {
+            font-style: normal;
+            color: #e0a800
+        }
+
+        .brand a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        .who {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .av {
+            text-decoration: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--ink) center / cover no-repeat;
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .82rem;
+            overflow: hidden
+        }
+
+        .av.has-img {
+            color: transparent
+        }
+
+        .pill {
+            height: 36px;
+            padding: 0 16px;
+            border-radius: 999px;
+            border: 1.5px solid var(--line);
+            background: #fff;
+            color: var(--ink);
+            font: inherit;
+            font-size: .85rem;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        .pill:hover {
+            border-color: var(--ink)
+        }
+
+        .pill:focus-visible {
+            outline: 3px solid var(--ink);
+            outline-offset: 2px
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px 18px 44px
+        }
+
+        #loading {
+            text-align: center;
+            color: var(--soft);
+            padding: 80px 0
+        }
+
+        h1 {
+            font-size: clamp(1.4rem, 4.5vw, 2rem);
+            margin: 0 0 2px;
+            letter-spacing: -.02em;
+            font-weight: 800
+        }
+
+        .sub {
+            color: var(--soft);
+            margin: 0 0 16px;
+            font-size: .9rem
+        }
+
+        .back {
+            display: inline-block;
+            margin: 0 0 12px;
+            color: var(--ink);
+            font-weight: 700;
+            font-size: .88rem;
+            text-decoration: none
+        }
+
+        .back:hover {
+            text-decoration: underline
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: var(--shadow)
+        }
+
+        .photo {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding-bottom: 18px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .bigav {
+            flex: none;
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background: var(--ink) center / cover no-repeat;
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: 1.9rem;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 2px var(--line);
+            overflow: hidden
+        }
+
+        .bigav.has-img {
+            color: transparent
+        }
+
+        .photo h2 {
+            margin: 0 0 2px;
+            font-size: 1rem;
+            font-weight: 800
+        }
+
+        .photo p {
+            margin: 0 0 10px;
+            color: var(--soft);
+            font-size: .8rem
+        }
+
+        .photo .btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px
+        }
+
+        .gold {
+            background: var(--gold);
+            border-color: var(--gold)
+        }
+
+        .gold:hover {
+            filter: brightness(1.05);
+            border-color: var(--gold)
+        }
+
+        .danger {
+            color: var(--bad);
+            border-color: var(--bad)
+        }
+
+        .danger:hover {
+            background: var(--bad);
+            color: #fff;
+            border-color: var(--bad)
+        }
+
+        .prof {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px 20px;
+            margin: 0
+        }
+
+        .prof dt {
+            color: var(--soft);
+            font-size: .78rem;
+            font-weight: 600
+        }
+
+        .prof dd {
+            margin: 2px 0 0;
+            font-weight: 700;
+            word-break: break-word
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: .7rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 999px;
+            margin-left: 6px;
+            vertical-align: middle
+        }
+
+        .badge.ok {
+            background: #dff5ec;
+            color: #0b7a52
+        }
+
+        .badge.warn {
+            background: #fdebd0;
+            color: #9a5a00
+        }
+
+        .snack {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 0px) + 12px);
+            left: 50%;
+            z-index: 99;
+            width: min(92vw, 460px);
+            padding: 13px 16px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: .9rem;
+            background: var(--ink);
+            box-shadow: 0 14px 34px -12px rgba(11, 35, 64, .6);
+            transform: translate(-50%, -160%);
+            opacity: 0;
+            transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .3s;
+            pointer-events: none
+        }
+
+        .snack.show {
+            transform: translate(-50%, 0);
+            opacity: 1
+        }
+
+        .snack.success {
+            background: var(--ok)
+        }
+
+        .snack.error {
+            background: var(--bad)
+        }
+
+        .sr {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0)
+        }
+
+        @media (max-width: 859px) {
+            .prof {
+                grid-template-columns: 1fr 1fr
+            }
+
+            main {
+                padding: 14px 14px 36px
+            }
+
+            .top .in {
+                padding: 8px 14px
+            }
+        }
+
+        @media (max-width: 480px) {
+            .prof {
+                grid-template-columns: 1fr
+            }
+
+            .photo {
+                flex-direction: column;
+                text-align: center
+            }
+
+            .photo .btns {
+                justify-content: center
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="snack" id="snack" role="status" aria-live="polite"></div>
+
+    <header class="top">
+        <div class="in">
+            <div class="brand"><a href="dashboard.html"><i>Ever</i> Crest Finance Bank</a></div>
+            <div class="who">
+                <a class="av" id="avatar" href="profile.html" aria-label="My profile">EC</a>
+                <button class="pill" type="button" id="signOut">Sign out</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <p id="loading">Loading your profile…</p>
+
+        <div id="app" hidden>
+            <a class="back" href="dashboard.html">&larr; Back to dashboard</a>
+            <h1>My profile</h1>
+            <p class="sub">The details you gave us when you opened your account.</p>
+            <div class="card">
+                <div class="photo">
+                    <div class="bigav" id="bigAv" aria-label="Profile picture">EC</div>
+                    <div>
+                        <h2>Profile picture</h2>
+                        <p>Shown on your dashboard.</p>
+                        <div class="btns">
+                            <button class="pill gold" type="button" id="pick">Upload photo</button>
+                            <button class="pill danger" type="button" id="remove" hidden>Remove</button>
+                        </div>
+                        <input class="sr" type="file" id="file" accept="image/*" tabindex="-1"
+                            aria-label="Choose a profile picture">
+                    </div>
+                </div>
+                <dl class="prof" id="profile"></dl>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBH0n84QTvGBWaSlJdO6AoUU6IRuJETHLA",
+            authDomain: "ever-crest-finance-bank.firebaseapp.com",
+            projectId: "ever-crest-finance-bank",
+            storageBucket: "ever-crest-finance-bank.firebasestorage.app",
+            messagingSenderId: "469287844559",
+            appId: "1:469287844559:web:4f219675a1055533be95ba"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        const ROUTES = { 1: 'personal.html', 2: 'address.html', 3: 'finalstep.html', 4: 'dashboard.html' };
+        const $ = i => document.getElementById(i);
+        let initials = 'EC';
+
+        let snackTimer;
+        function toast(msg, type = 'info', ms = 4000) {
+            const s = $('snack'); s.textContent = msg; s.className = 'snack ' + type;
+            void s.offsetWidth; s.classList.add('show');
+            clearTimeout(snackTimer); snackTimer = setTimeout(() => s.classList.remove('show'), ms);
+        }
+
+        /* ===== profile picture (saved in this browser's localStorage, one per user) ===== */
+        const avKey = uid => 'ec_avatar_' + uid;
+        const getAv = uid => { try { return localStorage.getItem(avKey(uid)); } catch (_) { return null; } };
+
+        function paintAvatar() {
+            const u = auth.currentUser;
+            const img = u ? getAv(u.uid) : null;
+            [$('avatar'), $('bigAv')].forEach(el => {
+                el.style.backgroundImage = img ? 'url("' + img + '")' : '';
+                el.classList.toggle('has-img', !!img);
+                el.textContent = img ? '' : initials;
+            });
+            $('remove').hidden = !img;
+            $('pick').textContent = img ? 'Change photo' : 'Upload photo';
+        }
+
+        /* crop to a centred square and shrink to 256px so it fits easily in localStorage */
+        function shrink(file) {
+            return new Promise((resolve, reject) => {
+                const url = URL.createObjectURL(file);
+                const im = new Image();
+                im.onload = () => {
+                    const s = Math.min(im.naturalWidth, im.naturalHeight), SIZE = 256;
+                    const c = document.createElement('canvas'); c.width = c.height = SIZE;
+                    c.getContext('2d').drawImage(im, (im.naturalWidth - s) / 2, (im.naturalHeight - s) / 2, s, s, 0, 0, SIZE, SIZE);
+                    URL.revokeObjectURL(url);
+                    resolve(c.toDataURL('image/jpeg', 0.85));
+                };
+                im.onerror = () => { URL.revokeObjectURL(url); reject(new Error('bad image')); };
+                im.src = url;
+            });
+        }
+
+        $('pick').addEventListener('click', () => $('file').click());
+        $('file').addEventListener('change', async () => {
+            const f = $('file').files[0];
+            $('file').value = '';
+            if (!f) return;
+            if (!/^image\//.test(f.type)) return toast('Please choose an image file.', 'error');
+            if (f.size > 10 * 1024 * 1024) return toast('That image is too large. Choose one under 10 MB.', 'error');
+            const u = auth.currentUser;
+            if (!u) return toast('Your session expired. Please log in again.', 'error');
+            try {
+                const data = await shrink(f);
+                localStorage.setItem(avKey(u.uid), data);
+                paintAvatar();
+                toast('Profile picture saved.', 'success');
+            } catch (e) {
+                console.error(e);
+                toast('Could not save that picture. Try a different image.', 'error');
+            }
+        });
+        $('remove').addEventListener('click', () => {
+            const u = auth.currentUser;
+            try { if (u) localStorage.removeItem(avKey(u.uid)); } catch (_) { }
+            paintAvatar();
+            toast('Profile picture removed.', 'success');
+        });
+
+        function render(user, d) {
+            initials = ((d.firstName || '?')[0] + ((d.lastName || '')[0] || '')).toUpperCase();
+            paintAvatar();
+            const dob = d.dob ? new Date(d.dob + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '-';
+            const rows = [
+                ['Full name', [d.firstName, d.otherName, d.lastName].filter(Boolean).join(' ') || '-'],
+                ['Email', user.email, user.emailVerified ? 'Verified' : 'Unverified'],
+                ['Phone', d.phone || '-'],
+                ['Date of birth', dob],
+                ['Gender', d.gender || '-'],
+                ['Religion', d.religion || '-'],
+                ['Occupation', d.occupation || '-'],
+                ['Residential address', d.address || '-']
+            ];
+            const dl = $('profile'); dl.innerHTML = '';
+            rows.forEach(([k, val, badge]) => {
+                const box = document.createElement('div');
+                const dt = document.createElement('dt'); dt.textContent = k;
+                const dd = document.createElement('dd'); dd.textContent = val;
+                if (badge) { const s = document.createElement('span'); s.className = 'badge ' + (badge === 'Verified' ? 'ok' : 'warn'); s.textContent = badge; dd.appendChild(s); }
+                box.append(dt, dd); dl.appendChild(box);
+            });
+            $('loading').hidden = true; $('app').hidden = false;
+        }
+
+        (async () => {
+            await auth.authStateReady();
+            const user = auth.currentUser;
+            if (!user) { location.replace('login.html'); return; }
+            let d = null;
+            try {
+                const snap = await get(ref(db, 'users/' + user.uid));
+                d = snap.exists() ? snap.val() : null;
+            } catch (e) {
+                console.error(e);
+                $('loading').textContent = 'We could not load your data. Check your connection and refresh.';
+                return;
+            }
+            const step = Number(d && d.step) || 1;
+            if (step < 4) { location.replace(ROUTES[Math.max(1, step)]); return; }
+            render(user, d);
+        })();
+
+        $('signOut').addEventListener('click', async () => {
+            try { await signOut(auth); } catch (_) { }
+            location.replace('login.html');
+        });
+    </script>
+</body>
+
+</html>

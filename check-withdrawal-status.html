@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Withdrawal Status | Ever Crest Finance Bank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            --bg: #f5f7fb;
+            --surface: #fff;
+            --group: #fbfcfe;
+            --ink: #0b2340;
+            --soft: #5b6f86;
+            --line: #d5dee8;
+            --gold: #ffc93c;
+            --ok: #12a06b;
+            --bad: #d64535;
+            --ring: rgba(11, 35, 64, .14);
+            --shadow: 0 20px 50px -30px rgba(11, 35, 64, .35)
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit
+        }
+
+        html {
+            height: 100%;
+            -webkit-text-size-adjust: 100%;
+            scroll-padding-top: env(safe-area-inset-top, 0px)
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--ink);
+            font: 15px/1.5 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+        }
+
+        [hidden] {
+            display: none !important
+        }
+
+        .top {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            z-index: 20;
+            background: rgba(255, 255, 255, .94);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .top .in {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .av {
+            text-decoration: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .82rem
+        }
+
+        .av:hover {
+            filter: brightness(1.2)
+        }
+
+        .back {
+            display: inline-block;
+            margin: 0 0 12px;
+            color: var(--ink);
+            font-weight: 700;
+            text-decoration: none
+        }
+
+        .back:hover {
+            text-decoration: underline
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: -.01em
+        }
+
+        .brand i {
+            font-style: normal;
+            color: #e0a800
+        }
+
+        main {
+            max-width: 620px;
+            margin: 0 auto;
+            padding: 22px 18px 44px
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            margin: 0 0 2px;
+            letter-spacing: -.02em;
+            font-weight: 800
+        }
+
+        .sub {
+            color: var(--soft);
+            margin: 0 0 18px;
+            font-size: .9rem
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 18px 16px;
+            box-shadow: var(--shadow)
+        }
+
+        form label {
+            display: block;
+            font-size: .86rem;
+            font-weight: 600;
+            color: var(--soft);
+            margin: 14px 0 6px
+        }
+
+        form label:first-child {
+            margin-top: 0
+        }
+
+        input {
+            width: 100%;
+            height: 46px;
+            padding: 0 14px;
+            font: inherit;
+            font-size: 16px;
+            color: var(--ink);
+            background: var(--group);
+            border: 1.5px solid var(--line);
+            border-radius: 8px;
+            outline: 0;
+            appearance: none;
+            -webkit-appearance: none;
+            transition: border-color .2s, box-shadow .2s
+        }
+
+        input:focus {
+            background: #fff;
+            border-color: var(--ink);
+            box-shadow: 0 0 0 4px var(--ring)
+        }
+
+        input::placeholder {
+            color: #9aabbd
+        }
+
+        .snack {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 0px) + 12px);
+            left: 50%;
+            z-index: 99;
+            width: min(92vw, 460px);
+            padding: 13px 16px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: .9rem;
+            background: var(--ink);
+            box-shadow: 0 14px 34px -12px rgba(11, 35, 64, .6);
+            transform: translate(-50%, -160%);
+            opacity: 0;
+            transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .3s;
+            pointer-events: none
+        }
+
+        .snack.show {
+            transform: translate(-50%, 0);
+            opacity: 1
+        }
+
+        .snack.success {
+            background: var(--ok)
+        }
+
+        .snack.error {
+            background: var(--bad)
+        }
+
+        .go {
+            width: 100%;
+            height: 52px;
+            margin-top: 18px;
+            border: 0;
+            border-radius: 999px;
+            background: var(--gold);
+            color: var(--ink);
+            font: inherit;
+            font-size: 1.05rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 24px -10px rgba(255, 201, 60, .9);
+            transition: transform .15s, filter .2s, opacity .2s
+        }
+
+        .go:hover {
+            filter: brightness(1.05)
+        }
+
+        .go:active {
+            transform: scale(.98)
+        }
+
+        .go:focus-visible {
+            outline: 3px solid var(--ink);
+            outline-offset: 3px
+        }
+
+        .go:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+            background: #d5dee8;
+            color: #5b6f86;
+            box-shadow: none;
+        }
+
+        .go.busy {
+            cursor: progress
+        }
+
+        .status-card {
+            text-align: center;
+            margin-top: 18px;
+            animation: fadeIn .3s ease;
+        }
+
+        .status-icon {
+            width: 56px;
+            height: 56px;
+            margin: 4px auto 10px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            font-weight: 800;
+        }
+
+        .status-icon.pending {
+            background: #ffc93c;
+            color: var(--ink);
+        }
+
+        .status-icon.processing {
+            background: #3b82f6;
+        }
+
+        .status-icon.completed {
+            background: var(--ok);
+        }
+
+        .status-icon.failed {
+            background: var(--bad);
+        }
+
+        .status-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .status-card h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+
+        .status-card .samt {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -.02em;
+            margin: 4px 0 14px
+        }
+
+        .rows {
+            text-align: left;
+            border-top: 1px dashed var(--line);
+            margin-top: 6px
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--line);
+            font-size: .88rem
+        }
+
+        .row span:first-child {
+            color: var(--soft);
+            flex: none
+        }
+
+        .row span:last-child {
+            font-weight: 700;
+            text-align: right;
+            word-break: break-all
+        }
+
+        .rbtns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 18px
+        }
+
+        .btn2 {
+            display: grid;
+            place-items: center;
+            height: 48px;
+            border-radius: 999px;
+            font: inherit;
+            font-weight: 800;
+            text-decoration: none;
+            cursor: pointer;
+            border: 1.5px solid var(--ink);
+            background: #fff;
+            color: var(--ink)
+        }
+
+        .btn2.fill {
+            background: var(--ink);
+            color: #fff
+        }
+
+        .pending-notice {
+            margin-top: 14px;
+            padding: 12px 14px;
+            background: #fff8e6;
+            border: 1px solid #ffc93c;
+            border-radius: 10px;
+            font-size: .84rem;
+            color: var(--ink);
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .pending-notice strong {
+            color: #b8860b;
+        }
+
+        /* Approved banner below request container */
+        .approved-banner {
+            margin-top: 14px;
+            padding: 16px 18px;
+            border-radius: 12px;
+            background: #e7f8f0;
+            border: 1px solid #b7e8d2;
+            color: #0b6b48;
+            font-size: .88rem;
+            line-height: 1.6;
+            animation: fadeIn .35s ease;
+            text-align: left;
+        }
+
+        .approved-banner h3 {
+            margin: 0 0 6px;
+            font-size: .95rem;
+            font-weight: 800;
+            color: #0b6b48;
+            text-transform: uppercase;
+            letter-spacing: .03em;
+        }
+
+        .approved-banner p {
+            margin: 0;
+        }
+
+        .approved-banner strong {
+            color: #0b6b48;
+            font-weight: 800;
+        }
+
+        .recent-list {
+            margin-top: 18px;
+        }
+
+        .recent-title {
+            font-size: .9rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: .03em;
+        }
+
+        .recent-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 14px;
+            background: var(--group);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            font-size: .85rem;
+            cursor: pointer;
+            transition: border-color .2s;
+        }
+
+        .recent-item:hover {
+            border-color: var(--ink);
+        }
+
+        .recent-item .ri-left {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .recent-item .ri-ref {
+            font-weight: 700;
+            color: var(--ink);
+            font-size: .82rem;
+        }
+
+        .recent-item .ri-amt {
+            color: var(--soft);
+            font-size: .8rem;
+        }
+
+        .recent-item .ri-right {
+            text-align: right;
+        }
+
+        .recent-item .ri-status {
+            font-weight: 700;
+            font-size: .78rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+            display: inline-block;
+        }
+
+        .recent-item .ri-status.pending {
+            background: #fff8e6;
+            color: #b8860b;
+        }
+
+        .recent-item .ri-status.processing {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .recent-item .ri-status.completed,
+        .recent-item .ri-status.approved {
+            background: #e3f6ee;
+            color: #0b6b47;
+        }
+
+        .recent-item .ri-status.failed {
+            background: #fbe7e4;
+            color: #a3291c;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="snack" id="snack" role="status" aria-live="polite"></div>
+    <header class="top">
+        <div class="in">
+            <div class="brand"><i>Ever</i> Crest Finance Bank</div>
+            <a class="av" id="avatar" href="profile.html" aria-label="Your profile" title="Your profile">EC</a>
+        </div>
+    </header>
+    <main>
+        <a class="back" href="dashboard.html" aria-label="Back to dashboard">&larr; Back</a>
+        <h1>Withdrawal Status</h1>
+        <p class="sub">Enter your reference number to see the status of your request.</p>
+
+        <div class="card" id="formCard">
+            <form id="f" novalidate>
+                <label for="ref">Reference Number</label>
+                <input id="ref" name="reference" autocomplete="off" autocapitalize="characters" spellcheck="false"
+                    placeholder="e.g. ECMUNZ6L56TGSM" required>
+                <button class="go" id="go" type="submit">Check Status</button>
+            </form>
+        </div>
+
+        <div class="card status-card" id="statusCard" hidden>
+            <div class="status-icon" id="statusIcon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12.5l4.5 4.5L19 7.5" />
+                </svg>
+            </div>
+            <h2 id="statusTitle">Status</h2>
+            <div class="samt" id="sAmt"></div>
+            <div class="rows" id="sRows"></div>
+
+            <div class="pending-notice" id="pendingNotice" hidden>
+                <strong>Pending Deposit:</strong> Your required percentage has not been deposited yet. Please click the
+                button below to deposit and activate your withdrawal.
+            </div>
+
+            <!-- Only the two original buttons now — no "Back to Dashboard" swap -->
+            <div class="rbtns" id="rBtns">
+                <a class="btn2" href="dashboard.html">Dashboard</a>
+                <button class="btn2 fill" type="button" id="payNowBtn" hidden>Pay Deposit Now</button>
+            </div>
+        </div>
+
+        <!-- Approved banner BELOW the request container -->
+        <div class="approved-banner" id="approvedBanner" hidden>
+            <h3>Request Approved</h3>
+            <p>
+                <strong>Your request has been granted successfully.</strong>
+                Please hold on while we process your payment.
+            </p>
+        </div>
+
+        <div class="card recent-list" id="recentList" hidden>
+            <div class="recent-title">Recent Requests</div>
+            <div id="recentItems"></div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { getDatabase, ref, get, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBH0n84QTvGBWaSlJdO6AoUU6IRuJETHLA",
+            authDomain: "ever-crest-finance-bank.firebaseapp.com",
+            projectId: "ever-crest-finance-bank",
+            storageBucket: "ever-crest-finance-bank.firebasestorage.app",
+            messagingSenderId: "469287844559",
+            appId: "1:469287844559:web:4f219675a1055533be95ba"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        const $ = i => document.getElementById(i);
+        const LOCALE = { NGN: 'en-NG', USD: 'en-US', GBP: 'en-GB', EUR: 'en-IE', GHS: 'en-GH', KES: 'en-KE', ZAR: 'en-ZA' };
+        const money = (n, c = 'USD') => {
+            try { return new Intl.NumberFormat(LOCALE[c] || 'en', { style: 'currency', currency: c }).format(Number(n) || 0); }
+            catch (_) { return c + ' ' + (Number(n) || 0).toFixed(2); }
+        };
+        const fmtDate = t => new Date(t).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+        let snackTimer;
+        function toast(msg, type = 'info', ms = 5000) {
+            const s = $('snack');
+            s.textContent = msg;
+            s.className = 'snack ' + type;
+            void s.offsetWidth;
+            s.classList.add('show');
+            clearTimeout(snackTimer);
+            snackTimer = setTimeout(() => s.classList.remove('show'), ms);
+        }
+
+        let me = null;
+        let checking = false;
+        let currentTx = null;
+
+        /* ===== status check (callable directly) ===== */
+        async function checkStatus(refNoOverride) {
+            if (checking) return;
+            if (!me || !me.uid) {
+                toast('Your account is still loading. Please wait a moment and try again.', 'error', 6000);
+                return;
+            }
+
+            const refNo = (refNoOverride || $('ref').value || '').trim().toUpperCase();
+            if (!refNo) { $('ref').focus(); return toast('Enter your reference number.', 'error', 6000); }
+
+            checking = true;
+            $('go').classList.add('busy'); $('go').textContent = 'Checking…';
+
+            try {
+                const txRef = ref(db, 'transactions/' + me.uid + '/' + refNo);
+                const snap = await get(txRef);
+
+                if (!snap.exists()) {
+                    toast('Reference number not found. Please check and try again.', 'error', 8000);
+                    return;
+                }
+
+                currentTx = snap.val();
+                showStatus(currentTx);
+
+            } catch (err) {
+                console.error('Status check error:', err);
+                if (err?.code === 'PERMISSION_DENIED') {
+                    toast('Firebase denied access. Check your database rules.', 'error', 9000);
+                } else {
+                    toast('Could not find this reference. Please try again.', 'error', 8000);
+                }
+            } finally {
+                checking = false;
+                $('go').classList.remove('busy'); $('go').textContent = 'Check Status';
+            }
+        }
+
+        $('f').addEventListener('submit', e => {
+            e.preventDefault();
+            checkStatus();
+        });
+
+        /* ===== display status ===== */
+        function showStatus(tx) {
+            const status = String(tx.status || 'pending').toLowerCase();
+            const icon = $('statusIcon');
+            const title = $('statusTitle');
+            const pendingNotice = $('pendingNotice');
+            const payNowBtn = $('payNowBtn');
+            const approvedBanner = $('approvedBanner');
+
+            // Reset
+            pendingNotice.hidden = true;
+            payNowBtn.hidden = true;
+            approvedBanner.hidden = true;
+
+            if (status === 'pending') {
+                icon.className = 'status-icon pending';
+                icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>';
+                title.textContent = 'Request Pending';
+                pendingNotice.hidden = false;
+                payNowBtn.hidden = false;
+            } else if (status === 'processing') {
+                icon.className = 'status-icon processing';
+                icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>';
+                title.textContent = 'Processing';
+            } else if (status === 'completed' || status === 'successful' || status === 'approved') {
+                icon.className = 'status-icon completed';
+                icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+                title.textContent = 'Withdrawal Approved';
+
+                // Show approved banner below request container (no button swap)
+                approvedBanner.hidden = false;
+            } else {
+                icon.className = 'status-icon failed';
+                icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>';
+                title.textContent = 'Failed';
+            }
+
+            $('sAmt').textContent = money(tx.amount, tx.currency || 'USD');
+            const rows = $('sRows'); rows.innerHTML = '';
+
+            const details = [
+                ['Source', tx.asset || '—'],
+                ['Date', tx.createdAt ? fmtDate(tx.createdAt) : '—'],
+                ['Reference', tx.reference || '—'],
+                ['Status', status.charAt(0).toUpperCase() + status.slice(1)],
+            ];
+
+            if (tx.depositAmount) {
+                details.push(['Deposit Required', money(tx.depositAmount, tx.currency || 'USD') + ' (' + (tx.assetPercent || 10) + '%)']);
+            }
+            if (tx.card) details.push(['Card/Account', tx.card]);
+
+            details.forEach(([k, v]) => {
+                const row = document.createElement('div'); row.className = 'row';
+                const a = document.createElement('span'); a.textContent = k;
+                const b = document.createElement('span'); b.textContent = v;
+                row.append(a, b); rows.appendChild(row);
+            });
+
+            $('formCard').hidden = true;
+            $('statusCard').hidden = false;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Pay Now
+        $('payNowBtn').addEventListener('click', () => {
+            if (currentTx && currentTx.reference) {
+                window.location.href = 'deposit.html?ref=' + encodeURIComponent(currentTx.reference) +
+                    '&amount=' + encodeURIComponent(currentTx.depositAmount) +
+                    '&percent=' + encodeURIComponent(currentTx.assetPercent);
+            } else {
+                window.location.href = 'deposit.html';
+            }
+        });
+
+        /* ===== Recent Requests ===== */
+        function loadRecentRequests() {
+            if (!me || !me.uid) return;
+
+            const txRef = ref(db, 'transactions/' + me.uid);
+
+            onValue(txRef, snap => {
+                try {
+                    if (!snap.exists()) {
+                        $('recentList').hidden = true;
+                        return;
+                    }
+
+                    const items = [];
+                    snap.forEach(child => {
+                        const tx = child.val() || {};
+                        if (tx.type === 'withdrawal') {
+                            items.push({ key: child.key, ...tx });
+                        }
+                    });
+
+                    items.sort((a, b) => Number(b.createdAt || 0) - Number(a.createdAt || 0));
+
+                    if (items.length === 0) {
+                        $('recentList').hidden = true;
+                        return;
+                    }
+
+                    $('recentList').hidden = false;
+                    const container = $('recentItems');
+                    container.innerHTML = '';
+
+                    items.slice(0, 5).forEach(tx => {
+                        const status = String(tx.status || 'pending').toLowerCase();
+
+                        const statusClass =
+                            status === 'completed' || status === 'approved'
+                                ? 'completed'
+                                : status === 'processing'
+                                    ? 'processing'
+                                    : status === 'failed'
+                                        ? 'failed'
+                                        : 'pending';
+
+                        const statusLabel =
+                            status === 'completed' || status === 'approved'
+                                ? 'Approved'
+                                : status === 'processing'
+                                    ? 'Processing'
+                                    : status === 'failed'
+                                        ? 'Failed'
+                                        : 'Pending';
+
+                        const el = document.createElement('div');
+                        el.className = 'recent-item';
+
+                        const left = document.createElement('div');
+                        left.className = 'ri-left';
+
+                        const refEl = document.createElement('div');
+                        refEl.className = 'ri-ref';
+                        refEl.textContent = tx.reference || tx.key;
+
+                        const amtEl = document.createElement('div');
+                        amtEl.className = 'ri-amt';
+                        amtEl.textContent =
+                            money(tx.amount, tx.currency || 'USD') +
+                            ' • ' + (tx.assetPercent || 10) + '%' +
+                            (tx.depositAmount ? ' • Deposit: ' + money(tx.depositAmount, tx.currency || 'USD') : '');
+
+                        left.append(refEl, amtEl);
+
+                        const right = document.createElement('div');
+                        right.className = 'ri-right';
+
+                        const statusEl = document.createElement('span');
+                        statusEl.className = 'ri-status ' + statusClass;
+                        statusEl.textContent = statusLabel;
+
+                        right.appendChild(statusEl);
+                        el.append(left, right);
+
+                        el.addEventListener('click', () => {
+                            $('ref').value = tx.reference || tx.key;
+                            checkStatus(tx.reference || tx.key);
+                        });
+
+                        container.appendChild(el);
+                    });
+
+                } catch (err) {
+                    console.error('Could not display recent requests:', err);
+                }
+            }, err => {
+                console.error('Firebase recent requests error:', err);
+                $('recentList').hidden = true;
+
+                if (err && err.code === 'PERMISSION_DENIED') {
+                    toast('Firebase denied access to withdrawal requests. Update your database rules.', 'error', 10000);
+                }
+            });
+        }
+
+        /* ===== start ===== */
+        (async () => {
+            await auth.authStateReady();
+            const user = auth.currentUser;
+            if (!user) { location.replace('login.html'); return; }
+            try {
+                const u = await get(ref(db, 'users/' + user.uid));
+                const prof = u.exists() ? u.val() : {};
+                me = {
+                    uid: user.uid,
+                    name: [prof.firstName, prof.lastName].filter(Boolean).join(' ') || 'An Ever Crest customer',
+                    balance: Number(prof.balance) || 0,
+                    currency: prof.currency || 'USD',
+                    assetPercent: prof.assetPercent || '10'
+                };
+                $('avatar').textContent = (((prof.firstName || '?')[0]) + ((prof.lastName || '')[0] || '')).toUpperCase();
+                loadRecentRequests();
+            } catch (e) {
+                console.error(e);
+                toast('We could not load your profile. Check your connection and refresh.', 'error', 8000);
+            }
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Open an account | Ever Crest Finance Bank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            --bg: #fff;
+            --surface: #fff;
+            --group: #fbfcfe;
+            --ink: #0b2340;
+            --soft: #5b6f86;
+            --line: #d5dee8;
+            --gold: #ffc93c;
+            --ok: #12a06b;
+            --bad: #d64535;
+            --ring: rgba(11, 35, 64, .14);
+            --shadow: 0 20px 50px -20px rgba(11, 35, 64, .25)
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit
+        }
+
+        html {
+            height: 100%;
+            scroll-padding-top: env(safe-area-inset-top, 0px);
+            -webkit-text-size-adjust: 100%
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--ink);
+            font: 15px/1.5 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+        }
+
+        .shell {
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 20px 18px 40px;
+            display: grid;
+            gap: 28px
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.05rem;
+            letter-spacing: -.01em
+        }
+
+        .brand i {
+            font-style: normal;
+            color: #e0a800
+        }
+
+        h1 {
+            font-size: clamp(1.9rem, 6vw, 2.9rem);
+            line-height: 1.08;
+            letter-spacing: -.03em;
+            margin: 0 0 10px;
+            font-weight: 800
+        }
+
+        .lead {
+            color: var(--soft);
+            margin: 0;
+            font-size: .8rem;
+            line-height: 1.5;
+            max-width: 46ch
+        }
+
+        .card3d {
+            position: relative;
+            margin-top: 26px;
+            max-width: 360px;
+            aspect-ratio: 1.586;
+            border-radius: 22px;
+            padding: 22px;
+            color: #fff;
+            overflow: hidden;
+            background: linear-gradient(135deg, #123a68, #0b2340 55%, #071a30);
+            box-shadow: 0 30px 60px -25px rgba(7, 26, 48, .7);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transform: rotate(-2deg);
+            transition: transform .5s cubic-bezier(.2, .8, .2, 1)
+        }
+
+        .card3d:hover {
+            transform: rotate(0) translateY(-4px)
+        }
+
+        .card3d::before {
+            content: "";
+            position: absolute;
+            right: -60px;
+            bottom: -70px;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 201, 60, .5), transparent 68%)
+        }
+
+        .card3d svg.ridge {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            opacity: .16
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative
+        }
+
+        .chip {
+            width: 42px;
+            height: 31px;
+            border-radius: 7px;
+            background: linear-gradient(135deg, #ffe08a, #e2a915)
+        }
+
+        .cn {
+            font-size: 1.12rem;
+            letter-spacing: .16em;
+            font-weight: 600;
+            position: relative
+        }
+
+        .cl {
+            font-size: .62rem;
+            opacity: .65;
+            letter-spacing: .08em;
+            display: block
+        }
+
+        .cname {
+            font-weight: 700;
+            font-size: .92rem;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            max-width: 220px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 18px 16px 16px;
+            box-shadow: var(--shadow)
+        }
+
+        fieldset {
+            margin: 0 0 12px;
+            padding: 4px 12px 0;
+            min-width: 0;
+            border: 1.5px solid var(--line);
+            border-radius: 10px
+        }
+
+        legend {
+            padding: 0 10px;
+            margin-left: 2px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: -.01em;
+            color: var(--ink)
+        }
+
+        .field {
+            margin-bottom: 12px
+        }
+
+        .field label {
+            display: block;
+            font-size: .86rem;
+            font-weight: 600;
+            color: var(--soft);
+            margin: 0 0 6px
+        }
+
+        .control {
+            position: relative;
+            display: flex;
+            align-items: center
+        }
+
+        .control input {
+            width: 100%;
+            height: 46px;
+            padding: 0 44px 0 14px;
+            font: inherit;
+            font-size: 16px;
+            color: var(--ink);
+            background: var(--group);
+            border: 1.5px solid var(--line);
+            border-radius: 8px;
+            outline: 0;
+            appearance: none;
+            -webkit-appearance: none;
+            transition: border-color .2s, box-shadow .2s
+        }
+
+        .control input::placeholder {
+            color: #9aabbd
+        }
+
+        .control input:focus {
+            background: #fff;
+            border-color: var(--ink);
+            box-shadow: 0 0 0 4px var(--ring)
+        }
+
+        .field.valid input {
+            border-color: var(--ok)
+        }
+
+        .field.invalid input {
+            border-color: var(--bad);
+            box-shadow: 0 0 0 4px rgba(214, 69, 53, .1)
+        }
+
+        .tick {
+            position: absolute;
+            right: 12px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--ok);
+            display: grid;
+            place-items: center;
+            color: #fff;
+            transform: scale(0);
+            transition: transform .25s cubic-bezier(.3, 1.6, .5, 1)
+        }
+
+        .tick svg {
+            width: 12px;
+            height: 12px
+        }
+
+        .field.valid .tick {
+            transform: scale(1)
+        }
+
+        .eye {
+            position: absolute;
+            right: 6px;
+            width: 40px;
+            height: 40px;
+            border: 0;
+            border-radius: 6px;
+            background: transparent;
+            color: var(--soft);
+            display: grid;
+            place-items: center;
+            cursor: pointer
+        }
+
+        .eye:hover {
+            color: var(--ink)
+        }
+
+        .eye:focus-visible {
+            outline: 3px solid var(--ink)
+        }
+
+        .eye svg {
+            width: 20px;
+            height: 20px
+        }
+
+        .eye .slash {
+            display: none
+        }
+
+        .eye[aria-pressed="true"] .slash {
+            display: block
+        }
+
+        .has-eye .control input {
+            padding-right: 84px
+        }
+
+        .has-eye .tick {
+            right: 48px
+        }
+
+        .err {
+            color: var(--bad);
+            font-size: .85rem;
+            margin: 6px 2px 0
+        }
+
+        .err a {
+            color: var(--bad);
+            font-weight: 700
+        }
+
+        .err:empty {
+            display: none
+        }
+
+        .btn {
+            width: 100%;
+            height: 52px;
+            margin-top: 6px;
+            border: 0;
+            border-radius: 999px;
+            background: var(--gold);
+            color: #0b2340;
+            font: inherit;
+            font-size: 1.05rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 24px -10px rgba(255, 201, 60, .9);
+            transition: transform .15s, filter .2s
+        }
+
+        .btn:hover {
+            filter: brightness(1.05)
+        }
+
+        .btn:active {
+            transform: scale(.98)
+        }
+
+        .btn:focus-visible {
+            outline: 3px solid var(--ink);
+            outline-offset: 3px
+        }
+
+        .btn:disabled {
+            opacity: .7;
+            cursor: progress
+        }
+
+        .foot {
+            text-align: center;
+            color: var(--soft);
+            font-size: .87rem;
+            margin: 14px 0 0
+        }
+
+        .foot a {
+            color: var(--ink);
+            font-weight: 700
+        }
+
+        .sr {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0)
+        }
+
+        [hidden] {
+            display: none !important
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-bottom: 6px
+        }
+
+        .steps b {
+            height: 5px;
+            border-radius: 9px;
+            background: var(--line)
+        }
+
+        .steps b.on {
+            background: var(--gold)
+        }
+
+        .count {
+            font-size: .85rem;
+            color: var(--soft);
+            margin: 0 0 16px
+        }
+
+        .snack {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 0px) + 12px);
+            left: 50%;
+            z-index: 99;
+            width: min(92vw, 460px);
+            padding: 13px 16px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: .9rem;
+            background: var(--ink);
+            box-shadow: 0 14px 34px -12px rgba(11, 35, 64, .6);
+            transform: translate(-50%, -160%);
+            opacity: 0;
+            transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .3s;
+            pointer-events: none
+        }
+
+        .snack.show {
+            transform: translate(-50%, 0);
+            opacity: 1
+        }
+
+        .snack.success {
+            background: var(--ok)
+        }
+
+        .snack.error {
+            background: var(--bad)
+        }
+
+        .linkrow {
+            display: flex;
+            justify-content: flex-end;
+            margin: -6px 2px 10px
+        }
+
+        .linkbtn {
+            background: none;
+            border: 0;
+            padding: 0;
+            font: inherit;
+            font-size: .85rem;
+            font-weight: 700;
+            color: var(--ink);
+            text-decoration: underline;
+            cursor: pointer
+        }
+
+        @media (min-width:860px) {
+            .shell {
+                grid-template-columns: 1.05fr .95fr;
+                align-items: center;
+                gap: 60px;
+                padding-top: 40px;
+                min-height: 100vh
+            }
+
+            .brand {
+                margin-bottom: 60px
+            }
+
+            .hero {
+                align-self: center
+            }
+
+            .panel {
+                padding: 26px 24px 22px
+            }
+        }
+
+        @media (max-width:859px) {
+            .shell {
+                padding: 12px 14px 20px;
+                gap: 14px;
+                min-height: 100dvh;
+                align-content: start
+            }
+
+            .brand {
+                font-size: .98rem
+            }
+
+            h1 {
+                font-size: 1.55rem;
+                margin: 8px 0 4px
+            }
+
+            .lead {
+                font-size: .74rem;
+                line-height: 1.45;
+                max-width: none
+            }
+
+            .card3d {
+                display: none
+            }
+
+            .panel {
+                padding: 14px 14px 12px
+            }
+
+            fieldset {
+                padding: 2px 10px 0;
+                margin-bottom: 10px
+            }
+
+            legend {
+                font-size: 1.05rem
+            }
+
+            .field {
+                margin-bottom: 10px
+            }
+
+            .field label {
+                font-size: .8rem;
+                margin-bottom: 5px
+            }
+
+            .control input {
+                height: 44px
+            }
+
+            .btn {
+                height: 48px
+            }
+
+            .foot {
+                margin-top: 10px;
+                font-size: .82rem
+            }
+        }
+
+        @media (max-width:359px) {
+            h1 {
+                font-size: 1.35rem
+            }
+
+            .panel {
+                padding: 12px 10px
+            }
+        }
+
+        @media (min-width:860px) and (max-height:700px) {
+            .card3d {
+                max-width: 280px
+            }
+
+            .brand {
+                margin-bottom: 24px
+            }
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            * {
+                transition: none !important;
+                animation: none !important
+            }
+        }
+
+        .legal {
+            text-align: center;
+            color: var(--soft);
+            font-size: .87rem;
+            margin: 14px 0 0
+        }
+
+        .legal a {
+            color: var(--ink);
+            font-weight: 700
+        }
+    </style>
+</head>
+
+<body>
+    <div class="snack" id="snack" role="status" aria-live="polite"></div>
+    <svg class="sr" aria-hidden="true">
+        <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="m5 12.5 4.5 4.5L19 7.5" />
+        </symbol>
+    </svg>
+
+    <div class="shell">
+        <section class="hero">
+            <div class="brand"><span><i>Ever</i> Crest Finance Bank</span></div>
+            <h1>Open your account in a minute.</h1>
+            <p class="lead">Empowers customers to invest and grow their savings and retirement funds, including eligible
+                401(k)s, IRAs, pensions, and other investment assets.</p>
+            <div class="card3d" aria-hidden="true">
+                <svg class="ridge" viewBox="0 0 360 80" preserveAspectRatio="none">
+                    <path fill="#fff" d="M0 80V50l60-30 50 35 60-45 70 50 50-30 70 40v30z" />
+                </svg>
+                <div class="row"><span class="chip"></span><span style="font-weight:800;color:var(--gold)">Ever
+                        Crest</span></div>
+                <div class="cn">•••• •••• •••• 2048</div>
+                <div class="row">
+                    <div><span class="cl">CARD HOLDER</span>
+                        <div class="cname" id="cardName">Ever Crest Finance Bank</div>
+                    </div>
+                    <div style="text-align:right"><span class="cl">VALID THRU</span><b>09/31</b></div>
+                </div>
+            </div>
+        </section>
+
+        <main class="panel">
+            <div class="steps" aria-hidden="true"><b class="on"></b><b></b><b></b><b></b></div>
+            <p class="count">Step 1 of 4 steps done</p>
+            <form id="signupForm" novalidate aria-label="Open an account">
+                <fieldset>
+                    <legend>Sign Up Information</legend>
+                    <div class="field" id="f-email">
+                        <label for="email">Email Address</label>
+                        <div class="control">
+                            <input type="email" id="email" name="email" placeholder="example@email.com"
+                                autocomplete="email" inputmode="email" required aria-describedby="e-email">
+                            <span class="tick" aria-hidden="true"><svg>
+                                    <use href="#i-check" />
+                                </svg></span>
+                        </div>
+                        <p class="err" id="e-email" role="alert"></p>
+                    </div>
+                    <div class="field has-eye" id="f-pass">
+                        <label for="pass">Password</label>
+                        <div class="control">
+                            <input type="password" id="pass" name="pass" placeholder="Enter your password"
+                                autocomplete="new-password" required aria-describedby="e-pass">
+                            <span class="tick" aria-hidden="true"><svg>
+                                    <use href="#i-check" />
+                                </svg></span>
+                            <button type="button" class="eye" id="eye" aria-label="Show password"
+                                aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                    <path class="slash" d="M4 4l16 16" />
+                                </svg></button>
+                        </div>
+                        <p class="err" id="e-pass" role="alert"></p>
+                    </div>
+                </fieldset>
+                <p class="err" id="formErr" role="alert"></p>
+                <button class="btn" type="submit" id="submitBtn">Create account</button>
+                <p class="legal">By continuing, you agree to our <a href="#">Terms</a> and <a href="#">Privacy
+                        Policy</a>.</p>
+            </form>
+            <p class="foot">Already have an account? <a href="login.html">Log in</a></p>
+        </main>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, signOut } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { getDatabase, ref, update, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBH0n84QTvGBWaSlJdO6AoUU6IRuJETHLA",
+            authDomain: "ever-crest-finance-bank.firebaseapp.com",
+            projectId: "ever-crest-finance-bank",
+            storageBucket: "ever-crest-finance-bank.firebasestorage.app",
+            messagingSenderId: "469287844559",
+            appId: "1:469287844559:web:4f219675a1055533be95ba"
+            // databaseURL: "https://ever-crest-finance-bank-default-rtdb.firebaseio.com"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        /* step saved on the user decides where they go */
+        const ROUTES = { 1: 'personal.html', 2: 'address.html', 3: 'finalstep.html', 4: 'dashboard.html' };
+
+        /* default wallet value for every new account (the dashboard shows "under review" for this) */
+        const NO_WALLET = 'No wallet yet';
+
+        const $ = i => document.getElementById(i);
+        const form = $('signupForm');
+        let snackTimer;
+        function toast(msg, type = 'info', ms = 5000) {
+            const s = $('snack');
+            s.textContent = msg;
+            s.className = 'snack ' + type;
+            void s.offsetWidth;
+            s.classList.add('show');
+            clearTimeout(snackTimer);
+            snackTimer = setTimeout(() => s.classList.remove('show'), ms);
+        }
+
+        function set(id, msg) {
+            const f = $(id), input = f.querySelector('input');
+            f.classList.remove('valid', 'invalid');
+            f.querySelector('.err').textContent = msg || '';
+            f.classList.add(msg ? 'invalid' : 'valid');
+            input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+            return !msg;
+        }
+        const v = {
+            email: () => !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test($('email').value.trim()) ? set('f-email', 'Enter a valid email') : set('f-email'),
+            pass: () => { const p = $('pass').value; return (p.length < 6 || !/[A-Za-z]/.test(p) || !/\d/.test(p)) ? set('f-pass', 'At least 6 characters, with a letter and a number.') : set('f-pass'); }
+        };
+        Object.keys(v).forEach(k => {
+            const el = $(k);
+            el.addEventListener('blur', v[k]);
+            el.addEventListener('input', () => {
+                $('formErr').textContent = '';
+                const f = el.closest('.field');
+                if (f.classList.contains('invalid') || f.classList.contains('valid')) v[k]();
+            });
+        });
+        $('eye').addEventListener('click', function () {
+            const show = $('pass').type === 'password';
+            $('pass').type = show ? 'text' : 'password';
+            this.setAttribute('aria-pressed', show);
+            this.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+        });
+
+        function showError(err) {
+            const c = (err && err.code) || '';
+            console.error('Signup error:', c, err && err.message);
+            const say = m => { $('formErr').textContent = m; toast(m, 'error', 8000); };
+            if (c === 'auth/email-already-in-use') { set('f-email', 'This email already has an account. Log in instead.'); return toast('This email already has an account. Log in instead.', 'error'); }
+            if (c === 'auth/invalid-email') { set('f-email', 'Enter a valid email'); return toast('Enter a valid email address.', 'error'); }
+            if (c === 'auth/weak-password' || c === 'auth/password-does-not-meet-requirements') { set('f-pass', 'Password is too weak.'); return toast('Password is too weak or does not meet the requirements.', 'error'); }
+            if (c === 'auth/network-request-failed') return say('No internet connection. Check your network and try again.');
+            if (c === 'auth/too-many-requests') return say('Too many attempts. Wait a moment and try again.');
+            if (c === 'auth/operation-not-allowed' || c === 'auth/admin-restricted-operation') return say('Email/Password sign-up is not enabled in Firebase Authentication.');
+            if (c === 'auth/configuration-not-found') return say('Firebase Authentication is not set up. Open Firebase Console > Authentication > Get started.');
+            if (c === 'auth/invalid-api-key') return say('Invalid Firebase API key. Re-copy your web app config.');
+            if (c === 'db-timeout') return say('Account created, but the database did not respond. Check the Realtime Database region and databaseURL, then tap Create account again.');
+            if (c === 'PERMISSION_DENIED' || /permission/i.test((err && err.message) || ''))
+                return say('Account created, but the database rules blocked saving your profile. Publish the rules for users/{uid}, then tap Create account again.');
+            say('Something went wrong (' + (c || (err && err.message) || 'unknown') + '). Please try again.');
+        }
+
+        form.addEventListener('submit', async e => {
+            e.preventDefault();
+            $('formErr').textContent = '';
+            let bad = null;
+            Object.keys(v).forEach(k => { if (!v[k]() && !bad) bad = $(k); });
+            if (bad) { bad.focus(); return; }
+
+            const email = $('email').value.trim(), password = $('pass').value;
+            const b = $('submitBtn'); b.disabled = true; b.textContent = 'Creating account…';
+            toast('Creating your account…', 'info', 15000);
+            try {
+                /* Step A: create the Auth user (skipped if a previous attempt already created it) */
+                await auth.authStateReady();
+                let user = auth.currentUser;
+                if (!user || (user.email || '').toLowerCase() !== email.toLowerCase()) {
+                    const cred = await createUserWithEmailAndPassword(auth, email, password);
+                    user = cred.user;
+                    sendEmailVerification(user).catch(() => { });
+                }
+
+
+                /* Step B: save the profile at users/{uid}, with the default wallet and a 0.00 balance */
+                await Promise.race([
+                    update(ref(db, 'users/' + user.uid), {
+                        uid: user.uid,
+                        email: user.email,
+                        step: 1,
+                        wallet: NO_WALLET,
+                        balance: 0,
+                        currency: 'USD',
+                        assetPercent: '10',
+                        createdAt: serverTimestamp()
+                    }),
+                    new Promise((_, rej) => setTimeout(() => rej({ code: 'db-timeout' }), 10000))
+                ]);
+
+                /* Step C: sign out and send them to log in */
+                await signOut(auth);
+                try { sessionStorage.setItem('ec_created', email); } catch (_) { }
+                b.dataset.go = '1';
+                b.textContent = 'Redirecting…';
+                location.replace('login.html');
+            } catch (err) {
+                showError(err);
+            } finally {
+                if (!b.dataset.go) { b.disabled = false; b.textContent = 'Create account'; }
+            }
+        });
+    </script>
+</body>
+
+</html>

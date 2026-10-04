@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Section B | Ever Crest Finance Bank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            --bg: #f5f7fb;
+            --surface: #fff;
+            --group: #fbfcfe;
+            --ink: #0b2340;
+            --soft: #5b6f86;
+            --line: #d5dee8;
+            --gold: #ffc93c;
+            --ok: #12a06b;
+            --bad: #d64535;
+            --shadow: 0 20px 50px -30px rgba(11, 35, 64, .35)
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit
+        }
+
+        html {
+            height: 100%;
+            -webkit-text-size-adjust: 100%
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--ink);
+            font: 15px/1.5 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+        }
+
+        [hidden] {
+            display: none !important
+        }
+
+        .top {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            z-index: 20;
+            background: rgba(255, 255, 255, .94);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .top .in {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .brand {
+            font-weight: 800
+        }
+
+        .brand i {
+            font-style: normal;
+            color: #e0a800
+        }
+
+        .btn-mini {
+            height: 34px;
+            padding: 0 14px;
+            border-radius: 999px;
+            border: 1.5px solid var(--ink);
+            background: #fff;
+            color: var(--ink);
+            font: inherit;
+            font-weight: 700;
+            font-size: .82rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 22px 18px 60px
+        }
+
+        h1 {
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            margin: 0 0 2px;
+            font-weight: 800;
+            letter-spacing: -.02em
+        }
+
+        .sub {
+            color: var(--soft);
+            margin: 0 0 16px;
+            font-size: .9rem
+        }
+
+        .search {
+            width: 100%;
+            height: 44px;
+            border: 1.5px solid var(--line);
+            border-radius: 12px;
+            padding: 0 14px;
+            font: inherit;
+            margin-bottom: 14px;
+            background: #fff
+        }
+
+        .search:focus {
+            outline: none;
+            border-color: var(--ink)
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: var(--shadow)
+        }
+
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 14px;
+            background: var(--group);
+            border: 1px solid var(--line);
+            border-radius: 12px
+        }
+
+        .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+            flex: 1
+        }
+
+        .avatar {
+            flex: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .82rem
+        }
+
+        .name {
+            font-weight: 700;
+            font-size: .92rem;
+            word-break: break-word
+        }
+
+        .meta {
+            font-size: .78rem;
+            color: var(--soft);
+            word-break: break-all
+        }
+
+        .banner-note {
+            font-size: .74rem;
+            color: var(--soft);
+            margin-top: 2px
+        }
+
+        .right {
+            flex: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: .72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .04em
+        }
+
+        .pill.done {
+            background: #e3f6ee;
+            color: #0b6b47
+        }
+
+        .pill.active {
+            background: #fff8e6;
+            color: #b8860b
+        }
+
+        .btn {
+            height: 36px;
+            padding: 0 16px;
+            border-radius: 999px;
+            border: 0;
+            background: var(--ink);
+            color: #fff;
+            font: inherit;
+            font-weight: 800;
+            font-size: .8rem;
+            cursor: pointer
+        }
+
+        .btn:hover {
+            background: #123a68
+        }
+
+        .btn:disabled {
+            opacity: .6;
+            cursor: not-allowed
+        }
+
+        .btn.ghost {
+            background: #fff;
+            color: var(--bad);
+            border: 1.5px solid var(--bad)
+        }
+
+        .empty,
+        .loading-row {
+            text-align: center;
+            padding: 28px 12px;
+            color: var(--soft);
+            font-size: .88rem
+        }
+
+        .snack {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 0px) + 12px);
+            left: 50%;
+            z-index: 99;
+            width: min(92vw, 460px);
+            padding: 13px 16px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: .9rem;
+            background: var(--ink);
+            transform: translate(-50%, -160%);
+            opacity: 0;
+            transition: transform .35s, opacity .3s;
+            pointer-events: none
+        }
+
+        .snack.show {
+            transform: translate(-50%, 0);
+            opacity: 1
+        }
+
+        .snack.success {
+            background: var(--ok)
+        }
+
+        .snack.error {
+            background: var(--bad)
+        }
+
+        @media(max-width:560px) {
+            .row {
+                flex-wrap: wrap
+            }
+
+            .right {
+                width: 100%;
+                justify-content: space-between
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="snack" id="snack" role="status" aria-live="polite"></div>
+
+    <header class="top">
+        <div class="in">
+            <div class="brand"><i>Ever</i> Crest Finance Bank</div>
+            <a class="btn-mini" href="admin.html">← Back</a>
+        </div>
+    </header>
+
+    <main>
+        <h1>Section B</h1>
+        <p class="sub">Users currently seeing <b>Clearance Completed</b>. Activate chat access for each user.</p>
+        <input class="search" id="search" type="search" placeholder="Search by name or email…"
+            aria-label="Search users">
+        <div class="panel">
+            <div id="listWrap">
+                <div class="loading-row">Loading…</div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { getDatabase, ref, get, set, update, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBH0n84QTvGBWaSlJdO6AoUU6IRuJETHLA",
+            authDomain: "ever-crest-finance-bank.firebaseapp.com",
+            projectId: "ever-crest-finance-bank",
+            storageBucket: "ever-crest-finance-bank.firebasestorage.app",
+            messagingSenderId: "469287844559",
+            appId: "1:469287844559:web:4f219675a1055533be95ba"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        const $ = i => document.getElementById(i);
+        const fullName = u => [u.firstName, u.lastName].filter(Boolean).join(' ').trim() || 'Unnamed user';
+        const initials = u => ((u.firstName || '?')[0] + ((u.lastName || '')[0] || '')).toUpperCase();
+
+        let snackTimer;
+        function toast(msg, type = 'info', ms = 4000) {
+            const sn = $('snack'); sn.textContent = msg; sn.className = 'snack ' + type;
+            void sn.offsetWidth; sn.classList.add('show');
+            clearTimeout(snackTimer); snackTimer = setTimeout(() => sn.classList.remove('show'), ms);
+        }
+
+        let rows = [];          // [{uid, profile}]
+        let approvedUids = new Set();
+        let usersCache = {};
+
+        function esc(s) {
+            return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+
+        function draw() {
+            const term = $('search').value.trim().toLowerCase();
+            const wrap = $('listWrap');
+            const list = [...approvedUids]
+                .map(uid => ({ uid, profile: usersCache[uid] || {} }))
+                .filter(r => !term || (fullName(r.profile) + ' ' + (r.profile.email || '')).toLowerCase().includes(term))
+                .sort((a, b) => fullName(a.profile).localeCompare(fullName(b.profile)));
+
+            if (!list.length) {
+                wrap.innerHTML = '<div class="empty">No users with Clearance Completed yet.</div>';
+                return;
+            }
+            const box = document.createElement('div'); box.className = 'list';
+            list.forEach(r => {
+                const active = r.profile.sectionBActivated === true;
+                const el = document.createElement('div'); el.className = 'row';
+                el.innerHTML = `
+                <div class="left">
+                    <div class="avatar">${esc(initials(r.profile))}</div>
+                    <div>
+                        <div class="name">${esc(fullName(r.profile))}</div>
+                        <div class="meta">${esc(r.profile.email || r.uid)}</div>
+                        <div class="banner-note">Clearance Completed · Shipment arrives within 4 working days</div>
+                    </div>
+                </div>
+                <div class="right">
+                    <span class="pill ${active ? 'active' : 'done'}">${active ? 'Chat Activated' : 'Completed'}</span>
+                    <button class="btn ${active ? 'ghost' : ''}" data-uid="${esc(r.uid)}" data-active="${active}">
+                        ${active ? 'Deactivate' : 'Activate'}
+                    </button>
+                </div>`;
+                box.appendChild(el);
+            });
+            wrap.innerHTML = ''; wrap.appendChild(box);
+        }
+
+        $('listWrap').addEventListener('click', async e => {
+            const btn = e.target.closest('button[data-uid]');
+            if (!btn) return;
+            const uid = btn.dataset.uid;
+            const turnOn = btn.dataset.active !== 'true';
+            btn.disabled = true;
+            try {
+                await update(ref(db, 'users/' + uid), {
+                    sectionBActivated: turnOn,
+                    sectionBActivatedAt: turnOn ? Date.now() : null
+                });
+                // let the user know (shows in their bell + toast)
+                if (turnOn) {
+                    const nid = 'sb_' + Date.now();
+                    await set(ref(db, `notifications/${uid}/${nid}`), {
+                        title: 'Chat with Admin Activated',
+                        message: 'You can now chat with admin to proceed. Open your dashboard.',
+                        type: 'info', read: false, createdAt: Date.now()
+                    }).catch(() => { });
+                }
+                toast(turnOn ? 'Chat activated for this user.' : 'Chat deactivated for this user.', 'success');
+            } catch (err) {
+                console.error(err);
+                toast('Could not update. Check permissions and try again.', 'error');
+                btn.disabled = false;
+            }
+        });
+
+        $('search').addEventListener('input', draw);
+
+        (async () => {
+            await auth.authStateReady();
+            if (!auth.currentUser) { location.replace('login.html'); return; }
+
+            // users (live, so the pill updates after activation)
+            onValue(ref(db, 'users'), snap => {
+                usersCache = snap.exists() ? snap.val() : {};
+                draw();
+            }, err => { $('listWrap').innerHTML = '<div class="empty">Could not load users.</div>'; console.error(err); });
+
+            // users whose clearance fee was approved = Clearance Completed
+            onValue(ref(db, 'clearance_payments'), snap => {
+                approvedUids = new Set();
+                snap.forEach(c => { if ((c.val() || {}).status === 'approved') approvedUids.add(c.key); });
+                draw();
+            }, err => { $('listWrap').innerHTML = '<div class="empty">Could not load clearance payments.</div>'; console.error(err); });
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Delete User | Ever Crest Finance Bank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            --bg: #f5f7fb;
+            --surface: #fff;
+            --group: #fbfcfe;
+            --ink: #0b2340;
+            --soft: #5b6f86;
+            --line: #d5dee8;
+            --gold: #ffc93c;
+            --ok: #12a06b;
+            --bad: #d64535;
+            --ring: rgba(11, 35, 64, .14);
+            --shadow: 0 20px 50px -30px rgba(11, 35, 64, .35)
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit
+        }
+
+        html {
+            height: 100%;
+            -webkit-text-size-adjust: 100%;
+            scroll-padding-top: env(safe-area-inset-top, 0px)
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--ink);
+            font: 15px/1.5 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+        }
+
+        [hidden] {
+            display: none !important
+        }
+
+        .top {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            z-index: 20;
+            background: rgba(255, 255, 255, .94);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .top .in {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: -.01em
+        }
+
+        .brand i {
+            font-style: normal;
+            color: #e0a800
+        }
+
+        .badge-admin {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: #fff8e6;
+            border: 1px solid var(--gold);
+            color: #b8860b;
+            font-size: .7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            margin-left: 8px
+        }
+
+        main {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 22px 18px 60px
+        }
+
+        .back {
+            display: inline-block;
+            margin: 0 0 12px;
+            color: var(--ink);
+            font-weight: 700;
+            text-decoration: none
+        }
+
+        .back:hover {
+            text-decoration: underline
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 4vw, 1.9rem);
+            margin: 0 0 2px;
+            letter-spacing: -.02em;
+            font-weight: 800
+        }
+
+        .sub {
+            color: var(--soft);
+            margin: 0 0 18px;
+            font-size: .9rem
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 18px 16px;
+            box-shadow: var(--shadow)
+        }
+
+        .search {
+            width: 100%;
+            height: 46px;
+            padding: 0 14px;
+            font: inherit;
+            font-size: 16px;
+            color: var(--ink);
+            background: var(--group);
+            border: 1.5px solid var(--line);
+            border-radius: 8px;
+            outline: 0;
+            margin-bottom: 14px;
+            transition: border-color .2s, box-shadow .2s
+        }
+
+        .search:focus {
+            background: #fff;
+            border-color: var(--ink);
+            box-shadow: 0 0 0 4px var(--ring)
+        }
+
+        .count {
+            font-size: .8rem;
+            color: var(--soft);
+            margin: 0 2px 10px
+        }
+
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 14px;
+            background: var(--group);
+            border: 1px solid var(--line);
+            border-radius: 12px
+        }
+
+        .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+            flex: 1
+        }
+
+        .avatar {
+            flex: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .82rem
+        }
+
+        .nm {
+            font-weight: 700;
+            font-size: .92rem;
+            word-break: break-word
+        }
+
+        .mt {
+            font-size: .78rem;
+            color: var(--soft);
+            word-break: break-all
+        }
+
+        .del {
+            flex: none;
+            height: 36px;
+            padding: 0 16px;
+            border-radius: 999px;
+            border: 1.5px solid var(--bad);
+            background: #fff;
+            color: var(--bad);
+            font: inherit;
+            font-weight: 800;
+            font-size: .82rem;
+            cursor: pointer;
+            transition: background .15s, color .15s
+        }
+
+        .del:hover {
+            background: var(--bad);
+            color: #fff
+        }
+
+        .del:focus-visible {
+            outline: 3px solid var(--ink);
+            outline-offset: 2px
+        }
+
+        .del:disabled {
+            opacity: .45;
+            cursor: not-allowed;
+            background: #fff;
+            color: var(--bad)
+        }
+
+        .empty,
+        .loading-row {
+            text-align: center;
+            padding: 28px 12px;
+            color: var(--soft);
+            font-size: .88rem
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 90;
+            background: rgba(11, 35, 64, .55);
+            display: grid;
+            place-items: center;
+            padding: 18px
+        }
+
+        .dialog {
+            width: min(100%, 420px);
+            background: #fff;
+            border-radius: 16px;
+            padding: 22px 20px;
+            box-shadow: 0 30px 70px -20px rgba(11, 35, 64, .6)
+        }
+
+        .dialog h2 {
+            margin: 0 0 8px;
+            font-size: 1.15rem;
+            font-weight: 800
+        }
+
+        .dialog p {
+            margin: 0 0 10px;
+            color: var(--soft);
+            font-size: .9rem
+        }
+
+        .dialog p b {
+            color: var(--ink)
+        }
+
+        .warn {
+            color: var(--bad) !important;
+            font-weight: 600
+        }
+
+        .btns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px
+        }
+
+        .btn {
+            height: 46px;
+            border-radius: 999px;
+            font: inherit;
+            font-weight: 800;
+            cursor: pointer;
+            border: 1.5px solid var(--ink);
+            background: #fff;
+            color: var(--ink)
+        }
+
+        .btn.danger {
+            background: var(--bad);
+            border-color: var(--bad);
+            color: #fff
+        }
+
+        .btn:disabled {
+            opacity: .6;
+            cursor: progress
+        }
+
+        .btn:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 2px
+        }
+
+        .snack {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 0px) + 12px);
+            left: 50%;
+            z-index: 99;
+            width: min(92vw, 460px);
+            padding: 13px 16px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: .9rem;
+            background: var(--ink);
+            box-shadow: 0 14px 34px -12px rgba(11, 35, 64, .6);
+            transform: translate(-50%, -160%);
+            opacity: 0;
+            transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .3s;
+            pointer-events: none
+        }
+
+        .snack.show {
+            transform: translate(-50%, 0);
+            opacity: 1
+        }
+
+        .snack.success {
+            background: var(--ok)
+        }
+
+        .snack.error {
+            background: var(--bad)
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="snack" id="snack" role="status" aria-live="polite"></div>
+
+    <header class="top">
+        <div class="in">
+            <div class="brand"><i>Ever</i> Crest Finance Bank <span class="badge-admin">Admin</span></div>
+        </div>
+    </header>
+
+    <main>
+        <a class="back" href="admin.html" aria-label="Back to admin dashboard">&larr; Back</a>
+        <h1>Delete User</h1>
+        <p class="sub">Choose a user to remove from the database.</p>
+
+        <div class="panel">
+            <input class="search" id="search" type="search" placeholder="Search by name, username or wallet"
+                autocomplete="off" aria-label="Search users">
+            <div class="count" id="count"></div>
+            <div id="listBox">
+                <div class="loading-row">Loading users…</div>
+            </div>
+        </div>
+    </main>
+
+    <div class="overlay" id="overlay" hidden>
+        <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dTitle" aria-describedby="dBody">
+            <h2 id="dTitle">Delete this user?</h2>
+            <div id="dBody">
+                <p>Are you sure you want to delete <b id="dName"></b>?</p>
+                <p class="warn">This permanently removes their profile, balance, transactions, notifications, chats and
+                    clearance records. They will no longer be able to log in. It cannot be undone.</p>
+            </div>
+            <div class="btns">
+                <button class="btn" type="button" id="dCancel">Cancel</button>
+                <button class="btn danger" type="button" id="dYes">Yes, delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { getDatabase, ref, get, remove } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBH0n84QTvGBWaSlJdO6AoUU6IRuJETHLA",
+            authDomain: "ever-crest-finance-bank.firebaseapp.com",
+            databaseURL: "https://ever-crest-finance-bank-default-rtdb.firebaseio.com",
+            projectId: "ever-crest-finance-bank",
+            storageBucket: "ever-crest-finance-bank.firebasestorage.app",
+            messagingSenderId: "469287844559",
+            appId: "1:469287844559:web:4f219675a1055533be95ba"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        const $ = i => document.getElementById(i);
+        const nameOf = u => ((u && u.fullName) || [u && u.firstName, u && u.otherName, u && u.lastName].filter(Boolean).join(' ')).trim() || 'Unnamed user';
+        const initials = n => n.split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase() || '?';
+
+        // Every place a user's data is stored. Only this one uid is touched in each.
+        const NODES = ['users', 'accounts', 'deposits', 'transactions', 'notifications', 'chats', 'chatMeta', 'clearance_form', 'clearance_payments'];
+
+        let snackTimer;
+        function toast(msg, type = 'info', ms = 5000) {
+            const s = $('snack'); s.textContent = msg; s.className = 'snack ' + type;
+            void s.offsetWidth; s.classList.add('show');
+            clearTimeout(snackTimer); snackTimer = setTimeout(() => s.classList.remove('show'), ms);
+        }
+
+        let users = [], me = null, pending = null, lastFocus = null, deleting = false;
+
+        function draw() {
+            const term = $('search').value.trim().toLowerCase();
+            const rows = users.filter(u => !term || (u.name + ' ' + (u.username || '') + ' ' + (u.wallet || '')).toLowerCase().includes(term));
+            $('count').textContent = rows.length + (rows.length === 1 ? ' user' : ' users');
+            const box = $('listBox'); box.innerHTML = '';
+            if (!rows.length) {
+                const e = document.createElement('div'); e.className = 'empty';
+                e.textContent = users.length ? 'No user matches your search.' : 'No users found.';
+                box.appendChild(e); return;
+            }
+            const list = document.createElement('div'); list.className = 'list';
+            rows.forEach(u => {
+                const item = document.createElement('div'); item.className = 'item';
+                const left = document.createElement('div'); left.className = 'left';
+                const av = document.createElement('div'); av.className = 'avatar'; av.textContent = initials(u.name);
+                const txt = document.createElement('div');
+                const nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = u.name;
+                const mt = document.createElement('div'); mt.className = 'mt';
+                mt.textContent = [u.username, u.wallet].filter(Boolean).join(' • ') || u.uid;
+                txt.append(nm, mt); left.append(av, txt);
+                const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'del';
+                btn.textContent = 'Delete';
+                if (u.uid === me) { btn.disabled = true; btn.title = 'You cannot delete your own account'; }
+                btn.addEventListener('click', () => openDialog(u, btn));
+                item.append(left, btn); list.appendChild(item);
+            });
+            box.appendChild(list);
+        }
+        $('search').addEventListener('input', draw);
+
+        function openDialog(u, trigger) {
+            pending = u; lastFocus = trigger;
+            $('dName').textContent = u.name;
+            $('overlay').hidden = false;
+            $('dCancel').focus();
+        }
+        function closeDialog() {
+            if (deleting) return;
+            $('overlay').hidden = true; pending = null;
+            if (lastFocus) lastFocus.focus();
+        }
+        $('dCancel').addEventListener('click', closeDialog);
+        $('overlay').addEventListener('click', e => { if (e.target === $('overlay')) closeDialog(); });
+        document.addEventListener('keydown', e => {
+            if ($('overlay').hidden) return;
+            if (e.key === 'Escape') closeDialog();
+            if (e.key === 'Tab') {
+                const f = [$('dCancel'), $('dYes')].filter(b => !b.disabled);
+                const i = f.indexOf(document.activeElement);
+                if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+                else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+            }
+        });
+
+        $('dYes').addEventListener('click', async () => {
+            if (!pending || deleting) return;
+            const u = pending;
+            if (u.uid === me) return toast('You cannot delete your own account.', 'error');
+            deleting = true;
+            $('dYes').disabled = true; $('dCancel').disabled = true; $('dYes').textContent = 'Deleting…';
+            try {
+                // 1) everything except the profile
+                const others = NODES.filter(n => n !== 'users');
+                const res = await Promise.allSettled(others.map(n => remove(ref(db, n + '/' + u.uid))));
+                const failed = others.filter((n, i) => res[i].status === 'rejected');
+                if (failed.length) {
+                    console.error('Delete failed on:', failed, res);
+                    throw { code: 'failed at: ' + failed.join(', ') };
+                }
+                // 2) profile last, so the user is only "gone" once all data is gone
+                await remove(ref(db, 'users/' + u.uid));
+
+                users = users.filter(x => x.uid !== u.uid);
+                $('overlay').hidden = true; pending = null;
+                draw();
+                toast(u.name + ' was deleted.', 'success');
+            } catch (err) {
+                console.error(err);
+                toast('Could not delete this user' + (err && err.code ? ' (' + err.code + ')' : '') + '.', 'error', 8000);
+            } finally {
+                deleting = false;
+                $('dYes').disabled = false; $('dCancel').disabled = false; $('dYes').textContent = 'Yes, delete';
+            }
+        });
+
+        (async () => {
+            await auth.authStateReady();
+            const user = auth.currentUser;
+            if (!user) { location.replace('login.html'); return; }
+            me = user.uid;
+            try {
+                // only the admin may use this page (case-insensitive email match)
+                const adm = await get(ref(db, 'admin/email'));
+                const same = adm.exists() && String(adm.val()).trim().toLowerCase() === String(user.email).trim().toLowerCase();
+                if (!same) { location.replace('dashboard.html'); return; }
+
+                const snap = await get(ref(db, 'users'));
+                const arr = [];
+                if (snap.exists()) snap.forEach(ch => {
+                    const v = ch.val() || {};
+                    arr.push({ uid: ch.key, name: nameOf(v), username: v.username || '', wallet: v.wallet || '' });
+                });
+                arr.sort((a, b) => a.name.localeCompare(b.name));
+                users = arr; draw();
+            } catch (e) {
+                console.error(e);
+                $('listBox').innerHTML = '';
+                const d = document.createElement('div'); d.className = 'empty';
+                d.textContent = 'We could not load users. Check your connection and refresh.';
+                $('listBox').appendChild(d);
+            }
+        })();
+    </script>
+</body>
+
+</html>

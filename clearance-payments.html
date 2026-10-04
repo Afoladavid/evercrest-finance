@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Clearance Fee Payments | Ever Crest Finance Bank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            --bg: #f5f7fb;
+            --surface: #fff;
+            --group: #fbfcfe;
+            --ink: #0b2340;
+            --soft: #5b6f86;
+            --line: #d5dee8;
+            --gold: #ffc93c;
+            --ok: #12a06b;
+            --bad: #d64535;
+            --shadow: 0 20px 50px -30px rgba(11, 35, 64, .35)
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit
+        }
+
+        html {
+            height: 100%;
+            -webkit-text-size-adjust: 100%
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--ink);
+            font: 15px/1.5 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+        }
+
+        [hidden] {
+            display: none !important
+        }
+
+        .top {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            z-index: 20;
+            background: rgba(255, 255, 255, .94);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .top .in {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: -.01em
+        }
+
+        .brand i {
+            font-style: normal;
+            color: #e0a800
+        }
+
+        .badge-admin {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: #fff8e6;
+            border: 1px solid var(--gold);
+            color: #b8860b;
+            font-size: .7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            margin-left: 8px
+        }
+
+        .av {
+            text-decoration: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .82rem
+        }
+
+        main {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 22px 18px 60px
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 14px;
+            color: var(--ink);
+            font-weight: 700;
+            font-size: .85rem;
+            text-decoration: underline
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 4vw, 1.9rem);
+            margin: 0 0 2px;
+            letter-spacing: -.02em;
+            font-weight: 800
+        }
+
+        .sub {
+            color: var(--soft);
+            margin: 0 0 18px;
+            font-size: .9rem
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px
+        }
+
+        .stat {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 14px 16px;
+            box-shadow: var(--shadow)
+        }
+
+        .stat .label {
+            font-size: .7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            color: var(--soft);
+            margin-bottom: 4px
+        }
+
+        .stat .value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -.02em;
+            line-height: 1.1
+        }
+
+        .stat.gold {
+            background: linear-gradient(135deg, #fff 0%, #fff8e6 100%);
+            border-color: #ffe9a8
+        }
+
+        .stat.gold .value {
+            color: #b8860b
+        }
+
+        .stat.ok .value {
+            color: var(--ok)
+        }
+
+        .stat.pending .value {
+            color: #b8860b
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            align-items: center
+        }
+
+        .search-wrap {
+            flex: 1;
+            min-width: 200px;
+            position: relative
+        }
+
+        .search-wrap input {
+            width: 100%;
+            font: inherit;
+            color: var(--ink);
+            background: var(--surface);
+            border: 1.5px solid var(--line);
+            border-radius: 12px;
+            padding: 10px 14px;
+            min-height: 42px
+        }
+
+        .search-wrap input:focus-visible,
+        select:focus-visible,
+        button:focus-visible {
+            outline: 3px solid rgba(255, 201, 60, .7);
+            outline-offset: 2px;
+            border-color: var(--ink)
+        }
+
+        select.filter-select {
+            font: inherit;
+            font-weight: 600;
+            font-size: .85rem;
+            color: var(--ink);
+            background: var(--surface);
+            border: 1.5px solid var(--line);
+            border-radius: 12px;
+            padding: 10px 14px;
+            min-height: 42px;
+            cursor: pointer
+        }
+
+        .btn-filter {
+            font: inherit;
+            font-weight: 700;
+            font-size: .82rem;
+            border-radius: 12px;
+            padding: 10px 16px;
+            min-height: 42px;
+            cursor: pointer;
+            border: 1.5px solid var(--line);
+            background: var(--surface);
+            color: var(--ink)
+        }
+
+        .btn-filter.active {
+            background: var(--ink);
+            color: #fff;
+            border-color: var(--ink)
+        }
+
+        .btn-filter:hover {
+            border-color: var(--ink)
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 18px 16px;
+            box-shadow: var(--shadow)
+        }
+
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px;
+            background: var(--group);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            transition: border-color .2s, background .2s;
+            flex-wrap: wrap
+        }
+
+        .list-item:hover {
+            border-color: var(--ink);
+            background: #fff
+        }
+
+        .li-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+            flex: 1
+        }
+
+        .avatar {
+            flex: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .85rem
+        }
+
+        .li-name {
+            font-weight: 700;
+            font-size: .95rem;
+            word-break: break-word
+        }
+
+        .li-meta {
+            font-size: .78rem;
+            color: var(--soft);
+            word-break: break-all;
+            margin-top: 2px
+        }
+
+        .li-right {
+            flex: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: .72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .04em
+        }
+
+        .pill.pending {
+            background: #fff8e6;
+            color: #b8860b
+        }
+
+        .pill.approved {
+            background: #e3f6ee;
+            color: #0b6b47
+        }
+
+        .pill.none {
+            background: #f0f3f7;
+            color: var(--soft)
+        }
+
+        .btn {
+            font: inherit;
+            font-weight: 700;
+            font-size: .8rem;
+            border-radius: 10px;
+            padding: 9px 16px;
+            cursor: pointer;
+            border: 1.5px solid var(--ink);
+            background: #fff;
+            color: var(--ink);
+            min-height: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .btn:hover {
+            background: #eef2f8
+        }
+
+        .btn-ok {
+            background: var(--ok);
+            border-color: var(--ok);
+            color: #fff
+        }
+
+        .btn-ok:hover {
+            background: #0c8257
+        }
+
+        .btn:disabled {
+            opacity: .55;
+            cursor: not-allowed
+        }
+
+        .empty {
+            text-align: center;
+            padding: 36px 16px;
+            color: var(--soft);
+            font-size: .9rem
+        }
+
+        .empty .big {
+            font-size: 2rem;
+            margin-bottom: 8px
+        }
+
+        .snack {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 0px) + 12px);
+            left: 50%;
+            z-index: 99;
+            width: min(92vw, 460px);
+            padding: 13px 16px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: .9rem;
+            background: var(--ink);
+            box-shadow: 0 14px 34px -12px rgba(11, 35, 64, .6);
+            transform: translate(-50%, -160%);
+            opacity: 0;
+            transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .3s;
+            pointer-events: none
+        }
+
+        .snack.show {
+            transform: translate(-50%, 0);
+            opacity: 1
+        }
+
+        .snack.success {
+            background: var(--ok)
+        }
+
+        .snack.error {
+            background: var(--bad)
+        }
+
+        @media (max-width: 640px) {
+            .list-item {
+                flex-direction: column;
+                align-items: stretch
+            }
+
+            .li-right {
+                justify-content: flex-start;
+                margin-top: 4px
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center
+            }
+
+            .stat .value {
+                font-size: 1.4rem
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="snack" id="snack" role="status" aria-live="polite"></div>
+
+    <header class="top">
+        <div class="in">
+            <div class="brand"><i>Ever</i> Crest Finance Bank <span class="badge-admin">Admin</span></div>
+            <a class="av" id="avatar" href="#">AD</a>
+        </div>
+    </header>
+
+    <main>
+        <a class="back" href="admin.html">&larr; Back to admin dashboard</a>
+        <h1>Clearance Fee Payments</h1>
+        <p class="sub">All users who clicked "Have Paid" on their clearance page. Approve any user to mark their
+            clearance as done.</p>
+
+        <div class="stats">
+            <div class="stat gold">
+                <div class="label">Total Payments</div>
+                <div class="value" id="statTotal">—</div>
+            </div>
+            <div class="stat pending">
+                <div class="label">Pending</div>
+                <div class="value" id="statPending">—</div>
+            </div>
+            <div class="stat ok">
+                <div class="label">Approved</div>
+                <div class="value" id="statApproved">—</div>
+            </div>
+        </div>
+
+        <div class="toolbar">
+            <div class="search-wrap">
+                <input type="text" id="searchInput" placeholder="Search by name, email, or user ID…">
+            </div>
+            <button class="btn-filter active" data-filter="all" type="button">All</button>
+            <button class="btn-filter" data-filter="pending" type="button">Pending</button>
+            <button class="btn-filter" data-filter="approved" type="button">Approved</button>
+        </div>
+
+        <div class="panel">
+            <div id="paymentList">
+                <div class="empty">Loading…</div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { getDatabase, ref, get, update, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBH0n84QTvGBWaSlJdO6AoUU6IRuJETHLA",
+            authDomain: "ever-crest-finance-bank.firebaseapp.com",
+            projectId: "ever-crest-finance-bank",
+            storageBucket: "ever-crest-finance-bank.firebasestorage.app",
+            messagingSenderId: "469287844559",
+            appId: "1:469287844559:web:4f219675a1055533be95ba"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+        const $ = i => document.getElementById(i);
+
+        const fullName = u => [u && u.firstName, u && u.lastName].filter(Boolean).join(' ').trim() || 'Unnamed user';
+        const initials = u => (((u && u.firstName || '?')[0]) + ((u && u.lastName || '')[0] || '')).toUpperCase();
+
+        let timer;
+        function toast(msg, type = 'info', ms = 4000) {
+            const s = $('snack');
+            s.textContent = msg;
+            s.className = 'snack ' + type;
+            void s.offsetWidth;
+            s.classList.add('show');
+            clearTimeout(timer);
+            timer = setTimeout(() => s.classList.remove('show'), ms);
+        }
+
+        function fmtDate(t) {
+            if (!t) return '—';
+            return new Date(Number(t)).toLocaleString('en-GB', {
+                day: 'numeric', month: 'short', year: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            });
+        }
+
+        // State
+        let payments = {};        // { uid: { status, submittedAt, approvedAt, ... } }
+        let userProfiles = {};    // { uid: { firstName, lastName, email, ... } }
+        let currentFilter = 'all';
+        let searchTerm = '';
+
+        // Load all users once (for name/email lookup)
+        async function loadUserProfiles() {
+            try {
+                const snap = await get(ref(db, 'users'));
+                if (snap.exists()) {
+                    snap.forEach(child => {
+                        userProfiles[child.key] = child.val() || {};
+                    });
+                }
+            } catch (e) {
+                console.warn('Could not load user profiles:', e?.message);
+            }
+        }
+
+        function applyFilters(list) {
+            return list.filter(([uid, p]) => {
+                // Status filter
+                if (currentFilter === 'pending' && p.status !== 'pending') return false;
+                if (currentFilter === 'approved' && p.status !== 'approved') return false;
+
+                // Search filter
+                if (!searchTerm) return true;
+                const u = userProfiles[uid] || {};
+                const hay = [
+                    fullName(u),
+                    u.email || '',
+                    uid,
+                    String(p.status || '')
+                ].join(' ').toLowerCase();
+                return hay.includes(searchTerm);
+            });
+        }
+
+        function updateStats() {
+            const all = Object.values(payments);
+            const total = all.length;
+            const pending = all.filter(p => p.status === 'pending').length;
+            const approved = all.filter(p => p.status === 'approved').length;
+            $('statTotal').textContent = total;
+            $('statPending').textContent = pending;
+            $('statApproved').textContent = approved;
+        }
+
+        function renderList() {
+            const container = $('paymentList');
+            const entries = applyFilters(Object.entries(payments));
+
+            if (Object.keys(payments).length === 0) {
+                container.innerHTML = `
+                    <div class="empty">
+                        <div class="big">📭</div>
+                        No clearance fee payments submitted yet.
+                    </div>`;
+                return;
+            }
+
+            if (entries.length === 0) {
+                container.innerHTML = `
+                    <div class="empty">
+                        <div class="big">🔍</div>
+                        No payments match your search or filter.
+                    </div>`;
+                return;
+            }
+
+            // Sort: pending first, then by submittedAt desc
+            entries.sort((a, b) => {
+                const ap = a[1].status === 'pending' ? 0 : 1;
+                const bp = b[1].status === 'pending' ? 0 : 1;
+                if (ap !== bp) return ap - bp;
+                return Number(b[1].submittedAt || 0) - Number(a[1].submittedAt || 0);
+            });
+
+            container.innerHTML = '';
+            const list = document.createElement('div');
+            list.className = 'list';
+
+            entries.forEach(([uid, p]) => {
+                const u = userProfiles[uid] || {};
+                const status = p.status || 'none';
+                const pillCls = status === 'approved' ? 'approved' : (status === 'pending' ? 'pending' : 'none');
+                const pillLabel = status === 'approved' ? 'Approved'
+                    : status === 'pending' ? 'Pending' : 'Not Paid';
+
+                const item = document.createElement('div');
+                item.className = 'list-item';
+                item.innerHTML = `
+                    <div class="li-left">
+                        <div class="avatar">${initials(u)}</div>
+                        <div style="min-width:0;flex:1;">
+                            <div class="li-name">${fullName(u)}</div>
+                            <div class="li-meta">${u.email || uid}</div>
+                            <div class="li-meta">Submitted: ${fmtDate(p.submittedAt)}</div>
+                            ${p.approvedAt ? `<div class="li-meta">Approved: ${fmtDate(p.approvedAt)}</div>` : ''}
+                        </div>
+                    </div>
+                    <div class="li-right">
+                        <span class="pill ${pillCls}">${pillLabel}</span>
+                        <button class="btn btn-ok" data-uid="${uid}"
+                            ${status === 'approved' ? 'disabled' : ''}>
+                            ${status === 'approved' ? '✓ Approved' : 'Approve'}
+                        </button>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+
+            container.appendChild(list);
+
+            // Attach approve handlers
+            list.querySelectorAll('button[data-uid]').forEach(btn => {
+                btn.addEventListener('click', () => approveUser(btn.getAttribute('data-uid'), btn));
+            });
+        }
+
+        async function approveUser(uid, btn) {
+            if (!uid || !btn) return;
+            const originalText = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = 'Approving…';
+
+            try {
+                // Update clearance_payments
+                await update(ref(db, 'clearance_payments/' + uid), {
+                    status: 'approved',
+                    approvedAt: Date.now(),
+                    approvedBy: auth.currentUser.uid
+                });
+
+                // Update user profile flags for dashboard visibility
+                await update(ref(db, 'users/' + uid), {
+                    clearancePaymentStatus: 'approved',
+                    clearanceApprovedAt: Date.now()
+                });
+
+                toast('✓ Clearance approved successfully.', 'success', 4000);
+                // List re-renders automatically via onValue
+            } catch (err) {
+                console.error(err);
+                toast('Could not approve. Please try again.', 'error', 5000);
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        }
+
+        // Filter buttons
+        document.querySelectorAll('.btn-filter').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.getAttribute('data-filter');
+                renderList();
+            });
+        });
+
+        // Search input
+        $('searchInput').addEventListener('input', (e) => {
+            searchTerm = e.target.value.trim().toLowerCase();
+            renderList();
+        });
+
+        // Init
+        (async () => {
+            await auth.authStateReady();
+            if (!auth.currentUser) { location.replace('login.html'); return; }
+
+            // Load admin avatar
+            try {
+                const u = await get(ref(db, 'users/' + auth.currentUser.uid));
+                if (u.exists()) {
+                    const d = u.val();
+                    const ini = ((d.firstName || '?')[0] + ((d.lastName || '')[0] || '')).toUpperCase();
+                    $('avatar').textContent = ini || 'AD';
+                }
+            } catch (_) { /* ignore */ }
+
+            // Load user profiles once
+            await loadUserProfiles();
+
+            // Live-watch all clearance payments
+            onValue(ref(db, 'clearance_payments'), (snap) => {
+                payments = snap.exists() ? (snap.val() || {}) : {};
+                updateStats();
+                renderList();
+            }, (err) => {
+                console.warn('clearance_payments read failed:', err?.message);
+                $('paymentList').innerHTML = `
+                    <div class="empty">
+                        <div class="big">⚠️</div>
+                        Could not load payments. Please refresh.
+                    </div>`;
+            });
+        })();
+    </script>
+</body>
+
+</html>

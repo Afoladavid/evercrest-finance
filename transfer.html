@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Transfer | Ever Crest Finance Bank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            --bg: #f5f7fb;
+            --surface: #fff;
+            --group: #fbfcfe;
+            --ink: #0b2340;
+            --soft: #5b6f86;
+            --line: #d5dee8;
+            --gold: #ffc93c;
+            --ok: #12a06b;
+            --bad: #d64535;
+            --ring: rgba(11, 35, 64, .14);
+            --shadow: 0 20px 50px -30px rgba(11, 35, 64, .35)
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit
+        }
+
+        html {
+            height: 100%;
+            -webkit-text-size-adjust: 100%;
+            scroll-padding-top: env(safe-area-inset-top, 0px)
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--ink);
+            font: 15px/1.5 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+        }
+
+        [hidden] {
+            display: none !important
+        }
+
+        .top {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            z-index: 20;
+            background: rgba(255, 255, 255, .94);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .top .in {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .av {
+            text-decoration: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .82rem
+        }
+
+        .av:hover {
+            filter: brightness(1.2)
+        }
+
+        .back {
+            display: inline-block;
+            margin: 0 0 12px;
+            color: var(--ink);
+            font-weight: 700;
+            text-decoration: none
+        }
+
+        .back:hover {
+            text-decoration: underline
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: -.01em
+        }
+
+        .brand i {
+            font-style: normal;
+            color: #e0a800
+        }
+
+        main {
+            max-width: 620px;
+            margin: 0 auto;
+            padding: 22px 18px 44px
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            margin: 0 0 2px;
+            letter-spacing: -.02em;
+            font-weight: 800
+        }
+
+        .sub {
+            color: var(--soft);
+            margin: 0 0 18px;
+            font-size: .9rem
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 18px 16px;
+            box-shadow: var(--shadow)
+        }
+
+        form label {
+            display: block;
+            font-size: .86rem;
+            font-weight: 600;
+            color: var(--soft);
+            margin: 14px 0 6px
+        }
+
+        form label:first-child {
+            margin-top: 0
+        }
+
+        input {
+            width: 100%;
+            height: 46px;
+            padding: 0 14px;
+            font: inherit;
+            font-size: 16px;
+            color: var(--ink);
+            background: var(--group);
+            border: 1.5px solid var(--line);
+            border-radius: 8px;
+            outline: 0;
+            appearance: none;
+            -webkit-appearance: none;
+            transition: border-color .2s, box-shadow .2s
+        }
+
+        input:focus {
+            background: #fff;
+            border-color: var(--ink);
+            box-shadow: 0 0 0 4px var(--ring)
+        }
+
+        input::placeholder {
+            color: #9aabbd
+        }
+
+        select {
+            width: 100%;
+            height: 46px;
+            padding: 0 44px 0 14px;
+            font: inherit;
+            font-size: 16px;
+            color: var(--ink);
+            background: var(--group) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b6f86' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center / 18px;
+            border: 1.5px solid var(--line);
+            border-radius: 8px;
+            outline: 0;
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            transition: border-color .2s, box-shadow .2s
+        }
+
+        select:focus {
+            background-color: #fff;
+            border-color: var(--ink);
+            box-shadow: 0 0 0 4px var(--ring)
+        }
+
+        select:invalid {
+            color: #9aabbd
+        }
+
+        select option {
+            color: var(--ink)
+        }
+
+        .money {
+            position: relative
+        }
+
+        .money span {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 700;
+            color: var(--soft)
+        }
+
+        .money input {
+            padding-left: 30px
+        }
+
+        #wallet {
+            word-break: break-all
+        }
+
+        .rcpt {
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: .88rem;
+            font-weight: 600;
+            background: #eef2f7;
+            color: var(--soft)
+        }
+
+        .rcpt.ok {
+            background: #e3f6ee;
+            color: #0b6b47
+        }
+
+        .rcpt.bad {
+            background: #fbe7e4;
+            color: #a3291c
+        }
+
+        .rcpt .rav {
+            flex: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--ok);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            font-size: .78rem;
+            font-weight: 800
+        }
+
+        .rcpt .rn {
+            font-weight: 800;
+            color: var(--ink);
+            text-transform: uppercase;
+            letter-spacing: .01em;
+            word-break: break-word
+        }
+
+        .rcpt .rl {
+            font-size: .74rem;
+            font-weight: 600;
+            opacity: .85
+        }
+
+        .spin {
+            flex: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid var(--line);
+            border-top-color: var(--ink);
+            animation: sp .7s linear infinite
+        }
+
+        @keyframes sp {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .snack {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 0px) + 12px);
+            left: 50%;
+            z-index: 99;
+            width: min(92vw, 460px);
+            padding: 13px 16px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: .9rem;
+            background: var(--ink);
+            box-shadow: 0 14px 34px -12px rgba(11, 35, 64, .6);
+            transform: translate(-50%, -160%);
+            opacity: 0;
+            transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .3s;
+            pointer-events: none
+        }
+
+        .snack.show {
+            transform: translate(-50%, 0);
+            opacity: 1
+        }
+
+        .snack.success {
+            background: var(--ok)
+        }
+
+        .snack.error {
+            background: var(--bad)
+        }
+
+        .go {
+            width: 100%;
+            height: 52px;
+            margin-top: 18px;
+            border: 0;
+            border-radius: 999px;
+            background: var(--gold);
+            color: var(--ink);
+            font: inherit;
+            font-size: 1.05rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 24px -10px rgba(255, 201, 60, .9);
+            transition: transform .15s, filter .2s, opacity .2s
+        }
+
+        .go:hover {
+            filter: brightness(1.05)
+        }
+
+        .go:active {
+            transform: scale(.98)
+        }
+
+        .go:focus-visible {
+            outline: 3px solid var(--ink);
+            outline-offset: 3px
+        }
+
+        .go:disabled {
+            opacity: .55;
+            cursor: not-allowed
+        }
+
+        .go.busy {
+            cursor: progress
+        }
+
+        .note {
+            margin: 14px 2px 0;
+            color: var(--soft);
+            font-size: .8rem;
+            text-align: center
+        }
+
+        .receipt {
+            text-align: center
+        }
+
+        .tick {
+            width: 56px;
+            height: 56px;
+            margin: 4px auto 10px;
+            border-radius: 50%;
+            background: var(--ok);
+            color: #fff;
+            display: grid;
+            place-items: center
+        }
+
+        .tick svg {
+            width: 28px;
+            height: 28px
+        }
+
+        .receipt h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 800
+        }
+
+        .receipt .ramt {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -.02em;
+            margin: 4px 0 14px
+        }
+
+        .rows {
+            text-align: left;
+            border-top: 1px dashed var(--line);
+            margin-top: 6px
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--line);
+            font-size: .88rem
+        }
+
+        .row span:first-child {
+            color: var(--soft);
+            flex: none
+        }
+
+        .row span:last-child {
+            font-weight: 700;
+            text-align: right;
+            word-break: break-all
+        }
+
+        .rbtns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 18px
+        }
+
+        .btn2 {
+            display: grid;
+            place-items: center;
+            height: 48px;
+            border-radius: 999px;
+            font: inherit;
+            font-weight: 800;
+            text-decoration: none;
+            cursor: pointer;
+            border: 1.5px solid var(--ink);
+            background: #fff;
+            color: var(--ink)
+        }
+
+        .btn2.fill {
+            background: var(--ink);
+            color: #fff
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="snack" id="snack" role="status" aria-live="polite"></div>
+    <header class="top">
+        <div class="in">
+            <div class="brand"><i>Ever</i> Crest Finance Bank</div>
+            <a class="av" id="avatar" href="profile.html" aria-label="Your profile" title="Your profile">EC</a>
+        </div>
+    </header>
+    <main>
+        <a class="back" href="dashboard.html" aria-label="Back to dashboard">&larr; Back</a>
+        <h1>Transfer</h1>
+        <p class="sub">Send money to another account.</p>
+
+        <div class="card" id="formCard">
+            <form id="f" novalidate>
+
+                <label for="asset">Select Assets</label>
+                <select id="asset" name="asset" required>
+                    <option value="" disabled selected>Select an asset</option>
+                    <option value="401K investments">401K investments</option>
+                    <option value="Pension">Pension</option>
+                    <option value="IRA">IRA</option>
+                    <option value="Life Insurance">Life Insurance</option>
+                </select>
+
+                <label for="wallet">Wallet address</label>
+                <input id="wallet" name="walletAddress" autocomplete="off" autocapitalize="off" spellcheck="false"
+                    placeholder="Enter wallet address" required>
+                <div class="rcpt" id="rcpt" role="status" aria-live="polite" hidden></div>
+
+                <label for="amount">Amount (USD)</label>
+                <div class="money"><span aria-hidden="true">$</span><input id="amount" name="amount" type="number"
+                        min="1" step="0.01" inputmode="decimal" placeholder="0.00" required></div>
+
+                <button class="go" id="go" type="submit">Send transfer</button>
+            </form>
+        </div>
+
+        <div class="card receipt" id="receipt" hidden>
+            <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12.5l4.5 4.5L19 7.5" />
+                </svg></div>
+            <h2>Transfer successful</h2>
+            <div class="ramt" id="rAmt"></div>
+            <div class="rows" id="rRows"></div>
+            <div class="rbtns">
+                <a class="btn2" href="dashboard.html">Dashboard</a>
+                <button class="btn2 fill" type="button" id="again">New transfer</button>
+            </div>
+        </div>
+
+        <p class="note">Your balance is checked before every transfer. Both you and the receiver get a notification.
+        </p>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { getDatabase, ref, get, update, push, query, orderByChild, equalTo, runTransaction } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBH0n84QTvGBWaSlJdO6AoUU6IRuJETHLA",
+            authDomain: "ever-crest-finance-bank.firebaseapp.com",
+                        databaseURL: "https://ever-crest-finance-bank-default-rtdb.firebaseio.com",
+            projectId: "ever-crest-finance-bank",
+            storageBucket: "ever-crest-finance-bank.firebasestorage.app",
+            messagingSenderId: "469287844559",
+            appId: "1:469287844559:web:4f219675a1055533be95ba"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        const $ = i => document.getElementById(i);
+        const LOCALE = { NGN: 'en-NG', USD: 'en-US', GBP: 'en-GB', EUR: 'en-IE', GHS: 'en-GH', KES: 'en-KE', ZAR: 'en-ZA' };
+        const money = (n, c = 'USD') => {
+            try { return new Intl.NumberFormat(LOCALE[c] || 'en', { style: 'currency', currency: c }).format(Number(n) || 0); }
+            catch (_) { return c + ' ' + (Number(n) || 0).toFixed(2); }
+        };
+        const fmtDate = t => new Date(t).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        const fullName = u => ((u && u.fullName) || [u && u.firstName, u && u.otherName, u && u.lastName].filter(Boolean).join(' ')).trim();
+        const round2 = n => Math.round(n * 100) / 100;
+
+        /* ===== snackbar ===== */
+        let snackTimer;
+        function toast(msg, type = 'info', ms = 5000) {
+            const s = $('snack');
+            s.textContent = msg;
+            s.className = 'snack ' + type;
+            void s.offsetWidth;
+            s.classList.add('show');
+            clearTimeout(snackTimer);
+            snackTimer = setTimeout(() => s.classList.remove('show'), ms);
+        }
+
+        /* ===== state ===== */
+        let me = null;            // { uid, name, wallet, balance, currency }
+        let target = null;        // verified receiver { uid, name, wallet }
+        let lookupSeq = 0, lookupTimer, sending = false;
+
+        function showRcpt(kind, name, label) {
+            const box = $('rcpt');
+            box.className = 'rcpt' + (kind ? ' ' + kind : '');
+            box.textContent = '';
+            if (!kind && !label) { box.hidden = true; return; }
+            box.hidden = false;
+            if (kind === 'load') {
+                const sp = document.createElement('span'); sp.className = 'spin';
+                const t = document.createElement('span'); t.textContent = label;
+                box.className = 'rcpt'; box.append(sp, t); return;
+            }
+            if (kind === 'ok') {
+                const av = document.createElement('span'); av.className = 'rav';
+                av.textContent = name.split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+                const wrap = document.createElement('div');
+                const rl = document.createElement('div'); rl.className = 'rl'; rl.textContent = 'Account name verified';
+                const rn = document.createElement('div'); rn.className = 'rn'; rn.textContent = name;
+                wrap.append(rl, rn); box.append(av, wrap); return;
+            }
+            box.textContent = label;
+        }
+
+        /* ===== wallet lookup: search users for the matching wallet, then show the owner's name ===== */
+        async function lookupWallet(addr) {
+            const seq = ++lookupSeq;
+            target = null;
+            if (!addr) { showRcpt(null); return; }
+            if (addr.length < 10 || /\s/.test(addr)) { showRcpt('bad', '', 'Enter a valid wallet address.'); return; }
+            if (me && me.wallet && addr === me.wallet) { showRcpt('bad', '', 'You cannot send money to your own wallet.'); return; }
+            showRcpt('load', '', 'Checking wallet address…');
+            try {
+                const snap = await get(query(ref(db, 'users'), orderByChild('wallet'), equalTo(addr)));
+                if (seq !== lookupSeq) return;
+                if (!snap.exists()) { showRcpt('bad', '', 'Wallet not found. Check the address and try again.'); return; }
+                let uid = null, acc = null;
+                snap.forEach(ch => { if (!uid) { uid = ch.key; acc = ch.val(); } });
+                if (uid === me.uid) { showRcpt('bad', '', 'You cannot send money to your own wallet.'); return; }
+                const name = fullName(acc);
+                if (!name) { showRcpt('bad', '', 'This wallet has no verified owner name yet.'); return; }
+                target = { uid, name, wallet: addr, currency: (acc && acc.currency) || me.currency };
+                showRcpt('ok', name);
+            } catch (e) {
+                if (seq !== lookupSeq) return;
+                console.error(e);
+                showRcpt('bad', '', 'Could not verify this wallet.');
+            }
+        }
+        $('wallet').addEventListener('input', () => {
+            clearTimeout(lookupTimer);
+            const v = $('wallet').value.trim();
+            target = null;
+            if (!v) { lookupSeq++; showRcpt(null); return; }
+            lookupTimer = setTimeout(() => lookupWallet(v), 500);
+        });
+
+        /* ===== send: the server checks the balance and moves the money ===== */
+        $('f').addEventListener('submit', async e => {
+            e.preventDefault();
+            if (sending) return;
+            const asset = $('asset').value;
+            const addr = $('wallet').value.trim();
+            const amount = round2(Number($('amount').value));
+
+            if (!me) return toast('Your account is still loading. Try again in a moment.', 'error', 6000);
+            if (!me.wallet || me.wallet === 'No wallet yet') return toast('Your account is still under review. Try again once your wallet is ready.', 'error', 7000);
+            if (!asset) { $('asset').focus(); return toast('Select which asset you want to transfer.', 'error', 6000); }
+            if (!addr) { $('wallet').focus(); return toast('Enter the wallet address.', 'error', 6000); }
+            if (!target || target.wallet !== addr) {
+                clearTimeout(lookupTimer);
+                toast('Verifying wallet address…', 'info', 4000);
+                await lookupWallet(addr);
+                if (!target) {
+                    $('wallet').focus();
+                    return toast($('rcpt').textContent.trim() || 'Enter a valid wallet address.', 'error', 6000);
+                }
+            }
+            if (!$('amount').value.trim()) { $('amount').focus(); return toast('Enter the amount in dollars.', 'error', 6000); }
+            if (!isFinite(amount) || amount < 1) { $('amount').focus(); return toast('Enter an amount of at least $1.', 'error', 6000); }
+            if (amount > me.balance) {
+                $('amount').focus();
+                return toast('Insufficient balance. You entered ' + money(amount, me.currency) + ' but only ' + money(me.balance, me.currency) + ' is available.', 'error', 8000);
+            }
+
+            sending = true;
+            $('go').disabled = true;
+            $('go').classList.add('busy'); $('go').textContent = 'Sending…';
+            toast('Sending your transfer…', 'info', 15000);
+
+            try {
+                /* 1) read both balances fresh from the server */
+                const [mySnap, theirSnap] = await Promise.all([
+                    get(ref(db, 'users/' + me.uid + '/balance')),
+                    get(ref(db, 'users/' + target.uid + '/balance'))
+                ]);
+                const myNow = Number(mySnap.val()) || 0;
+                const theirNow = Number(theirSnap.val()) || 0;
+                me.balance = myNow;
+                if (myNow < amount) {
+                    throw { user: 'Insufficient balance. Only ' + money(myNow, me.currency) + ' is available.' };
+                }
+                const myNew = round2(myNow - amount);
+                const theirNew = round2(theirNow + amount);
+
+                /* 2) one all-or-nothing write: both balances, records and notifications */
+                const now = Date.now();
+                const refNo = 'EC' + now.toString(36).toUpperCase() + Math.random().toString(36).slice(2, 6).toUpperCase();
+                const amtTxt = money(amount, me.currency);
+                const when = fmtDate(now);
+                const nSend = push(ref(db, 'notifications/' + me.uid)).key;
+                const nGet = push(ref(db, 'notifications/' + target.uid)).key;
+                const base = { amount, currency: me.currency, asset, reference: refNo, createdAt: now, status: 'successful' };
+                const up = {};
+                up['users/' + me.uid + '/balance'] = myNew;
+                up['users/' + target.uid + '/balance'] = theirNew;
+                up['transactions/' + me.uid + '/' + refNo] = { ...base, type: 'debit', counterparty: target.name, counterpartyWallet: target.wallet };
+                up['transactions/' + target.uid + '/' + refNo] = { ...base, type: 'credit', counterparty: me.name, counterpartyWallet: me.wallet || '' };
+                up['notifications/' + me.uid + '/' + nSend] = {
+                    title: 'Transfer successful',
+                    message: 'You sent ' + amtTxt + ' to ' + target.name + ' (' + target.wallet + ') on ' + when + '. Ref: ' + refNo + '. New balance: ' + money(myNew, me.currency) + '.',
+                    createdAt: now, read: false, type: 'debit', reference: refNo, amount
+                };
+                up['notifications/' + target.uid + '/' + nGet] = {
+                    title: 'Money received',
+                    message: me.name + ' sent you ' + amtTxt + ' on ' + when + '. Ref: ' + refNo + '.',
+                    createdAt: now, read: false, type: 'credit', reference: refNo, amount
+                };
+                await update(ref(db), up);
+                me.balance = myNew;
+
+                showReceipt({ amtTxt, when, refNo, asset });
+                toast('Transfer successful.', 'success');
+            } catch (err) {
+                console.error(err);
+                if (err && err.user) toast(err.user, 'error', 8000);
+                else {
+                    const code = (err && (err.code || err.message)) ? ' (' + (err.code || err.message) + ')' : '';
+                    toast('Transfer failed. No money was taken.' + code, 'error', 9000);
+                }
+            } finally {
+                sending = false;
+                $('go').disabled = false;
+                $('go').classList.remove('busy'); $('go').textContent = 'Send transfer';
+            }
+        });
+
+        /* ===== receipt ===== */
+        function showReceipt(r) {
+            $('rAmt').textContent = r.amtTxt;
+            const rows = $('rRows'); rows.innerHTML = '';
+            [['Recipient', target.name], ['Wallet address', target.wallet], ['Asset', r.asset],
+            ['Payment date', r.when], ['Reference', r.refNo], ['Status', 'Successful']].forEach(([k, v]) => {
+                const row = document.createElement('div'); row.className = 'row';
+                const a = document.createElement('span'); a.textContent = k;
+                const b = document.createElement('span'); b.textContent = v;
+                row.append(a, b); rows.appendChild(row);
+            });
+            $('formCard').hidden = true; $('receipt').hidden = false;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        $('again').addEventListener('click', () => {
+            $('f').reset(); target = null; lookupSeq++; showRcpt(null);
+            $('receipt').hidden = true; $('formCard').hidden = false;
+        });
+
+        /* ===== start ===== */
+        (async () => {
+            await auth.authStateReady();
+            const user = auth.currentUser;
+            if (!user) { location.replace('login.html'); return; }
+            try {
+                const u = await get(ref(db, 'users/' + user.uid));
+                const prof = u.exists() ? u.val() : {};
+                me = {
+                    uid: user.uid,
+                    name: fullName(prof) || 'An Ever Crest customer',
+                    wallet: prof.wallet ? String(prof.wallet).trim() : '',
+                    balance: Number(prof.balance) || 0,
+                    currency: prof.currency || 'USD'
+                };
+                $('avatar').textContent = me.name.split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+                if (!me.wallet || me.wallet === 'No wallet yet') toast('Your account is still under review. You can send money once your wallet is ready.', 'error', 8000);
+            } catch (e) {
+                console.error(e);
+                toast('We could not load your balance. Check your connection and refresh.', 'error', 8000);
+            }
+        })();
+    </script>
+</body>
+
+</html>

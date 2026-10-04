@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Help Center | Ever Crest Finance Bank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            --bg: #f5f7fb;
+            --surface: #fff;
+            --ink: #0b2340;
+            --soft: #5b6f86;
+            --line: #d5dee8;
+            --gold: #ffc93c;
+            --ok: #12a06b;
+            --bad: #d64535;
+            --shadow: 0 20px 50px -30px rgba(11, 35, 64, .35)
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            scroll-padding-top: env(safe-area-inset-top, 0px)
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--ink);
+            font: 15px/1.5 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+        }
+
+        [hidden] {
+            display: none !important
+        }
+
+        .top {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            z-index: 20;
+            background: rgba(255, 255, 255, .94);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .top .in {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: -.01em
+        }
+
+        .brand i {
+            font-style: normal;
+            color: #e0a800
+        }
+
+        .av {
+            text-decoration: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .82rem
+        }
+
+        main {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 16px 18px 24px
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 12px;
+            color: var(--ink);
+            font-weight: 700;
+            font-size: .85rem;
+            text-decoration: underline
+        }
+
+        /* ===== WhatsApp-style chat window ===== */
+        .chat-window {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: calc(100dvh - 190px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+            min-height: 420px;
+        }
+
+        .chat-head {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            background: var(--ink);
+            color: #fff;
+        }
+
+        .chat-head .pic {
+            position: relative;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--gold);
+            color: var(--ink);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .85rem;
+            flex-shrink: 0;
+        }
+
+        .chat-head .pic::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--ok);
+            border: 2px solid var(--ink);
+        }
+
+        .chat-head .who {
+            line-height: 1.25;
+            min-width: 0;
+        }
+
+        .chat-head .name {
+            font-weight: 700;
+            font-size: .98rem;
+        }
+
+        .chat-head .status {
+            font-size: .75rem;
+            opacity: .75;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 14px 14px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            scroll-behavior: smooth;
+            background-color: var(--bg);
+            background-image: radial-gradient(rgba(11, 35, 64, .07) 1px, transparent 1.4px);
+            background-size: 18px 18px;
+            overscroll-behavior: contain;
+        }
+
+        .day {
+            align-self: center;
+            margin: 10px 0 8px;
+            padding: 4px 12px;
+            border-radius: 8px;
+            background: var(--surface);
+            color: var(--soft);
+            font-size: .72rem;
+            font-weight: 600;
+            border: 1px solid var(--line);
+        }
+
+        .chat-bubble {
+            position: relative;
+            max-width: 80%;
+            padding: 7px 10px 6px;
+            border-radius: 10px;
+            font-size: .92rem;
+            line-height: 1.4;
+            word-break: break-word;
+            white-space: pre-wrap;
+            box-shadow: 0 1px 1px rgba(11, 35, 64, .12);
+            margin-top: 6px;
+        }
+
+        .chat-bubble.same {
+            margin-top: 0;
+        }
+
+        .chat-bubble.user {
+            background: var(--ink);
+            color: #fff;
+            align-self: flex-end;
+            border-top-right-radius: 10px;
+        }
+
+        .chat-bubble.admin {
+            background: var(--surface);
+            color: var(--ink);
+            align-self: flex-start;
+        }
+
+        /* bubble tails (first bubble in a group) */
+        .chat-bubble.user.tail {
+            border-top-right-radius: 0;
+        }
+
+        .chat-bubble.admin.tail {
+            border-top-left-radius: 0;
+        }
+
+        .chat-bubble.user.tail::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: -7px;
+            border-left: 8px solid var(--ink);
+            border-bottom: 8px solid transparent;
+        }
+
+        .chat-bubble.admin.tail::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -7px;
+            border-right: 8px solid var(--surface);
+            border-bottom: 8px solid transparent;
+        }
+
+        .msg-text {
+            display: inline;
+        }
+
+        .meta {
+            float: right;
+            margin: 6px 0 -2px 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-size: .66rem;
+            line-height: 1;
+            opacity: .7;
+            user-select: none;
+        }
+
+        .ticks {
+            width: 16px;
+            height: 11px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .ticks.seen {
+            stroke: var(--gold);
+        }
+
+        .chat-bubble.user .meta:has(.seen) {
+            opacity: 1;
+        }
+
+        /* typing-style empty state */
+        .empty {
+            margin: auto;
+            text-align: center;
+            padding: 12px 16px;
+            color: var(--soft);
+            font-size: .85rem;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            max-width: 280px;
+        }
+
+        .empty.bad {
+            color: var(--bad)
+        }
+
+        /* ===== Composer ===== */
+        .chat-form {
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            padding: 8px 10px;
+            background: var(--surface);
+            border-top: 1px solid var(--line);
+        }
+
+        .chat-form textarea {
+            flex: 1;
+            font: inherit;
+            font-size: .93rem;
+            color: var(--ink);
+            background: var(--bg);
+            border: 1.5px solid var(--line);
+            border-radius: 22px;
+            padding: 11px 16px;
+            min-height: 46px;
+            max-height: 120px;
+            margin: 0;
+            resize: none;
+            line-height: 1.35;
+        }
+
+        .chat-form textarea:focus {
+            outline: 3px solid rgba(255, 201, 60, .7);
+            outline-offset: 1px;
+            border-color: var(--ink)
+        }
+
+        .send {
+            width: 46px;
+            height: 46px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            border: none;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            transition: filter .2s, transform .15s;
+        }
+
+        .send:hover {
+            filter: brightness(1.2)
+        }
+
+        .send:active {
+            transform: scale(.94)
+        }
+
+        .send:disabled {
+            opacity: .5;
+            cursor: not-allowed
+        }
+
+        .send svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            margin-left: 2px;
+        }
+
+        .snack {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 0px) + 12px);
+            left: 50%;
+            z-index: 99;
+            width: min(92vw, 460px);
+            padding: 13px 16px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: .9rem;
+            background: var(--ink);
+            box-shadow: 0 14px 34px -12px rgba(11, 35, 64, .6);
+            transform: translate(-50%, -160%);
+            opacity: 0;
+            transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .3s;
+            pointer-events: none
+        }
+
+        .snack.show {
+            transform: translate(-50%, 0);
+            opacity: 1
+        }
+
+        .snack.success {
+            background: var(--ok)
+        }
+
+        .snack.error {
+            background: var(--bad)
+        }
+
+        @media (max-width: 480px) {
+            main {
+                padding: 12px 10px 16px
+            }
+
+            .chat-bubble {
+                max-width: 86%
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="snack" id="snack" role="status" aria-live="polite"></div>
+
+    <header class="top">
+        <div class="in">
+            <div class="brand"><i>Ever</i> Crest Finance Bank</div>
+            <a class="av" id="avatar" href="profile.html" aria-label="Your profile" title="Your profile">EC</a>
+        </div>
+    </header>
+
+    <main>
+        <a class="back" href="dashboard.html">&larr; Back to dashboard</a>
+
+        <div class="chat-window">
+            <div class="chat-head">
+                <div class="pic">EC</div>
+                <div class="who">
+                    <div class="name">Ever Crest Support</div>
+                    <div class="status">We reply as soon as possible</div>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages" aria-live="polite">
+                <div class="empty">Loading messages…</div>
+            </div>
+
+            <form class="chat-form" id="chatForm">
+                <textarea id="chatInput" rows="1" placeholder="Type a message" autocomplete="off" maxlength="1000"
+                    required></textarea>
+                <button type="submit" class="send" id="chatSend" aria-label="Send message">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M2.4 20.6 22 12 2.4 3.4l-.01 6.7L16 12 2.39 13.9z" />
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import {
+            getDatabase, ref, get, push, set, onValue, update
+        } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBH0n84QTvGBWaSlJdO6AoUU6IRuJETHLA",
+            authDomain: "ever-crest-finance-bank.firebaseapp.com",
+            projectId: "ever-crest-finance-bank",
+            storageBucket: "ever-crest-finance-bank.firebasestorage.app",
+            messagingSenderId: "469287844559",
+            appId: "1:469287844559:web:4f219675a1055533be95ba"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        const $ = i => document.getElementById(i);
+        const fmtTime = t => t ? new Date(t).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) : '';
+        const dayKey = t => new Date(t || 0).toDateString();
+        function dayLabel(t) {
+            const d = new Date(t || 0), now = new Date();
+            const y = new Date(); y.setDate(now.getDate() - 1);
+            if (d.toDateString() === now.toDateString()) return 'Today';
+            if (d.toDateString() === y.toDateString()) return 'Yesterday';
+            return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+
+        let snackTimer;
+        function toast(msg, type = 'info', ms = 4000) {
+            const s = $('snack');
+            s.textContent = msg;
+            s.className = 'snack ' + type;
+            void s.offsetWidth;
+            s.classList.add('show');
+            clearTimeout(snackTimer);
+            snackTimer = setTimeout(() => s.classList.remove('show'), ms);
+        }
+
+        function escapeHtml(s) {
+            return String(s || '').replace(/[&<>"']/g, c => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            })[c]);
+        }
+
+        const TICKS = seen => `<svg class="ticks${seen ? ' seen' : ''}" viewBox="0 0 16 11" aria-label="${seen ? 'Read' : 'Sent'}">
+            <path d="M1 6l3 3 6-7"/><path d="M6 8.5l.5.5 6-7"/></svg>`;
+        const TICK_ONE = `<svg class="ticks" viewBox="0 0 16 11" aria-label="Sent"><path d="M3 6l3 3 7-7"/></svg>`;
+
+        let uid = null;
+        let chatUnsub = null;
+
+        async function requireUser() {
+            await auth.authStateReady();
+            const user = auth.currentUser;
+            if (!user) {
+                location.replace('login.html');
+                throw new Error('Not signed in');
+            }
+            uid = user.uid;
+            try {
+                const u = await get(ref(db, 'users/' + uid));
+                const prof = u.exists() ? u.val() : {};
+                $('avatar').textContent = (((prof.firstName || '?')[0]) + ((prof.lastName || '')[0] || '')).toUpperCase() || 'EC';
+            } catch (_) { }
+            return uid;
+        }
+
+        function renderMessages(messages) {
+            const container = $('chatMessages');
+            const nearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 120;
+            const firstRender = !container.dataset.ready;
+            container.innerHTML = '';
+            const arr = Object.keys(messages).map(k => ({ id: k, ...messages[k] }))
+                .sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+
+            if (arr.length === 0) {
+                container.innerHTML = '<div class="empty">No messages yet. Say hello! 👋</div>';
+                container.dataset.ready = '1';
+                return;
+            }
+
+            let lastDay = null, lastFrom = null;
+            arr.forEach(m => {
+                const dk = dayKey(m.createdAt);
+                if (dk !== lastDay) {
+                    const sep = document.createElement('div');
+                    sep.className = 'day';
+                    sep.textContent = dayLabel(m.createdAt);
+                    container.appendChild(sep);
+                    lastDay = dk;
+                    lastFrom = null;
+                }
+                const isUser = m.from === 'user';
+                const grouped = lastFrom === m.from;
+                const div = document.createElement('div');
+                div.className = 'chat-bubble ' + (isUser ? 'user' : 'admin') + (grouped ? ' same' : ' tail');
+                const ticks = isUser ? (m.readByAdmin ? TICKS(true) : TICKS(false)) : '';
+                div.innerHTML = `<span class="msg-text">${escapeHtml(m.text)}</span>` +
+                    `<span class="meta">${fmtTime(m.createdAt)}${ticks}</span>`;
+                container.appendChild(div);
+                lastFrom = m.from;
+            });
+            container.dataset.ready = '1';
+            if (firstRender || nearBottom) {
+                container.style.scrollBehavior = firstRender ? 'auto' : 'smooth';
+                container.scrollTop = container.scrollHeight;
+            }
+        }
+
+        function subscribeChat() {
+            if (chatUnsub) { chatUnsub(); chatUnsub = null; }
+            chatUnsub = onValue(ref(db, 'chats/' + uid), (snap) => {
+                if (!snap.exists()) {
+                    renderMessages({});
+                    return;
+                }
+                renderMessages(snap.val());
+                markAdminMessagesRead();
+            }, (err) => {
+                console.error('Chat load error:', err && err.code, err && err.message);
+                $('chatMessages').innerHTML =
+                    '<div class="empty bad">Could not load messages (' +
+                    escapeHtml((err && err.code) || 'unknown error') +
+                    '). Please refresh, or contact support if this continues.</div>';
+            });
+        }
+
+        async function markAdminMessagesRead() {
+            try {
+                const snap = await get(ref(db, 'chats/' + uid));
+                if (!snap.exists()) return;
+                const updates = {};
+                snap.forEach(child => {
+                    const m = child.val();
+                    if (m.from === 'admin' && !m.readByUser) {
+                        updates[child.key + '/readByUser'] = true;
+                    }
+                });
+                if (Object.keys(updates).length > 0) {
+                    await update(ref(db, 'chats/' + uid), updates);
+                }
+            } catch (_) { }
+        }
+
+        /* textarea: auto-grow, Enter sends, Shift+Enter = new line */
+        const input = $('chatInput');
+        const autosize = () => {
+            input.style.height = 'auto';
+            input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+        };
+        input.addEventListener('input', autosize);
+        input.addEventListener('keydown', e => {
+            if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) {
+                e.preventDefault();
+                $('chatForm').requestSubmit();
+            }
+        });
+
+        $('chatForm').addEventListener('submit', async e => {
+            e.preventDefault();
+            if (!uid) return;
+            const text = input.value.trim();
+            if (!text) return;
+            const btn = $('chatSend');
+            btn.disabled = true;
+            try {
+                const msgRef = push(ref(db, 'chats/' + uid));
+                await set(msgRef, {
+                    from: 'user',
+                    text: text,
+                    createdAt: Date.now(),
+                    readByUser: true,
+                    readByAdmin: false
+                });
+                input.value = '';   // clear only after it was saved
+                autosize();
+                await update(ref(db, 'chatMeta/' + uid), {
+                    lastMessage: text,
+                    lastFrom: 'user',
+                    lastAt: Date.now()
+                });
+            } catch (err) {
+                console.error('Send error:', err);
+                toast('Could not send message (' + ((err && err.code) || 'unknown') + ').', 'error', 5000);
+            } finally {
+                btn.disabled = false;
+                input.focus();
+            }
+        });
+
+        (async () => {
+            try {
+                await requireUser();
+                subscribeChat();
+            } catch (_) { }
+        })();
+    </script>
+</body>
+
+</html>

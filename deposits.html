@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Upload Cards | Ever Crest Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            --bg: #f5f7fb;
+            --surface: #fff;
+            --group: #fbfcfe;
+            --ink: #0b2340;
+            --soft: #5b6f86;
+            --line: #d5dee8;
+            --gold: #ffc93c;
+            --ok: #12a06b;
+            --bad: #d64535;
+            --shadow: 0 20px 50px -30px rgba(11, 35, 64, .35)
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--ink);
+            font: 15px/1.5 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+        }
+
+        [hidden] {
+            display: none !important
+        }
+
+        .top {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            z-index: 20;
+            background: rgba(255, 255, 255, .94);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .top .in {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: -.01em
+        }
+
+        .brand i {
+            font-style: normal;
+            color: #e0a800
+        }
+
+        .badge-admin {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: #fff8e6;
+            border: 1px solid var(--gold);
+            color: #b8860b;
+            font-size: .7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            margin-left: 8px
+        }
+
+        .av {
+            text-decoration: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .82rem
+        }
+
+        main {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 22px 18px 60px
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 4vw, 1.9rem);
+            margin: 0 0 2px;
+            letter-spacing: -.02em;
+            font-weight: 800
+        }
+
+        .sub {
+            color: var(--soft);
+            margin: 0 0 18px;
+            font-size: .9rem
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 12px;
+            color: var(--ink);
+            font-weight: 700;
+            text-decoration: none;
+            font-size: .88rem
+        }
+
+        .back-link:hover {
+            text-decoration: underline
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 18px 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 18px
+        }
+
+        .panel-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+            flex-wrap: wrap
+        }
+
+        .panel-head h2 {
+            margin: 0;
+            font-size: 1.05rem;
+            font-weight: 800
+        }
+
+        .panel-head .ph-sub {
+            font-size: .82rem;
+            color: var(--soft)
+        }
+
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 14px;
+            background: var(--group);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            width: 100%
+        }
+
+        .li-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+            flex: 1;
+            cursor: pointer
+        }
+
+        .avatar {
+            flex: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .82rem
+        }
+
+        .li-name {
+            font-weight: 700;
+            font-size: .92rem;
+            word-break: break-word
+        }
+
+        .li-meta {
+            font-size: .78rem;
+            color: var(--soft);
+            word-break: break-all
+        }
+
+        .li-right {
+            flex: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: .72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .04em
+        }
+
+        .pill.pending {
+            background: #fff8e6;
+            color: #b8860b
+        }
+
+        .pill.approved {
+            background: #e3f6ee;
+            color: #0b6b47
+        }
+
+        .pill.failed {
+            background: #fbe7e4;
+            color: #a3291c
+        }
+
+        .btn-mini {
+            height: 34px;
+            padding: 0 14px;
+            border-radius: 999px;
+            border: 1.5px solid var(--ok);
+            background: var(--ok);
+            color: #fff;
+            font: inherit;
+            font-weight: 700;
+            font-size: .78rem;
+            cursor: pointer
+        }
+
+        .btn-mini:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+            background: #999;
+            border-color: #999
+        }
+
+        .btn-lg {
+            height: 46px;
+            padding: 0 22px;
+            border-radius: 999px;
+            border: 1.5px solid var(--ok);
+            background: var(--ok);
+            color: #fff;
+            font: inherit;
+            font-weight: 800;
+            font-size: .9rem;
+            cursor: pointer
+        }
+
+        .btn-lg:disabled {
+            opacity: .55;
+            cursor: not-allowed
+        }
+
+        .rows {
+            text-align: left;
+            border-top: 1px dashed var(--line);
+            margin-top: 6px
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--line);
+            font-size: .88rem
+        }
+
+        .row span:first-child {
+            color: var(--soft);
+            flex: none
+        }
+
+        .row span:last-child {
+            font-weight: 700;
+            text-align: right;
+            word-break: break-all
+        }
+
+        .deposit-preview {
+            max-width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--line);
+            margin-top: 8px;
+            max-height: 200px;
+            object-fit: contain;
+            cursor: pointer
+        }
+
+        .card-number {
+            font-family: monospace;
+            background: var(--group);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: .85rem
+        }
+
+        .empty {
+            text-align: center;
+            padding: 28px 12px;
+            color: var(--soft);
+            font-size: .88rem
+        }
+
+        .loading-row {
+            padding: 24px;
+            text-align: center;
+            color: var(--soft);
+            font-size: .88rem
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 16px
+        }
+
+        .snack {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 0px) + 12px);
+            left: 50%;
+            z-index: 99;
+            width: min(92vw, 460px);
+            padding: 13px 16px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: .9rem;
+            background: var(--ink);
+            box-shadow: 0 14px 34px -12px rgba(11, 35, 64, .6);
+            transform: translate(-50%, -160%);
+            opacity: 0;
+            transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .3s;
+            pointer-events: none
+        }
+
+        .snack.show {
+            transform: translate(-50%, 0);
+            opacity: 1
+        }
+
+        .snack.success {
+            background: var(--ok)
+        }
+
+        .snack.error {
+            background: var(--bad)
+        }
+    </style>
+</head>
+
+<body>
+    <div class="snack" id="snack"></div>
+    <header class="top">
+        <div class="in">
+            <div class="brand"><i>Ever</i> Crest Finance Bank <span class="badge-admin">Admin</span></div>
+            <a class="av" id="avatar" href="admin.html">AD</a>
+        </div>
+    </header>
+    <main>
+        <a class="back-link" href="admin.html">&larr; Back to Dashboard</a>
+        <h1>View Upload Cards</h1>
+        <p class="sub">Gift card deposits submitted by users. Approve directly from each row.</p>
+
+        <div class="panel">
+            <div class="panel-head">
+                <h2>All Deposit Submissions</h2>
+                <div class="ph-sub" id="count">—</div>
+            </div>
+            <div id="list" class="list">
+                <div class="loading-row">Loading deposits…</div>
+            </div>
+        </div>
+
+        <div class="panel" id="detail" hidden>
+            <div class="panel-head">
+                <h2 id="detailTitle">Deposit Details</h2>
+                <button class="btn-mini" style="background:#fff;border-color:var(--ink);color:var(--ink)"
+                    id="closeBtn">Close</button>
+            </div>
+            <div id="detailContent"></div>
+            <div class="btn-row">
+                <button class="btn-lg" id="approveBtn">Approve Deposit</button>
+            </div>
+        </div>
+    </main>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { getDatabase, ref, get, update, push, set } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBH0n84QTvGBWaSlJdO6AoUU6IRuJETHLA",
+            authDomain: "ever-crest-finance-bank.firebaseapp.com",
+            projectId: "ever-crest-finance-bank",
+            storageBucket: "ever-crest-finance-bank.firebasestorage.app",
+            messagingSenderId: "469287844559",
+            appId: "1:469287844559:web:4f219675a1055533be95ba"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+        const $ = i => document.getElementById(i);
+        const LOCALE = { NGN: 'en-NG', USD: 'en-US', GBP: 'en-GB', EUR: 'en-IE', GHS: 'en-GH', KES: 'en-KE', ZAR: 'en-ZA' };
+        const money = (n, c = 'USD') => { try { return new Intl.NumberFormat(LOCALE[c] || 'en', { style: 'currency', currency: c }).format(Number(n) || 0); } catch (_) { return c + ' ' + (Number(n) || 0).toFixed(2); } };
+        const fmtDate = t => t ? new Date(Number(t)).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—';
+        const fullName = u => [u && u.firstName, u && u.lastName].filter(Boolean).join(' ').trim() || 'Unnamed user';
+        const initials = u => (((u && u.firstName || '?')[0]) + ((u && u.lastName || '')[0] || '')).toUpperCase();
+        const statusPill = (status) => {
+            const s = String(status || 'pending').toLowerCase();
+            const cls = (s === 'approved' || s === 'completed' || s === 'successful') ? 'approved' : (s === 'failed') ? 'failed' : 'pending';
+            const label = cls === 'approved' ? 'Approved' : cls === 'failed' ? 'Failed' : 'Pending';
+            return { cls, label };
+        };
+        let snackTimer;
+        function toast(msg, type = 'info', ms = 5000) {
+            const s = $('snack'); s.textContent = msg; s.className = 'snack ' + type;
+            void s.offsetWidth; s.classList.add('show');
+            clearTimeout(snackTimer); snackTimer = setTimeout(() => s.classList.remove('show'), ms);
+        }
+
+        let allUsers = [];
+        let allDeposits = [];
+        let current = null;
+
+        (async () => {
+            await auth.authStateReady();
+            const user = auth.currentUser;
+            if (!user) { location.replace('login.html'); return; }
+            const adminSnap = await get(ref(db, 'users/' + user.uid));
+            const adminProf = adminSnap.exists() ? adminSnap.val() : {};
+            $('avatar').textContent = initials(adminProf) || 'AD';
+
+            const snap = await get(ref(db, 'users'));
+            if (snap.exists()) snap.forEach(child => allUsers.push({ uid: child.key, profile: child.val() || {} }));
+
+            await loadAllDeposits();
+            render();
+        })();
+
+        async function loadAllDeposits() {
+            allDeposits = [];
+            const promises = allUsers.map(u =>
+                get(ref(db, 'deposits/' + u.uid)).then(s => ({ uid: u.uid, snap: s })).catch(() => ({ uid: u.uid, snap: null }))
+            );
+            const results = await Promise.all(promises);
+            results.forEach(({ uid, snap }) => {
+                if (snap && snap.exists()) {
+                    snap.forEach(child => {
+                        const data = child.val() || {};
+                        if (data.method === 'gift_card' || data.cardNumber) {
+                            allDeposits.push({ uid, depositId: child.key, data });
+                        }
+                    });
+                }
+            });
+            allDeposits.sort((a, b) => (b.data.createdAt || 0) - (a.data.createdAt || 0));
+        }
+
+        function render() {
+            const container = $('list');
+            const countEl = $('count');
+            if (allDeposits.length === 0) {
+                countEl.textContent = '0 deposits';
+                container.innerHTML = '<div class="empty">No gift card deposits found.</div>';
+                return;
+            }
+            countEl.textContent = allDeposits.length + ' deposit' + (allDeposits.length === 1 ? '' : 's');
+            container.innerHTML = '';
+            allDeposits.forEach(dep => {
+                const u = allUsers.find(x => x.uid === dep.uid);
+                const profile = u ? u.profile : {};
+                const userName = fullName(profile) || dep.uid;
+                const amount = dep.data.amount || 0;
+                const slot = dep.data.slot || 'Apple/iTunes';
+                const cardNumber = dep.data.cardNumber || '—';
+                const createdAt = dep.data.createdAt;
+                const depStatus = String(dep.data.status || 'pending').toLowerCase();
+                const isApproved = depStatus === 'approved' || depStatus === 'completed' || depStatus === 'successful';
+                const { cls, label } = statusPill(depStatus);
+
+                const row = document.createElement('div');
+                row.className = 'list-item';
+
+                const left = document.createElement('div');
+                left.className = 'li-left';
+                left.innerHTML = `
+                    <div class="avatar" style="background:#b8860b;">🎁</div>
+                    <div>
+                        <div class="li-name">${userName}</div>
+                        <div class="li-meta">${slot} • ${money(amount)} • ${cardNumber.slice(0, 12)}${cardNumber.length > 12 ? '…' : ''}</div>
+                        <div class="li-meta" style="font-size:.7rem;">${fmtDate(createdAt)}</div>
+                    </div>
+                `;
+                left.addEventListener('click', () => openDetail(dep));
+
+                const right = document.createElement('div');
+                right.className = 'li-right';
+                const pill = document.createElement('span');
+                pill.className = 'pill ' + cls;
+                pill.textContent = label;
+                right.appendChild(pill);
+
+                const approveBtn = document.createElement('button');
+                approveBtn.className = 'btn-mini';
+                approveBtn.textContent = isApproved ? 'Approved ✓' : 'Approve';
+                approveBtn.disabled = isApproved;
+                approveBtn.addEventListener('click', (e) => { e.stopPropagation(); approve(dep, approveBtn); });
+                right.appendChild(approveBtn);
+
+                row.appendChild(left);
+                row.appendChild(right);
+                container.appendChild(row);
+            });
+        }
+
+        function openDetail(dep) {
+            current = dep;
+            const u = allUsers.find(x => x.uid === dep.uid);
+            const profile = u ? u.profile : {};
+            $('detailTitle').textContent = `Deposit: ${fullName(profile) || dep.uid}`;
+            const content = $('detailContent');
+            content.innerHTML = '';
+            const depStatus = String(dep.data.status || 'pending').toLowerCase();
+            const { cls, label } = statusPill(depStatus);
+            [
+                ['User', fullName(profile) || dep.uid],
+                ['Email', profile.email || '—'],
+                ['UID', dep.uid],
+                ['Slot / Type', dep.data.slot || 'Apple/iTunes'],
+                ['Amount', money(dep.data.amount)],
+                ['Card Code', `<span class="card-number">${dep.data.cardNumber || '—'}</span>`],
+                ['Status', `<span class="pill ${cls}">${label}</span>`],
+                ['Submitted', fmtDate(dep.data.createdAt)]
+            ].forEach(([k, v]) => {
+                const row = document.createElement('div');
+                row.className = 'row';
+                row.innerHTML = `<span>${k}</span><span>${v}</span>`;
+                content.appendChild(row);
+            });
+            if (dep.data.imageUrl) {
+                const img = document.createElement('img');
+                img.src = dep.data.imageUrl;
+                img.className = 'deposit-preview';
+                img.alt = 'Gift card upload';
+                img.addEventListener('click', () => window.open(dep.data.imageUrl, '_blank'));
+                content.appendChild(img);
+            } else {
+                const p = document.createElement('p');
+                p.className = 'loading-row';
+                p.textContent = 'No image uploaded.';
+                content.appendChild(p);
+            }
+            const btn = $('approveBtn');
+            const isApproved = depStatus === 'approved' || depStatus === 'completed';
+            btn.disabled = isApproved;
+            btn.textContent = isApproved ? 'Already Approved' : 'Approve Deposit';
+            btn.onclick = () => approve(dep, btn);
+            $('detail').hidden = false;
+        }
+
+        $('closeBtn').addEventListener('click', () => { $('detail').hidden = true; current = null; });
+
+        async function approve(dep, btn) {
+            if (!dep) return;
+            const amount = Number(dep.data.amount) || 0;
+            if (amount <= 0) { toast('Invalid deposit amount.', 'error'); return; }
+            btn.disabled = true;
+            const origText = btn.textContent;
+            btn.textContent = 'Approving…';
+            try {
+                const now = Date.now();
+                const u = allUsers.find(x => x.uid === dep.uid);
+                const currentBalance = Number((u && u.profile.balance) || 0);
+                const newBalance = currentBalance + amount;
+
+                await update(ref(db, 'deposits/' + dep.uid + '/' + dep.depositId), {
+                    status: 'approved', approvedAt: now,
+                    approvedBy: auth.currentUser ? auth.currentUser.uid : 'admin'
+                });
+                await update(ref(db, 'users/' + dep.uid), {
+                    balance: newBalance, balanceUpdatedAt: now,
+                    balanceUpdatedBy: auth.currentUser ? auth.currentUser.uid : 'admin'
+                });
+                const txRef = push(ref(db, 'transactions/' + dep.uid));
+                await set(txRef, {
+                    type: 'deposit', amount, previousBalance: currentBalance, newBalance,
+                    depositId: dep.depositId, slot: dep.data.slot || 'Gift card',
+                    cardNumber: dep.data.cardNumber || '', note: 'Gift card deposit approved',
+                    createdAt: now, createdBy: auth.currentUser ? auth.currentUser.uid : 'admin',
+                    currency: (u && u.profile.currency) || 'USD', status: 'completed'
+                });
+                const notifRef = push(ref(db, 'notifications/' + dep.uid));
+                await set(notifRef, {
+                    title: 'Deposit Approved',
+                    message: `Your deposit of ${money(amount, (u && u.profile.currency) || 'USD')} has been approved and credited. New balance: ${money(newBalance, (u && u.profile.currency) || 'USD')}.`,
+                    createdAt: now, read: false, type: 'deposit_approved',
+                    amount, newBalance
+                });
+                dep.data.status = 'approved';
+                if (u) u.profile.balance = newBalance;
+                toast('Deposit approved and balance credited.', 'success', 6000);
+                render();
+                $('detail').hidden = true;
+            } catch (e) {
+                console.error(e);
+                btn.disabled = false;
+                btn.textContent = origText;
+                toast('Could not approve deposit. ' + (e?.message || ''), 'error', 8000);
+            }
+        }
+    </script>
+</body>
+
+</html>

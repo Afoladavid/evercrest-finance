@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Clearance Submissions | Ever Crest Finance Bank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            --bg: #f5f7fb;
+            --surface: #fff;
+            --group: #fbfcfe;
+            --ink: #0b2340;
+            --soft: #5b6f86;
+            --line: #d5dee8;
+            --gold: #ffc93c;
+            --ok: #12a06b;
+            --bad: #d64535;
+            --info: #3d5a80;
+            --shadow: 0 20px 50px -30px rgba(11, 35, 64, .35);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit;
+        }
+
+        html {
+            height: 100%;
+            -webkit-text-size-adjust: 100%;
+            scroll-padding-top: env(safe-area-inset-top, 0px);
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--ink);
+            font: 15px/1.5 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        .top {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            z-index: 20;
+            background: rgba(255, 255, 255, .94);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .top .in {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: -.01em;
+        }
+
+        .brand i {
+            font-style: normal;
+            color: #e0a800;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px 18px 44px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 16px;
+            color: var(--ink);
+            font-weight: 700;
+            text-decoration: none;
+            font-size: .9rem;
+            background: none;
+            border: none;
+            padding: 0;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: clamp(1.4rem, 4.5vw, 2rem);
+            margin: 0 0 2px;
+            letter-spacing: -.02em;
+            font-weight: 800;
+        }
+
+        .sub {
+            color: var(--soft);
+            margin: 0 0 18px;
+            font-size: .9rem;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .search {
+            flex: 1;
+            min-width: 200px;
+            padding: 11px 14px;
+            font: inherit;
+            font-size: 16px;
+            color: var(--ink);
+            background: var(--surface);
+            border: 1.5px solid var(--line);
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .search:focus {
+            border-color: var(--ink);
+            box-shadow: 0 0 0 4px rgba(11, 35, 64, .08);
+        }
+
+        .count-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0 14px;
+            border-radius: 999px;
+            background: var(--surface);
+            border: 1.5px solid var(--line);
+            font-weight: 700;
+            font-size: .85rem;
+            color: var(--soft);
+            white-space: nowrap;
+        }
+
+        #loading,
+        .empty {
+            text-align: center;
+            color: var(--soft);
+            padding: 60px 10px;
+        }
+
+        /* ===== LIST ===== */
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 14px 16px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            text-align: left;
+            font: inherit;
+            color: inherit;
+            width: 100%;
+        }
+
+        .row:hover {
+            border-color: var(--ink);
+        }
+
+        .row:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 2px;
+        }
+
+        .row-av {
+            flex: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .85rem;
+        }
+
+        .row-main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .row-name {
+            font-weight: 800;
+            font-size: .96rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .row-sub {
+            color: var(--soft);
+            font-size: .8rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .row-meta {
+            flex: none;
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+
+        .row-date {
+            font-size: .74rem;
+            color: var(--soft);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: .72rem;
+            font-weight: 800;
+            text-transform: capitalize;
+        }
+
+        .badge::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .badge.pending {
+            background: #fff3c4;
+            color: #8a6400;
+        }
+
+        .badge.active {
+            background: #e8eef7;
+            color: var(--info);
+        }
+
+        .badge.approved {
+            background: #e3f6ee;
+            color: var(--ok);
+        }
+
+        .badge.rejected {
+            background: #fde8e5;
+            color: var(--bad);
+        }
+
+        .row-chevron {
+            flex: none;
+            color: var(--soft);
+        }
+
+        /* ===== DETAIL "PAGE" ===== */
+        .detail-head {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .detail-av {
+            flex: none;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .detail-head-main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .detail-name {
+            font-size: clamp(1.25rem, 4vw, 1.6rem);
+            font-weight: 800;
+            letter-spacing: -.02em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .detail-email {
+            color: var(--soft);
+            font-size: .88rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .pcard {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 14px;
+            box-shadow: var(--shadow);
+        }
+
+        .psection-title {
+            font-size: .62rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--soft);
+            margin: 0 0 12px;
+        }
+
+        .kv {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 9px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .kv:last-child {
+            border-bottom: none;
+        }
+
+        .kv-k {
+            flex: none;
+            color: var(--soft);
+            font-size: .84rem;
+            font-weight: 600;
+            padding-top: 2px;
+        }
+
+        .kv-v {
+            flex: 1;
+            min-width: 0;
+            text-align: right;
+            font-weight: 700;
+            font-size: .9rem;
+            word-break: break-word;
+        }
+
+        .kv-v.mono {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-weight: 600;
+        }
+
+        .kv-actions {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .icon-btn {
+            flex: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            border: none;
+            background: var(--group);
+            color: var(--soft);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+        }
+
+        .icon-btn:hover {
+            background: var(--line);
+            color: var(--ink);
+        }
+
+        .icon-btn svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        .docs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .doc {
+            display: block;
+            text-align: left;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--group);
+            cursor: pointer;
+            padding: 0;
+            font: inherit;
+            color: inherit;
+        }
+
+        .doc img {
+            display: block;
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background: var(--line);
+        }
+
+        .doc-label {
+            padding: 9px 12px;
+            font-size: .8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .doc-missing {
+            height: 160px;
+            display: grid;
+            place-items: center;
+            color: var(--soft);
+            font-size: .8rem;
+        }
+
+        @media (max-width: 460px) {
+            .docs {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .btn-approve {
+            width: 100%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            height: 46px;
+            margin-top: 4px;
+            border-radius: 999px;
+            border: none;
+            background: var(--ok);
+            color: #fff;
+            font: inherit;
+            font-weight: 800;
+            font-size: .9rem;
+            cursor: pointer;
+            transition: filter .2s, transform .15s;
+        }
+
+        .btn-approve:hover {
+            filter: brightness(1.08);
+        }
+
+        .btn-approve:active {
+            transform: scale(.99);
+        }
+
+        .btn-approve:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+        .btn-approve svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        .approved-note {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+            padding: 11px 14px;
+            border-radius: 12px;
+            background: #e3f6ee;
+            color: #0b6b47;
+            font-weight: 700;
+            font-size: .86rem;
+        }
+
+        .approved-note svg {
+            flex: none;
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ===== LIGHTBOX ===== */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 60;
+            background: rgba(7, 15, 26, .92);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .lightbox img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 10px;
+            box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .6);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: calc(env(safe-area-inset-top, 0px) + 16px);
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, .15);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, .28);
+        }
+
+        .snack {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 0px) + 12px);
+            left: 50%;
+            z-index: 99;
+            width: min(92vw, 460px);
+            padding: 13px 16px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: .9rem;
+            background: var(--ink);
+            box-shadow: 0 14px 34px -12px rgba(11, 35, 64, .6);
+            transform: translate(-50%, -160%);
+            opacity: 0;
+            transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .3s;
+            pointer-events: none;
+        }
+
+        .snack.show {
+            transform: translate(-50%, 0);
+            opacity: 1;
+        }
+
+        .snack.success {
+            background: var(--ok);
+        }
+
+        .snack.error {
+            background: var(--bad);
+        }
+
+        @media (max-width: 600px) {
+            main {
+                padding: 14px 14px 36px;
+            }
+
+            .top .in {
+                padding: 8px 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="snack" id="snack" role="status" aria-live="polite"></div>
+
+    <header class="top">
+        <div class="in">
+            <div class="brand"><i>Ever</i> Crest Finance Bank</div>
+        </div>
+    </header>
+
+    <main>
+        <!-- ============ LIST "PAGE" ============ -->
+        <div id="listPage">
+            <a class="back-link" href="dashboard.html">&larr; Back to Dashboard</a>
+            <h1>Clearance Submissions</h1>
+            <p class="sub">Every user who has submitted a clearance form. Select one to view their full details and
+                uploaded documents.</p>
+
+            <div class="toolbar">
+                <input class="search" id="search" type="text" placeholder="Search by name, email or username…">
+                <span class="count-pill" id="countPill">0 submissions</span>
+            </div>
+
+            <p id="loading">Loading submissions…</p>
+            <div class="empty" id="empty" hidden>No clearance form submissions yet.</div>
+            <div class="list" id="list" hidden></div>
+        </div>
+
+        <!-- ============ DETAIL "PAGE" (filled by JS) ============ -->
+        <div id="detailPage" hidden></div>
+    </main>
+
+    <!-- ============ IMAGE LIGHTBOX ============ -->
+    <div class="lightbox" id="lightbox" hidden>
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close image">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+        </button>
+        <img id="lightboxImg" src="" alt="Document preview">
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { getDatabase, ref, get, update, push, set, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBH0n84QTvGBWaSlJdO6AoUU6IRuJETHLA",
+            authDomain: "ever-crest-finance-bank.firebaseapp.com",
+            projectId: "ever-crest-finance-bank",
+            storageBucket: "ever-crest-finance-bank.firebasestorage.app",
+            messagingSenderId: "469287844559",
+            appId: "1:469287844559:web:4f219675a1055533be95ba"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        const $ = id => document.getElementById(id);
+        const PAGE_TITLE = document.title;
+
+        let snackTimer;
+        function toast(msg, type = 'info', ms = 6000) {
+            const s = $('snack');
+            s.textContent = msg;
+            s.className = 'snack ' + type;
+            void s.offsetWidth;
+            s.classList.add('show');
+            clearTimeout(snackTimer);
+            snackTimer = setTimeout(() => s.classList.remove('show'), ms);
+        }
+
+        const fmtDate = t => {
+            const n = Number(t);
+            if (!n) return '—';
+            return new Date(n).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        };
+        const initials = name => {
+            const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+            if (!parts.length) return '?';
+            return ((parts[0][0] || '') + (parts[1] ? parts[1][0] : '')).toUpperCase();
+        };
+        const esc = s => String(s == null ? '' : s);
+
+        /* ============================================================
+           DATA: flatten clearance_form/{uid}/{pushId} into submissions.
+           A "submission" is any entry that has submittedAt (i.e. the
+           user actually filled and sent the form) — this excludes the
+           admin's bare "active" activation entries which have no
+           submittedAt.
+           ============================================================ */
+        let allSubmissions = [];
+        let filtered = [];
+        let submissionsById = {};
+
+        function buildSubmissions(rootVal) {
+            const out = [];
+            if (!rootVal) return out;
+            Object.entries(rootVal).forEach(([uid, entries]) => {
+                if (!entries || typeof entries !== 'object') return;
+                // collect any non-submission (activation) entries for request-info lookup
+                const activation = Object.values(entries).find(e => e && !e.submittedAt && e.status);
+                Object.entries(entries).forEach(([pushId, entry]) => {
+                    if (!entry || !entry.submittedAt) return; // only actual submissions
+                    out.push({ uid, pushId, activation: activation || null, ...entry });
+                });
+            });
+            out.sort((a, b) => (Number(b.submittedAt) || 0) - (Number(a.submittedAt) || 0));
+            return out;
+        }
+
+        function statusClass(s) {
+            s = String(s || '').toLowerCase();
+            if (s === 'pending') return 'pending';
+            if (s === 'active') return 'active';
+            if (s === 'approved' || s === 'verified' || s === 'completed') return 'approved';
+            if (s === 'rejected' || s === 'declined') return 'rejected';
+            return 'pending';
+        }
+
+        function renderList() {
+            const list = $('list');
+            const q = ($('search').value || '').trim().toLowerCase();
+
+            filtered = !q ? allSubmissions : allSubmissions.filter(s => {
+                return [s.fullName, s.email, s.username, s.bankName, s.accountName]
+                    .some(v => String(v || '').toLowerCase().includes(q));
+            });
+
+            $('countPill').textContent = filtered.length + (filtered.length === 1 ? ' submission' : ' submissions');
+            $('loading').hidden = true;
+
+            if (!allSubmissions.length) {
+                $('empty').textContent = 'No clearance form submissions yet.';
+                $('empty').hidden = false;
+                list.hidden = true;
+                return;
+            }
+            if (!filtered.length) {
+                $('empty').textContent = 'No submissions match your search.';
+                $('empty').hidden = false;
+                list.hidden = true;
+                return;
+            }
+
+            $('empty').hidden = true;
+            list.hidden = false;
+            list.innerHTML = '';
+
+            filtered.forEach(s => {
+                const row = document.createElement('button');
+                row.type = 'button';
+                row.className = 'row';
+                row.addEventListener('click', () => goToDetail(s));
+
+                row.innerHTML = `
+                    <span class="row-av">${esc(initials(s.fullName))}</span>
+                    <span class="row-main">
+                        <div class="row-name">${esc(s.fullName || 'Unknown')}</div>
+                        <div class="row-sub">${esc(s.email || s.username || s.uid)}</div>
+                    </span>
+                    <span class="row-meta">
+                        <span class="badge ${statusClass(s.status)}">${esc(s.status || 'pending')}</span>
+                        <span class="row-date">${esc(fmtDate(s.submittedAt))}</span>
+                    </span>
+                    <span class="row-chevron">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+                    </span>
+                `;
+                list.appendChild(row);
+            });
+        }
+
+        /* ============================================================
+           DETAIL "PAGE" — replaces the list in the same main area,
+           like navigating to a new page. Uses a URL hash so the
+           browser's back button returns to the list naturally.
+           ============================================================ */
+        function kvRow(label, value, opts = {}) {
+            const { mono = false, copy = false, mask = false } = opts;
+            const id = 'kv_' + Math.random().toString(36).slice(2, 9);
+            const display = mask ? '••••••••' : esc(value || '—');
+            return `
+                <div class="kv">
+                    <div class="kv-k">${esc(label)}</div>
+                    <div class="kv-v ${mono ? 'mono' : ''}">
+                        <span class="kv-actions">
+                            <span id="${id}" data-raw="${esc(value || '')}" data-masked="${mask ? '1' : '0'}">${display}</span>
+                            ${mask ? `<button type="button" class="icon-btn" data-reveal="${id}" aria-label="Show ${esc(label)}">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </button>` : ''}
+                            ${copy ? `<button type="button" class="icon-btn" data-copy="${id}" aria-label="Copy ${esc(label)}">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+                            </button>` : ''}
+                        </span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function docCard(label, url) {
+            if (!url) {
+                return `
+                    <div class="doc">
+                        <div class="doc-missing">Not uploaded</div>
+                        <div class="doc-label">${esc(label)}</div>
+                    </div>
+                `;
+            }
+            return `
+                <button type="button" class="doc" data-img="${esc(url)}">
+                    <img src="${esc(url)}" alt="${esc(label)}" loading="lazy">
+                    <div class="doc-label">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9-4 9 4-9 4-9-4zM3 7v10l9 4 9-4V7"/></svg>
+                        ${esc(label)}
+                    </div>
+                </button>
+            `;
+        }
+
+        function renderDetail(s) {
+            const page = $('detailPage');
+            const act = s.activation;
+
+            page.innerHTML = `
+                <button type="button" class="back-link" id="detailBack">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+                    Back to Submissions
+                </button>
+
+                <div class="detail-head">
+                    <span class="detail-av">${esc(initials(s.fullName))}</span>
+                    <span class="detail-head-main">
+                        <div class="detail-name">${esc(s.fullName || 'Unknown')}</div>
+                        <div class="detail-email">${esc(s.email || s.uid)}</div>
+                    </span>
+                    <span class="badge ${statusClass(s.status)}">${esc(s.status || 'pending')}</span>
+                </div>
+
+                <div class="pcard">
+                    <div class="psection-title">Submission</div>
+                    ${kvRow('Status', s.status)}
+                    ${kvRow('Submitted', fmtDate(s.submittedAt))}
+                    ${kvRow('User ID', s.uid, { mono: true, copy: true })}
+                    ${act && act.requestRef ? kvRow('Request Ref', act.requestRef, { mono: true, copy: true }) : ''}
+                    ${act && act.source ? kvRow('Source', act.source) : ''}
+                    ${act && act.activatedBy ? kvRow('Activated By', act.activatedBy, { mono: true }) : ''}
+                    ${act && act.activatedAt ? kvRow('Activated At', fmtDate(act.activatedAt)) : ''}
+                    ${statusClass(s.status) === 'approved' ? `
+                        <div class="approved-note">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>
+                            Approved${s.approvedAt ? ' on ' + esc(fmtDate(s.approvedAt)) : ''}
+                        </div>
+                    ` : `
+                        <button type="button" class="btn-approve" id="approveBtn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>
+                            Approve Clearance
+                        </button>
+                    `}
+                </div>
+
+                <div class="pcard">
+                    <div class="psection-title">Personal Details</div>
+                    ${kvRow('Full Name', s.fullName)}
+                    ${kvRow('Email', s.email, { copy: true })}
+                    ${kvRow('Phone', s.phone, { copy: true })}
+                    ${kvRow('Address', s.address)}
+                </div>
+
+                <div class="pcard">
+                    <div class="psection-title">Local Bank Information</div>
+                    ${kvRow('Bank Name', s.bankName)}
+                    ${kvRow('Account Name', s.accountName)}
+                    ${kvRow('Account Number', s.accountNumber, { mono: true, copy: true })}
+                </div>
+
+                <div class="pcard">
+                    <div class="psection-title">Login Credentials</div>
+                    ${kvRow('Username', s.username, { copy: true })}
+                    ${kvRow('Password', s.password, { mono: true, copy: true, mask: true })}
+                </div>
+
+                <div class="pcard">
+                    <div class="psection-title">Verification Documents</div>
+                    <div class="docs">
+                        ${docCard('SSN', s.ssnUrl)}
+                        ${docCard('ID Card', s.idUrl)}
+                    </div>
+                </div>
+            `;
+
+            page.querySelector('#detailBack').addEventListener('click', () => {
+                if (location.hash) history.back();
+                else showList();
+            });
+
+            const approveBtn = page.querySelector('#approveBtn');
+            if (approveBtn) approveBtn.addEventListener('click', () => approveSubmission(s, approveBtn));
+
+            page.querySelectorAll('[data-reveal]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const target = $(btn.getAttribute('data-reveal'));
+                    const masked = target.getAttribute('data-masked') === '1';
+                    target.textContent = masked ? (target.getAttribute('data-raw') || '—') : '••••••••';
+                    target.setAttribute('data-masked', masked ? '0' : '1');
+                });
+            });
+
+            page.querySelectorAll('[data-copy]').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const target = $(btn.getAttribute('data-copy'));
+                    const raw = target.getAttribute('data-raw') || '';
+                    try {
+                        await navigator.clipboard.writeText(raw);
+                        toast('Copied to clipboard.', 'success', 2500);
+                    } catch (e) {
+                        toast('Could not copy.', 'error', 3000);
+                    }
+                });
+            });
+
+            page.querySelectorAll('[data-img]').forEach(btn => {
+                btn.addEventListener('click', () => openLightbox(btn.getAttribute('data-img')));
+            });
+        }
+
+        /* ============================================================
+           APPROVE — flips this submission's status from "pending" to
+           "approved" in Firebase and notifies the user. The admin's
+           own onValue listener (below) will pick up the change and
+           re-render this detail page automatically.
+           ============================================================ */
+        async function approveSubmission(s, btn) {
+            btn.disabled = true;
+            btn.textContent = 'Approving…';
+
+            try {
+                const now = Date.now();
+                const adminUid = auth.currentUser ? auth.currentUser.uid : null;
+
+                await update(ref(db, 'clearance_form/' + s.uid + '/' + s.pushId), {
+                    status: 'approved',
+                    approvedAt: now,
+                    approvedBy: adminUid
+                });
+
+                const notifRef = push(ref(db, 'notifications/' + s.uid));
+                await set(notifRef, {
+                    title: 'Clearance Approved',
+                    message: 'Your clearance has been verified and approved. You can now proceed.',
+                    createdAt: now,
+                    read: false,
+                    type: 'clearance_approved'
+                });
+
+                toast('Clearance approved and user notified.', 'success', 5000);
+            } catch (err) {
+                console.error('Could not approve clearance:', err);
+                toast('Could not approve clearance. ' + (err && err.message ? err.message : ''), 'error', 7000);
+                btn.disabled = false;
+                btn.textContent = 'Approve Clearance';
+            }
+        }
+
+        function showList() {
+            $('listPage').hidden = false;
+            $('detailPage').hidden = true;
+            document.title = PAGE_TITLE;
+            window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+        }
+
+        function showDetailById(pushId) {
+            const s = submissionsById[pushId];
+            if (!s) { showList(); return; }
+            renderDetail(s);
+            $('listPage').hidden = true;
+            $('detailPage').hidden = false;
+            document.title = (s.fullName || 'Submission') + ' — Clearance | Ever Crest Finance Bank';
+            window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+        }
+
+        // Clicking a row pushes a hash so this behaves like real navigation —
+        // the browser's Back button returns to the list, same as a new page would.
+        function goToDetail(s) {
+            if (location.hash === '#' + s.pushId) { showDetailById(s.pushId); }
+            else { location.hash = s.pushId; }
+        }
+
+        window.addEventListener('hashchange', () => {
+            const id = location.hash.replace(/^#/, '');
+            if (id && submissionsById[id]) showDetailById(id);
+            else showList();
+        });
+
+        $('search').addEventListener('input', renderList);
+
+        /* ============================================================
+           IMAGE LIGHTBOX (unchanged — still an overlay, since this is
+           just a zoomed document viewer, not a navigation step)
+           ============================================================ */
+        function openLightbox(url) {
+            $('lightboxImg').src = url;
+            $('lightbox').hidden = false;
+        }
+        function closeLightbox() {
+            $('lightbox').hidden = true;
+            $('lightboxImg').src = '';
+        }
+        $('lightboxClose').addEventListener('click', closeLightbox);
+        $('lightbox').addEventListener('click', e => { if (e.target.id === 'lightbox') closeLightbox(); });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && !$('lightbox').hidden) closeLightbox();
+        });
+
+        /* ============================================================
+           LOAD
+           ============================================================ */
+        (async () => {
+            await auth.authStateReady();
+            const user = auth.currentUser;
+            if (!user) { location.replace('login.html'); return; }
+
+            onValue(ref(db, 'clearance_form'), snap => {
+                allSubmissions = buildSubmissions(snap.exists() ? snap.val() : null);
+                submissionsById = {};
+                allSubmissions.forEach(s => { submissionsById[s.pushId] = s; });
+                renderList();
+
+                // If a submission is already selected via hash (e.g. on load
+                // or refresh), show its detail page immediately.
+                const id = location.hash.replace(/^#/, '');
+                if (id && submissionsById[id]) showDetailById(id);
+            }, err => {
+                console.error('Could not load clearance submissions:', err);
+                $('loading').hidden = true;
+                $('empty').textContent = 'Could not load submissions. Check your connection or permissions.';
+                $('empty').hidden = false;
+                toast('Could not load submissions.', 'error', 6000);
+            });
+        })();
+    </script>
+</body>
+
+</html>

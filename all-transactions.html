@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>All Transactions | Ever Crest Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            --bg: #f5f7fb;
+            --surface: #fff;
+            --group: #fbfcfe;
+            --ink: #0b2340;
+            --soft: #5b6f86;
+            --line: #d5dee8;
+            --gold: #ffc93c;
+            --ok: #12a06b;
+            --bad: #d64535;
+            --shadow: 0 20px 50px -30px rgba(11, 35, 64, .35)
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--ink);
+            font: 15px/1.5 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+        }
+
+        .top {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            z-index: 20;
+            background: rgba(255, 255, 255, .94);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .top .in {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: -.01em
+        }
+
+        .brand i {
+            font-style: normal;
+            color: #e0a800
+        }
+
+        .badge-admin {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: #fff8e6;
+            border: 1px solid var(--gold);
+            color: #b8860b;
+            font-size: .7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            margin-left: 8px
+        }
+
+        .av {
+            text-decoration: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .82rem
+        }
+
+        main {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 22px 18px 60px
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 4vw, 1.9rem);
+            margin: 0 0 2px;
+            letter-spacing: -.02em;
+            font-weight: 800
+        }
+
+        .sub {
+            color: var(--soft);
+            margin: 0 0 18px;
+            font-size: .9rem
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 12px;
+            color: var(--ink);
+            font-weight: 700;
+            text-decoration: none;
+            font-size: .88rem
+        }
+
+        .back-link:hover {
+            text-decoration: underline
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 18px 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 18px
+        }
+
+        .panel-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+            flex-wrap: wrap
+        }
+
+        .panel-head h2 {
+            margin: 0;
+            font-size: 1.05rem;
+            font-weight: 800
+        }
+
+        .panel-head .ph-sub {
+            font-size: .82rem;
+            color: var(--soft)
+        }
+
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 14px;
+            background: var(--group);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            text-decoration: none;
+            color: inherit;
+            width: 100%
+        }
+
+        .list-item:hover {
+            border-color: var(--ink);
+            background: #fff
+        }
+
+        .li-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+            flex: 1
+        }
+
+        .avatar {
+            flex: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: .82rem
+        }
+
+        .li-name {
+            font-weight: 700;
+            font-size: .92rem;
+            word-break: break-word
+        }
+
+        .li-meta {
+            font-size: .78rem;
+            color: var(--soft);
+            word-break: break-all
+        }
+
+        .li-right {
+            flex: none;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: .72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .04em
+        }
+
+        .pill.pending {
+            background: #fff8e6;
+            color: #b8860b
+        }
+
+        .pill.approved,
+        .pill.completed {
+            background: #e3f6ee;
+            color: #0b6b47
+        }
+
+        .pill.processing {
+            background: #e0f2fe;
+            color: #0369a1
+        }
+
+        .pill.failed {
+            background: #fbe7e4;
+            color: #a3291c
+        }
+
+        .empty {
+            text-align: center;
+            padding: 28px 12px;
+            color: var(--soft);
+            font-size: .88rem
+        }
+
+        .loading-row {
+            padding: 24px;
+            text-align: center;
+            color: var(--soft);
+            font-size: .88rem
+        }
+
+        @media(max-width:560px) {
+            .li-right {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 6px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top">
+        <div class="in">
+            <div class="brand"><i>Ever</i> Crest Finance Bank <span class="badge-admin">Admin</span></div>
+            <a class="av" id="avatar" href="admin.html">AD</a>
+        </div>
+    </header>
+    <main>
+        <a class="back-link" href="admin.html">&larr; Back to Dashboard</a>
+        <h1>All Transactions</h1>
+        <p class="sub">All deposit transactions from users.</p>
+
+        <div class="panel">
+            <div class="panel-head">
+                <h2>Transactions</h2>
+                <div class="ph-sub" id="count">—</div>
+            </div>
+            <div id="list" class="list">
+                <div class="loading-row">Loading transactions…</div>
+            </div>
+        </div>
+    </main>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBH0n84QTvGBWaSlJdO6AoUU6IRuJETHLA",
+            authDomain: "ever-crest-finance-bank.firebaseapp.com",
+            projectId: "ever-crest-finance-bank",
+            storageBucket: "ever-crest-finance-bank.firebasestorage.app",
+            messagingSenderId: "469287844559",
+            appId: "1:469287844559:web:4f219675a1055533be95ba"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+        const $ = i => document.getElementById(i);
+        const LOCALE = { NGN: 'en-NG', USD: 'en-US', GBP: 'en-GB', EUR: 'en-IE', GHS: 'en-GH', KES: 'en-KE', ZAR: 'en-ZA' };
+        const money = (n, c = 'USD') => { try { return new Intl.NumberFormat(LOCALE[c] || 'en', { style: 'currency', currency: c }).format(Number(n) || 0); } catch (_) { return c + ' ' + (Number(n) || 0).toFixed(2); } };
+        const fmtDate = t => t ? new Date(Number(t)).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—';
+        const fullName = u => [u && u.firstName, u && u.lastName].filter(Boolean).join(' ').trim() || 'Unnamed user';
+        const initials = u => (((u && u.firstName || '?')[0]) + ((u && u.lastName || '')[0] || '')).toUpperCase();
+        const statusPill = (status) => {
+            const s = String(status || 'pending').toLowerCase();
+            const cls = (s === 'approved' || s === 'completed' || s === 'successful') ? 'approved' : (s === 'processing') ? 'processing' : (s === 'failed') ? 'failed' : 'pending';
+            const label = cls === 'approved' ? 'Approved' : cls === 'processing' ? 'Processing' : cls === 'failed' ? 'Failed' : 'Pending';
+            return { cls, label };
+        };
+
+        (async () => {
+            await auth.authStateReady();
+            const user = auth.currentUser;
+            if (!user) { location.replace('login.html'); return; }
+            const adminSnap = await get(ref(db, 'users/' + user.uid));
+            const adminProf = adminSnap.exists() ? adminSnap.val() : {};
+            $('avatar').textContent = initials(adminProf) || 'AD';
+
+            const usersSnap = await get(ref(db, 'users'));
+            const allUsers = [];
+            if (usersSnap.exists()) usersSnap.forEach(c => allUsers.push({ uid: c.key, profile: c.val() || {} }));
+
+            const all = [];
+
+            // deposits
+            const depResults = await Promise.all(allUsers.map(u =>
+                get(ref(db, 'deposits/' + u.uid)).then(s => ({ uid: u.uid, snap: s })).catch(() => ({ uid: u.uid, snap: null }))
+            ));
+            depResults.forEach(({ uid, snap }) => {
+                if (snap && snap.exists()) snap.forEach(child => {
+                    const data = child.val() || {};
+                    if (data.method === 'gift_card' || data.cardNumber) {
+                        const prof = allUsers.find(x => x.uid === uid)?.profile || {};
+                        all.push({ kind: 'deposit', uid, profile: prof, id: child.key, data, createdAt: data.createdAt || 0 });
+                    }
+                });
+            });
+
+            // withdrawals
+            const txResults = await Promise.all(allUsers.map(u =>
+                get(ref(db, 'transactions/' + u.uid)).then(s => ({ uid: u.uid, snap: s })).catch(() => ({ uid: u.uid, snap: null }))
+            ));
+            txResults.forEach(({ uid, snap }) => {
+                if (snap && snap.exists()) snap.forEach(child => {
+                    const tx = child.val() || {};
+                    if (tx.type === 'withdrawal') {
+                        const prof = allUsers.find(x => x.uid === uid)?.profile || {};
+                        all.push({ kind: 'withdrawal', uid, profile: prof, id: child.key, data: tx, createdAt: tx.createdAt || 0 });
+                    }
+                });
+            });
+
+            all.sort((a, b) => b.createdAt - a.createdAt);
+
+            const container = $('list');
+            if (all.length === 0) {
+                $('count').textContent = '0 transactions';
+                container.innerHTML = '<div class="empty">No transactions found.</div>';
+                return;
+            }
+            $('count').textContent = all.length + ' transaction' + (all.length === 1 ? '' : 's');
+            container.innerHTML = '';
+            all.forEach(item => {
+                const isDeposit = item.kind === 'deposit';
+                const profile = item.profile || {};
+                const userName = fullName(profile) || item.uid;
+                const amount = item.data.amount;
+                const currency = item.data.currency || 'USD';
+                const status = item.data.status || 'pending';
+                const { cls, label } = statusPill(status);
+
+                const a = document.createElement('a');
+                a.className = 'list-item';
+                a.href = isDeposit
+                    ? `deposits.html`
+                    : `request-detail.html?uid=${encodeURIComponent(item.uid)}&ref=${encodeURIComponent(item.id)}`;
+                a.innerHTML = `
+                    <div class="li-left">
+                        <div class="avatar" style="background:${isDeposit ? '#b8860b' : 'var(--ink)'};">${isDeposit ? '💰' : '💸'}</div>
+                        <div>
+                            <div class="li-name">${userName}</div>
+                            <div class="li-meta">${isDeposit ? 'Deposit' : 'Withdrawal'} • ${money(amount, currency)}${isDeposit ? ' • ' + (item.data.slot || 'Gift card') : ''}</div>
+                            <div class="li-meta" style="font-size:.7rem;">${fmtDate(item.createdAt)}</div>
+                        </div>
+                    </div>
+                    <div class="li-right"><span class="pill ${isDeposit ? 'completed' : cls}">${isDeposit ? 'Deposit' : label}</span></div>
+                `;
+                container.appendChild(a);
+            });
+        })();
+    </script>
+</body>
+
+</html>
