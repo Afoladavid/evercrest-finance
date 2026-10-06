@@ -192,7 +192,6 @@
             font-weight: 600;
             font-size: .9rem;
             background: var(--ink);
-            box-shadow: 0 14px 34px -12px rgba(11, 35, 64, .6);
             transform: translate(-50%, -160%);
             opacity: 0;
             transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .3s;
@@ -255,7 +254,7 @@
             <h1>You are all set</h1>
             <p class="lead" id="doneMsg">Your Ever Crest account is ready. Head to your dashboard to start saving and
                 investing.</p>
-            <button class="btn" type="button" id="goBtn" disabled>Go to dashboard</button>
+            <button class="btn" type="button" id="goBtn">Go to dashboard</button>
         </main>
     </div>
 
@@ -299,8 +298,9 @@
             toast('Something went wrong (' + (c || (err && err.message) || 'unknown') + '). Please try again.', 'error', 8000);
         }
 
-        let user = null, saved = null;
-        (async () => {
+        let user = null, saved = null, allowed = false;
+        // The button is now active immediately. A click waits for this check to finish.
+        const ready = (async () => {
             await auth.authStateReady();
             user = auth.currentUser;
             if (!user) { location.replace('login.html'); return; }
@@ -316,14 +316,16 @@
             if (step < 3) { location.replace(ROUTES[Math.max(1, step)]); return; }
             if (step >= 4) { location.replace(ROUTES[4]); return; }
             if (saved.firstName) $('doneMsg').textContent = 'Welcome, ' + saved.firstName + '. Your Ever Crest account is ready. Head to your dashboard to start saving and investing.';
-            $('goBtn').disabled = false;
+            allowed = true;
         })();
 
         $('goBtn').addEventListener('click', async () => {
             const b = $('goBtn');
-            if (!user) return;
+            if (b.disabled) return;
             b.disabled = true; b.textContent = 'Opening dashboard…';
             try {
+                await ready;
+                if (!user || !allowed) return;
                 await Promise.race([
                     update(ref(db, 'users/' + user.uid), { step: Math.max(4, Number(saved && saved.step) || 0), completedAt: serverTimestamp(), updatedAt: serverTimestamp() }),
                     new Promise((_, rej) => setTimeout(() => rej({ code: 'db-timeout' }), 10000))
