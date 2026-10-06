@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Dashboard | Ever Crest Finance </title>
+    <title>Dashboard | EverCrest Finance</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -73,11 +73,6 @@
             letter-spacing: -.01em
         }
 
-        .brand i {
-            font-style: normal;
-            color: #e0a800
-        }
-
         .who {
             display: flex;
             align-items: center;
@@ -115,10 +110,80 @@
             padding: 20px 18px 44px
         }
 
-        #loading {
-            text-align: center;
+        /* ===== SPLASH LOADER ===== */
+        .splash {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 22px;
+            padding: 24px;
+            text-align: center
+        }
+
+        .splash-mark {
+            position: relative;
+            width: 96px;
+            height: 96px;
+            display: grid;
+            place-items: center
+        }
+
+        .splash-logo {
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
+            background: var(--ink);
+            display: grid;
+            place-items: center;
+            animation: splashPulse 1.6s ease-in-out infinite
+        }
+
+        .splash-logo svg {
+            width: 34px;
+            height: 34px
+        }
+
+        .splash-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 3px solid var(--line);
+            border-top-color: var(--gold);
+            animation: splashSpin 1s linear infinite
+        }
+
+        .splash-name {
+            font-weight: 800;
+            font-size: 1.05rem;
+            letter-spacing: -.01em
+        }
+
+        .splash-msg {
             color: var(--soft);
-            padding: 80px 0
+            font-size: .88rem;
+            margin: 0
+        }
+
+        .splash.failed .splash-ring {
+            animation: none;
+            border-color: var(--bad)
+        }
+
+        @keyframes splashSpin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        @keyframes splashPulse {
+            50% {
+                transform: scale(.93)
+            }
         }
 
         h1 {
@@ -1028,7 +1093,7 @@
 
     <header class="top">
         <div class="in">
-            <div class="brand"><i>Ever</i> Crest Finance </div>
+            <div class="brand">EverCrest Finance</div>
             <div class="who">
                 <a class="helpbtn" href="help.html" aria-label="Help" title="Help">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -1058,11 +1123,21 @@
     </header>
 
     <main>
-        <p id="loading">Loading your dashboard…</p>
+        <div class="splash" id="loading" role="status" aria-live="polite">
+            <div class="splash-mark">
+                <span class="splash-ring"></span>
+                <span class="splash-logo"><svg viewBox="0 0 24 24" fill="none" stroke="#ffc93c" stroke-width="2.6"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 18 9 8l4 6 3-4 5 8" />
+                    </svg></span>
+            </div>
+            <div class="splash-name">EverCrest Finance</div>
+            <p class="splash-msg" id="loadMsg">Loading your dashboard…</p>
+        </div>
 
         <div id="app" hidden>
             <h1 id="greet">Welcome</h1>
-            <p class="sub">Here is a summary of your online banking.</p>
+            <p class="sub">Here is a summary of your account.</p>
 
             <section class="grid">
                 <div class="bal">
@@ -1214,6 +1289,7 @@
         const firebaseConfig = {
             apiKey: "AIzaSyBH0n84QTvGBWaSlJdO6AoUU6IRuJETHLA",
             authDomain: "ever-crest-finance-bank.firebaseapp.com",
+            databaseURL: "https://ever-crest-finance-bank-default-rtdb.firebaseio.com",
             projectId: "ever-crest-finance-bank",
             storageBucket: "ever-crest-finance-bank.firebasestorage.app",
             messagingSenderId: "469287844559",
@@ -1422,7 +1498,7 @@
                 }
             } catch (e) {
                 console.error(e);
-                if (!d) $('loading').textContent = 'We could not load your data. Check your connection and refresh.';
+                if (!d) { $('loading').classList.add('failed'); $('loadMsg').textContent = 'We could not load your data. Check your connection and refresh.'; }
                 return;
             }
             const step = Number(d && d.step) || 1;
