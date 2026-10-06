@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Log in | Ever Crest Finance </title>
+    <title>Log in | EverCrest Finance</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -14,16 +14,13 @@
             padding-top: env(safe-area-inset-top, 0px);
             padding-bottom: env(safe-area-inset-bottom, 0px);
             --bg: #fff;
-            --surface: #fff;
-            --group: #fbfcfe;
+            --field: #f3f5f8;
             --ink: #0b2340;
-            --soft: #5b6f86;
-            --line: #d5dee8;
+            --soft: #6b7c90;
+            --line: #e3e9f0;
             --gold: #ffc93c;
             --ok: #12a06b;
             --bad: #d64535;
-            --ring: rgba(11, 35, 64, .14);
-            --shadow: 0 20px 50px -20px rgba(11, 35, 64, .25)
         }
 
         *,
@@ -46,12 +43,13 @@
             font: 15px/1.5 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
         }
 
-        .shell {
-            max-width: 1040px;
+        .page {
+            max-width: 420px;
             margin: 0 auto;
-            padding: 20px 18px 40px;
-            display: grid;
-            gap: 28px
+            padding: 24px 22px 32px;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column
         }
 
         .brand {
@@ -59,147 +57,51 @@
             align-items: center;
             gap: 10px;
             font-weight: 800;
-            font-size: 1.05rem;
+            font-size: 1.02rem;
             letter-spacing: -.01em
         }
 
-        .brand i {
-            font-style: normal;
-            color: #e0a800
+        .logo {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: var(--ink);
+            display: grid;
+            place-items: center
+        }
+
+        .logo svg {
+            width: 20px;
+            height: 20px
+        }
+
+        .head {
+            margin: 44px 0 28px
         }
 
         h1 {
-            font-size: clamp(1.9rem, 6vw, 2.9rem);
-            line-height: 1.08;
+            font-size: 1.9rem;
+            line-height: 1.15;
             letter-spacing: -.03em;
-            margin: 0 0 10px;
+            margin: 0 0 8px;
             font-weight: 800
         }
 
         .lead {
             color: var(--soft);
             margin: 0;
-            font-size: .8rem;
-            line-height: 1.5;
-            max-width: 46ch
-        }
-
-        .card3d {
-            position: relative;
-            margin-top: 26px;
-            max-width: 360px;
-            aspect-ratio: 1.586;
-            border-radius: 22px;
-            padding: 22px;
-            color: #fff;
-            overflow: hidden;
-            background: linear-gradient(135deg, #123a68, #0b2340 55%, #071a30);
-            box-shadow: 0 30px 60px -25px rgba(7, 26, 48, .7);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transform: rotate(-2deg);
-            transition: transform .5s cubic-bezier(.2, .8, .2, 1)
-        }
-
-        .card3d:hover {
-            transform: rotate(0) translateY(-4px)
-        }
-
-        .card3d::before {
-            content: "";
-            position: absolute;
-            right: -60px;
-            bottom: -70px;
-            width: 240px;
-            height: 240px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 201, 60, .5), transparent 68%)
-        }
-
-        .card3d svg.ridge {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-            opacity: .16
-        }
-
-        .row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative
-        }
-
-        .chip {
-            width: 42px;
-            height: 31px;
-            border-radius: 7px;
-            background: linear-gradient(135deg, #ffe08a, #e2a915)
-        }
-
-        .cn {
-            font-size: 1.12rem;
-            letter-spacing: .16em;
-            font-weight: 600;
-            position: relative
-        }
-
-        .cl {
-            font-size: .62rem;
-            opacity: .65;
-            letter-spacing: .08em;
-            display: block
-        }
-
-        .cname {
-            font-weight: 700;
-            font-size: .92rem;
-            letter-spacing: .06em;
-            text-transform: uppercase;
-            max-width: 220px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap
-        }
-
-        .panel {
-            background: var(--surface);
-            border: 1px solid var(--line);
-            border-radius: 16px;
-            padding: 18px 16px 16px;
-            box-shadow: var(--shadow)
-        }
-
-        fieldset {
-            margin: 0 0 12px;
-            padding: 4px 12px 0;
-            min-width: 0;
-            border: 1.5px solid var(--line);
-            border-radius: 10px
-        }
-
-        legend {
-            padding: 0 10px;
-            margin-left: 2px;
-            font-size: 1.2rem;
-            font-weight: 800;
-            letter-spacing: -.01em;
-            color: var(--ink)
+            font-size: .95rem
         }
 
         .field {
-            margin-bottom: 12px
+            margin-bottom: 18px
         }
 
         .field label {
             display: block;
-            font-size: .86rem;
+            font-size: .85rem;
             font-weight: 600;
-            color: var(--soft);
-            margin: 0 0 6px
+            margin: 0 0 8px
         }
 
         .control {
@@ -210,18 +112,18 @@
 
         .control input {
             width: 100%;
-            height: 46px;
-            padding: 0 44px 0 14px;
+            height: 54px;
+            padding: 0 48px 0 16px;
             font: inherit;
             font-size: 16px;
             color: var(--ink);
-            background: var(--group);
-            border: 1.5px solid var(--line);
-            border-radius: 8px;
+            background: var(--field);
+            border: 1.5px solid transparent;
+            border-radius: 14px;
             outline: 0;
             appearance: none;
             -webkit-appearance: none;
-            transition: border-color .2s, box-shadow .2s
+            transition: border-color .2s, background .2s
         }
 
         .control input::placeholder {
@@ -230,24 +132,24 @@
 
         .control input:focus {
             background: #fff;
-            border-color: var(--ink);
-            box-shadow: 0 0 0 4px var(--ring)
+            border-color: var(--ink)
         }
 
         .field.valid input {
-            border-color: var(--ok)
+            border-color: var(--ok);
+            background: #fff
         }
 
         .field.invalid input {
             border-color: var(--bad);
-            box-shadow: 0 0 0 4px rgba(214, 69, 53, .1)
+            background: #fff
         }
 
         .tick {
             position: absolute;
-            right: 12px;
-            width: 22px;
-            height: 22px;
+            right: 14px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             background: var(--ok);
             display: grid;
@@ -258,8 +160,8 @@
         }
 
         .tick svg {
-            width: 12px;
-            height: 12px
+            width: 11px;
+            height: 11px
         }
 
         .field.valid .tick {
@@ -269,10 +171,10 @@
         .eye {
             position: absolute;
             right: 6px;
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border: 0;
-            border-radius: 6px;
+            border-radius: 10px;
             background: transparent;
             color: var(--soft);
             display: grid;
@@ -302,11 +204,11 @@
         }
 
         .has-eye .control input {
-            padding-right: 84px
+            padding-right: 88px
         }
 
         .has-eye .tick {
-            right: 48px
+            right: 52px
         }
 
         .err {
@@ -324,19 +226,35 @@
             display: none
         }
 
+        .linkrow {
+            display: flex;
+            justify-content: flex-end;
+            margin: -4px 0 20px
+        }
+
+        .linkbtn {
+            background: none;
+            border: 0;
+            padding: 0;
+            font: inherit;
+            font-size: .88rem;
+            font-weight: 700;
+            color: var(--ink);
+            cursor: pointer
+        }
+
         .btn {
             width: 100%;
-            height: 52px;
+            height: 54px;
             margin-top: 6px;
             border: 0;
             border-radius: 999px;
             background: var(--gold);
-            color: #0b2340;
+            color: var(--ink);
             font: inherit;
             font-size: 1.05rem;
             font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 10px 24px -10px rgba(255, 201, 60, .9);
             transition: transform .15s, filter .2s
         }
 
@@ -361,8 +279,9 @@
         .foot {
             text-align: center;
             color: var(--soft);
-            font-size: .87rem;
-            margin: 14px 0 0
+            font-size: .92rem;
+            margin: auto 0 0;
+            padding-top: 28px
         }
 
         .foot a {
@@ -376,10 +295,6 @@
             height: 1px;
             overflow: hidden;
             clip: rect(0 0 0 0)
-        }
-
-        [hidden] {
-            display: none !important
         }
 
         .snack {
@@ -414,126 +329,13 @@
             background: var(--bad)
         }
 
-        .linkrow {
-            display: flex;
-            justify-content: flex-end;
-            margin: -6px 2px 10px
-        }
-
-        .linkbtn {
-            background: none;
-            border: 0;
-            padding: 0;
-            font: inherit;
-            font-size: .85rem;
-            font-weight: 700;
-            color: var(--ink);
-            text-decoration: underline;
-            cursor: pointer
-        }
-
-        @media (min-width:860px) {
-            .shell {
-                grid-template-columns: 1.05fr .95fr;
-                align-items: center;
-                gap: 60px;
-                padding-top: 40px;
-                min-height: 100vh
+        @media (min-width:600px) {
+            .page {
+                padding-top: 56px
             }
 
-            .brand {
-                margin-bottom: 60px
-            }
-
-            .hero {
-                align-self: center
-            }
-
-            .panel {
-                padding: 26px 24px 22px
-            }
-        }
-
-        @media (max-width:859px) {
-            .shell {
-                padding: 12px 14px 20px;
-                gap: 14px;
-                min-height: 100dvh;
-                align-content: start
-            }
-
-            .brand {
-                font-size: .98rem
-            }
-
-            h1 {
-                font-size: 1.55rem;
-                margin: 8px 0 4px
-            }
-
-            .lead {
-                font-size: .74rem;
-                line-height: 1.45;
-                max-width: none
-            }
-
-            .card3d {
-                display: none
-            }
-
-            .panel {
-                padding: 14px 14px 12px
-            }
-
-            fieldset {
-                padding: 2px 10px 0;
-                margin-bottom: 10px
-            }
-
-            legend {
-                font-size: 1.05rem
-            }
-
-            .field {
-                margin-bottom: 10px
-            }
-
-            .field label {
-                font-size: .8rem;
-                margin-bottom: 5px
-            }
-
-            .control input {
-                height: 44px
-            }
-
-            .btn {
-                height: 48px
-            }
-
-            .foot {
-                margin-top: 10px;
-                font-size: .82rem
-            }
-        }
-
-        @media (max-width:359px) {
-            h1 {
-                font-size: 1.35rem
-            }
-
-            .panel {
-                padding: 12px 10px
-            }
-        }
-
-        @media (min-width:860px) and (max-height:700px) {
-            .card3d {
-                max-width: 280px
-            }
-
-            .brand {
-                margin-bottom: 24px
+            .head {
+                margin-top: 56px
             }
         }
 
@@ -555,68 +357,58 @@
         </symbol>
     </svg>
 
-    <div class="shell">
-        <section class="hero">
-            <div class="brand"><span><i>Ever</i> Crest Finance </span></div>
-            <h1>Welcome back.</h1>
-            <p class="lead">Log in to pick up right where you left off.</p>
-            <div class="card3d" aria-hidden="true">
-                <svg class="ridge" viewBox="0 0 360 80" preserveAspectRatio="none">
-                    <path fill="#fff" d="M0 80V50l60-30 50 35 60-45 70 50 50-30 70 40v30z" />
-                </svg>
-                <div class="row"><span class="chip"></span><span style="font-weight:800;color:var(--gold)">Ever
-                        Crest</span></div>
-                <div class="cn">•••• •••• •••• 2048</div>
-                <div class="row">
-                    <div><span class="cl">CARD HOLDER</span>
-                        <div class="cname" id="cardName">Ever Crest Finance </div>
-                    </div>
-                    <div style="text-align:right"><span class="cl">VALID THRU</span><b>09/31</b></div>
-                </div>
-            </div>
-        </section>
+    <div class="page">
+        <div class="brand">
+            <span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#ffc93c"
+                    stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 18 9 8l4 6 3-4 5 8" />
+                </svg></span>
+            <span>EverCrest Finance</span>
+        </div>
 
-        <main class="panel">
+        <div class="head">
+            <h1>Welcome back</h1>
+            <p class="lead">Log in to pick up right where you left off.</p>
+        </div>
+
+        <main>
             <form id="loginForm" novalidate aria-label="Log in">
-                <fieldset>
-                    <legend>Log In</legend>
-                    <div class="field" id="f-email">
-                        <label for="email">Email Address</label>
-                        <div class="control">
-                            <input type="email" id="email" name="email" placeholder="example@email.com"
-                                autocomplete="email" inputmode="email" required aria-describedby="e-email">
-                            <span class="tick" aria-hidden="true"><svg>
-                                    <use href="#i-check" />
-                                </svg></span>
-                        </div>
-                        <p class="err" id="e-email" role="alert"></p>
+                <div class="field" id="f-email">
+                    <label for="email">Email address</label>
+                    <div class="control">
+                        <input type="email" id="email" name="email" placeholder="example@email.com" autocomplete="email"
+                            inputmode="email" required aria-describedby="e-email">
+                        <span class="tick" aria-hidden="true"><svg>
+                                <use href="#i-check" />
+                            </svg></span>
                     </div>
-                    <div class="field has-eye" id="f-pass">
-                        <label for="pass">Password</label>
-                        <div class="control">
-                            <input type="password" id="pass" name="pass" placeholder="Enter your password"
-                                autocomplete="current-password" required aria-describedby="e-pass">
-                            <span class="tick" aria-hidden="true"><svg>
-                                    <use href="#i-check" />
-                                </svg></span>
-                            <button type="button" class="eye" id="eye" aria-label="Show password"
-                                aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" />
-                                    <circle cx="12" cy="12" r="3" />
-                                    <path class="slash" d="M4 4l16 16" />
-                                </svg></button>
-                        </div>
-                        <p class="err" id="e-pass" role="alert"></p>
+                    <p class="err" id="e-email" role="alert"></p>
+                </div>
+                <div class="field has-eye" id="f-pass">
+                    <label for="pass">Password</label>
+                    <div class="control">
+                        <input type="password" id="pass" name="pass" placeholder="Enter your password"
+                            autocomplete="current-password" required aria-describedby="e-pass">
+                        <span class="tick" aria-hidden="true"><svg>
+                                <use href="#i-check" />
+                            </svg></span>
+                        <button type="button" class="eye" id="eye" aria-label="Show password" aria-pressed="false"><svg
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" />
+                                <circle cx="12" cy="12" r="3" />
+                                <path class="slash" d="M4 4l16 16" />
+                            </svg></button>
                     </div>
-                </fieldset>
+                    <p class="err" id="e-pass" role="alert"></p>
+                </div>
                 <div class="linkrow"><button type="button" class="linkbtn" id="forgot">Forgot password?</button></div>
 
                 <p class="err" id="formErr" role="alert"></p>
                 <button class="btn" type="submit" id="submitBtn">Log in</button>
             </form>
-            <p class="foot">New here? <a href="signup.html">Create an account</a></p>
         </main>
+        <p class="foot">New here? <a href="signup.html">Create an account</a></p>
     </div>
 
     <script type="module">
