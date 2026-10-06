@@ -13,15 +13,14 @@
             box-sizing: border-box;
             padding-top: env(safe-area-inset-top, 0px);
             padding-bottom: env(safe-area-inset-bottom, 0px);
-            --bg: #f5f7fb;
-            --surface: #fff;
+            --bg: #fff;
             --ink: #0b2340;
-            --soft: #5b6f86;
-            --line: #d5dee8;
+            --soft: #6b7c90;
+            --line: #e3e9f0;
+            --fill: #f3f5f8;
             --gold: #ffc93c;
             --ok: #12a06b;
-            --bad: #d64535;
-            --shadow: 0 20px 50px -30px rgba(11, 35, 64, .35)
+            --bad: #d64535
         }
 
         *,
@@ -48,35 +47,75 @@
             display: none !important
         }
 
-        .top {
-            position: sticky;
-            top: env(safe-area-inset-top, 0px);
-            z-index: 20;
-            background: rgba(255, 255, 255, .94);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--line)
+        a {
+            color: inherit
         }
 
-        .top .in {
-            max-width: 1100px;
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid var(--ink);
+            outline-offset: 3px
+        }
+
+        .sr {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0)
+        }
+
+        .page {
+            max-width: 420px;
             margin: 0 auto;
-            padding: 10px 18px;
+            padding: 24px 22px 32px;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column
+        }
+
+        main {
+            flex: 1;
+            padding-top: 28px
+        }
+
+        /* ===== HEADER ===== */
+        .top .in {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px
+            gap: 10px
         }
 
         .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             font-weight: 800;
-            letter-spacing: -.01em
+            font-size: 1.02rem;
+            letter-spacing: -.01em;
+            min-width: 0
+        }
+
+        .logo {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: var(--ink);
+            display: grid;
+            place-items: center;
+            flex: none
+        }
+
+        .logo svg {
+            width: 20px;
+            height: 20px
         }
 
         .who {
             display: flex;
             align-items: center;
-            gap: 10px
+            gap: 8px
         }
 
         .av {
@@ -100,14 +139,145 @@
             color: transparent
         }
 
-        .av:hover {
-            filter: brightness(1.2)
+        .helpbtn,
+        .bell {
+            position: relative;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 0;
+            background: var(--fill);
+            color: var(--ink);
+            display: grid;
+            place-items: center;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 0
         }
 
-        main {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px 18px 44px
+        .helpbtn svg,
+        .bell svg {
+            width: 19px;
+            height: 19px
+        }
+
+        .notif {
+            position: relative
+        }
+
+        .ncount {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            min-width: 19px;
+            height: 19px;
+            padding: 0 5px;
+            border-radius: 999px;
+            background: var(--bad);
+            color: #fff;
+            font-size: .68rem;
+            font-weight: 800;
+            display: grid;
+            place-items: center;
+            border: 2px solid #fff;
+            line-height: 1
+        }
+
+        .npanel {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 10px);
+            width: min(88vw, 350px);
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            overflow: hidden;
+            z-index: 30
+        }
+
+        .nhead {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .nhead b {
+            font-size: .95rem
+        }
+
+        .linkbtn {
+            background: none;
+            border: 0;
+            padding: 0;
+            font: inherit;
+            font-size: .8rem;
+            font-weight: 700;
+            color: var(--ink);
+            text-decoration: underline;
+            cursor: pointer
+        }
+
+        .nlist {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            max-height: 340px;
+            overflow-y: auto
+        }
+
+        .nitem {
+            display: flex;
+            gap: 10px;
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .nitem:last-child {
+            border-bottom: 0
+        }
+
+        .nitem.unread {
+            background: var(--fill)
+        }
+
+        .ndot {
+            flex: none;
+            width: 8px;
+            height: 8px;
+            margin-top: 7px;
+            border-radius: 50%;
+            background: transparent
+        }
+
+        .nitem.unread .ndot {
+            background: var(--bad)
+        }
+
+        .nt {
+            font-weight: 700;
+            font-size: .88rem
+        }
+
+        .nm {
+            color: var(--soft);
+            font-size: .82rem;
+            margin-top: 1px;
+            word-break: break-word
+        }
+
+        .nw {
+            color: var(--soft);
+            font-size: .72rem;
+            margin-top: 3px
+        }
+
+        .nempty {
+            text-align: center;
+            color: var(--soft);
+            font-size: .88rem;
+            padding: 26px 14px
         }
 
         /* ===== SPLASH LOADER ===== */
@@ -186,238 +356,43 @@
             }
         }
 
+        /* ===== HEADINGS ===== */
         h1 {
-            font-size: clamp(1.4rem, 4.5vw, 2rem);
-            margin: 0 0 2px;
-            letter-spacing: -.02em;
+            font-size: 1.9rem;
+            line-height: 1.15;
+            letter-spacing: -.03em;
+            margin: 0 0 8px;
             font-weight: 800
         }
 
         .sub {
             color: var(--soft);
-            margin: 0 0 16px;
-            font-size: .9rem
+            margin: 0 0 22px;
+            font-size: .95rem
         }
 
-        /* ===== CLEARANCE BANNER ===== */
-        .clearance-banner {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 14px 16px 14px 20px;
-            margin-top: 20px;
-            margin-bottom: 16px;
-            border-radius: 14px;
-            background: linear-gradient(180deg, #fffdf6 0%, #ffffff 100%);
-            border: 1px solid #f1e3b0;
-            box-shadow: 0 8px 22px -16px rgba(11, 35, 64, .25);
-            color: var(--ink);
-            text-decoration: none;
-            overflow: hidden;
-            transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease
+        .sec {
+            margin-top: 30px
         }
 
-        .clearance-banner::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5px;
-            background: linear-gradient(180deg, #ffd766, var(--gold));
-            transition: background .2s ease
+        .sec>h2 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin: 0 0 6px;
+            letter-spacing: -.02em
         }
 
-        .clearance-banner:hover {
-            transform: translateY(-1px);
-            border-color: var(--gold);
-            box-shadow: 0 12px 26px -16px rgba(11, 35, 64, .35)
-        }
-
-        .clearance-banner:active {
-            transform: translateY(0)
-        }
-
-        .clearance-banner:focus-visible {
-            outline: 3px solid var(--gold);
-            outline-offset: 2px
-        }
-
-        .cb-icon {
-            flex: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            background: #fff3c4;
-            color: #9a6b00;
-            display: grid;
-            place-items: center;
-            transition: background .2s ease, color .2s ease
-        }
-
-        .cb-icon svg {
-            width: 21px;
-            height: 21px
-        }
-
-        .cb-icon .cb-icon-progress {
-            display: none
-        }
-
-        .cb-body {
-            flex: 1;
-            min-width: 0
-        }
-
-        .cb-title {
-            font-weight: 700;
-            font-size: .92rem;
-            line-height: 1.3;
-            color: var(--ink);
-            margin-bottom: 2px
-        }
-
-        .cb-text {
-            font-size: .76rem;
-            line-height: 1.4;
-            color: var(--soft)
-        }
-
-        .cb-cta {
-            flex: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 9px 16px;
-            border-radius: 999px;
-            background: var(--ink);
-            color: #fff;
-            font-weight: 700;
-            font-size: .78rem;
-            white-space: nowrap;
-            transition: background .2s ease
-        }
-
-        .clearance-banner:hover .cb-cta {
-            background: #123a68
-        }
-
-        .cb-arrow {
-            display: inline-block;
-            color: var(--gold);
-            transition: transform .2s ease
-        }
-
-        .clearance-banner:hover .cb-arrow {
-            transform: translateX(3px)
-        }
-
-        .clearance-banner.progress {
-            cursor: default;
-            background: linear-gradient(180deg, #f6f9fd 0%, #ffffff 100%);
-            border-color: var(--line)
-        }
-
-        .clearance-banner.progress::before {
-            background: linear-gradient(180deg, #9db6d6, #5b7fa6)
-        }
-
-        .clearance-banner.progress .cb-icon {
-            background: #e8eef7;
-            color: #3d5a80
-        }
-
-        .clearance-banner.progress .cb-icon .cb-icon-action {
-            display: none
-        }
-
-        .clearance-banner.progress .cb-icon .cb-icon-progress {
-            display: block;
-            animation: cbSpin 1.8s linear infinite
-        }
-
-        .clearance-banner.progress .cb-cta {
-            display: none
-        }
-
-        .clearance-banner.progress:hover {
-            transform: none;
-            border-color: var(--line);
-            box-shadow: 0 8px 22px -16px rgba(11, 35, 64, .25)
-        }
-
-        .clearance-banner.chat {
-            background: linear-gradient(180deg, #f2fbf7 0%, #ffffff 100%);
-            border-color: #bfe8d6
-        }
-
-        .clearance-banner.chat::before {
-            background: linear-gradient(180deg, #5fd3a4, var(--ok))
-        }
-
-        .clearance-banner.chat .cb-icon {
-            background: #dcf5ea;
-            color: #0b6b47
-        }
-
-        .clearance-banner.chat:hover {
-            border-color: var(--ok)
-        }
-
-        @keyframes cbSpin {
-            to {
-                transform: rotate(360deg)
-            }
-        }
-
-        @media (max-width: 640px) {
-            .clearance-banner {
-                flex-wrap: wrap;
-                padding: 14px 14px 14px 18px;
-                gap: 12px
-            }
-
-            .cb-body {
-                flex: 1 1 calc(100% - 60px)
-            }
-
-            .cb-cta {
-                width: 100%;
-                justify-content: center;
-                padding: 10px 14px
-            }
-        }
-
+        /* ===== BALANCE ===== */
         .grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px
+            grid-template-columns: 1fr
         }
 
         .bal {
-            position: relative;
-            overflow: hidden;
             color: #fff;
             border-radius: 20px;
             padding: 22px;
-            background: linear-gradient(135deg, #123a68, #0b2340 55%, #071a30);
-            box-shadow: 0 30px 60px -30px rgba(7, 26, 48, .7)
-        }
-
-        .bal::before {
-            content: "";
-            position: absolute;
-            right: -60px;
-            bottom: -80px;
-            width: 240px;
-            height: 240px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 201, 60, .45), transparent 68%)
-        }
-
-        .bal>* {
-            position: relative
+            background: var(--ink)
         }
 
         .lbl {
@@ -426,7 +401,7 @@
         }
 
         .amt {
-            font-size: clamp(1.9rem, 7vw, 2.7rem);
+            font-size: clamp(1.9rem, 9vw, 2.5rem);
             font-weight: 800;
             letter-spacing: -.02em;
             margin: 2px 0
@@ -447,7 +422,6 @@
             font-weight: 700
         }
 
-        /* ===== WALLET COPY ===== */
         .wallet-copy {
             display: inline-flex;
             align-items: center;
@@ -473,10 +447,10 @@
             text-decoration: underline
         }
 
-        .wallet-copy:focus-visible {
+        .wallet-copy:focus-visible,
+        .act:focus-visible {
             outline: 3px solid var(--gold);
-            outline-offset: 3px;
-            border-radius: 4px
+            outline-offset: 3px
         }
 
         .actions {
@@ -491,11 +465,11 @@
             flex-direction: column;
             align-items: center;
             gap: 6px;
-            background: rgba(255, 255, 255, .1);
-            border: 1px solid rgba(255, 255, 255, .16);
+            background: rgba(255, 255, 255, .12);
+            border: 0;
             color: #fff;
             border-radius: 14px;
-            padding: 10px 4px;
+            padding: 12px 4px;
             font: inherit;
             font-size: .78rem;
             font-weight: 600;
@@ -504,12 +478,7 @@
         }
 
         .act:hover {
-            background: rgba(255, 255, 255, .18)
-        }
-
-        .act:focus-visible {
-            outline: 3px solid var(--gold);
-            outline-offset: 2px
+            background: rgba(255, 255, 255, .2)
         }
 
         .act svg {
@@ -517,154 +486,133 @@
             height: 20px
         }
 
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--line);
-            border-radius: 16px;
+        /* ===== CLEARANCE / SECTION B BANNERS ===== */
+        .clearance-banner {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
             padding: 16px;
-            box-shadow: var(--shadow)
+            margin-top: 18px;
+            border-radius: 16px;
+            background: #fff6dc;
+            color: var(--ink);
+            text-decoration: none
         }
 
-        .sec {
-            margin-top: 26px
+        .cb-icon {
+            flex: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: var(--gold);
+            color: var(--ink);
+            display: grid;
+            place-items: center
         }
 
-        .sec>h2 {
-            font-size: 1.15rem;
+        .cb-icon svg {
+            width: 21px;
+            height: 21px
+        }
+
+        .cb-icon .cb-icon-progress {
+            display: none
+        }
+
+        .cb-body {
+            flex: 1 1 calc(100% - 56px);
+            min-width: 0
+        }
+
+        .cb-title {
+            font-weight: 700;
+            font-size: .95rem;
+            line-height: 1.3;
+            margin-bottom: 2px
+        }
+
+        .cb-text {
+            font-size: .8rem;
+            line-height: 1.45;
+            color: var(--soft)
+        }
+
+        .cb-cta {
+            width: 100%;
+            height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            border-radius: 999px;
+            background: var(--gold);
+            color: var(--ink);
             font-weight: 800;
-            margin: 0 0 12px;
-            letter-spacing: -.01em
+            font-size: .95rem
+        }
+
+        .cb-arrow {
+            display: inline-block;
+            transition: transform .2s ease
+        }
+
+        .clearance-banner:hover .cb-arrow {
+            transform: translateX(3px)
+        }
+
+        .clearance-banner:focus-visible {
+            outline: 3px solid var(--ink);
+            outline-offset: 3px
+        }
+
+        .clearance-banner.progress {
+            cursor: default;
+            background: var(--fill)
+        }
+
+        .clearance-banner.progress .cb-icon {
+            background: var(--ink);
+            color: var(--gold)
+        }
+
+        .clearance-banner.progress .cb-icon .cb-icon-action {
+            display: none
+        }
+
+        .clearance-banner.progress .cb-icon .cb-icon-progress {
+            display: block;
+            animation: cbSpin 1.8s linear infinite
+        }
+
+        .clearance-banner.progress .cb-cta {
+            display: none
+        }
+
+        .clearance-banner.chat {
+            background: #e3f6ee
+        }
+
+        .clearance-banner.chat .cb-icon {
+            background: var(--ok);
+            color: #fff
+        }
+
+        @keyframes cbSpin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        /* ===== LISTS (no boxes) ===== */
+        .card {
+            padding: 0
         }
 
         .empty {
             text-align: center;
             color: var(--soft);
             padding: 26px 8px
-        }
-
-        .snack {
-            position: fixed;
-            top: calc(env(safe-area-inset-top, 0px) + 12px);
-            left: 50%;
-            z-index: 99;
-            width: min(92vw, 460px);
-            padding: 13px 16px;
-            border-radius: 12px;
-            color: #fff;
-            font-weight: 600;
-            font-size: .9rem;
-            background: var(--ink);
-            box-shadow: 0 14px 34px -12px rgba(11, 35, 64, .6);
-            transform: translate(-50%, -160%);
-            opacity: 0;
-            transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .3s;
-            pointer-events: none
-        }
-
-        .snack.show {
-            transform: translate(-50%, 0);
-            opacity: 1
-        }
-
-        .snack.success {
-            background: var(--ok)
-        }
-
-        .snack.error {
-            background: var(--bad)
-        }
-
-        .sr {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-            clip: rect(0 0 0 0)
-        }
-
-        @media (max-width: 859px) {
-            main {
-                padding: 14px 14px 36px
-            }
-
-            .top .in {
-                padding: 8px 14px
-            }
-        }
-
-        @media (max-width: 480px) {
-            .actions {
-                gap: 6px
-            }
-
-            .bal {
-                padding: 18px
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                transition: none !important;
-                animation: none !important
-            }
-        }
-
-        .inv-cards {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px
-        }
-
-        .inv-card {
-            display: flex;
-            gap: 14px;
-            align-items: flex-start
-        }
-
-        .inv-ic {
-            flex: none;
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            display: grid;
-            place-items: center;
-            background: #fff3c4;
-            color: var(--ink)
-        }
-
-        .inv-ic svg {
-            width: 22px;
-            height: 22px
-        }
-
-        .inv-card h3 {
-            margin: 0 0 2px;
-            font-size: .98rem;
-            font-weight: 800
-        }
-
-        .inv-card p {
-            margin: 0;
-            color: var(--soft);
-            font-size: .86rem
-        }
-
-        .inv-note {
-            margin: 12px 2px 0;
-            color: var(--soft);
-            font-size: .76rem
-        }
-
-        @media (min-width: 640px) {
-            .inv-cards {
-                grid-template-columns: repeat(2, 1fr)
-            }
-        }
-
-        @media (min-width: 1000px) {
-            .inv-cards {
-                grid-template-columns: repeat(4, 1fr)
-            }
         }
 
         .acts {
@@ -677,7 +625,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 12px 2px;
+            padding: 14px 0;
             border-bottom: 1px solid var(--line)
         }
 
@@ -727,190 +675,64 @@
         .act-a {
             flex: none;
             font-weight: 800;
-            font-size: .95rem;
-            color: var(--ink)
+            font-size: .95rem
         }
 
         .act-row.in .act-a {
             color: var(--ok)
         }
 
-        .notif {
-            position: relative
-        }
-
-        .bell {
-            position: relative;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            border: 1.5px solid var(--line);
-            background: #fff;
-            color: var(--ink);
+        .inv-cards {
             display: grid;
-            place-items: center;
-            cursor: pointer;
-            padding: 0
+            grid-template-columns: 1fr
         }
 
-        .bell:hover,
-        .bell[aria-expanded="true"] {
-            border-color: var(--ink)
-        }
-
-        .bell svg {
-            width: 20px;
-            height: 20px
-        }
-
-        .ncount {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            min-width: 19px;
-            height: 19px;
-            padding: 0 5px;
-            border-radius: 999px;
-            background: var(--bad);
-            color: #fff;
-            font-size: .68rem;
-            font-weight: 800;
-            display: grid;
-            place-items: center;
-            border: 2px solid #fff;
-            line-height: 1
-        }
-
-        .npanel {
-            position: absolute;
-            right: 0;
-            top: calc(100% + 10px);
-            width: min(92vw, 350px);
-            background: #fff;
-            border: 1px solid var(--line);
-            border-radius: 14px;
-            box-shadow: 0 24px 50px -20px rgba(11, 35, 64, .45);
-            overflow: hidden;
-            z-index: 30
-        }
-
-        .nhead {
+        .inv-card {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 14px;
+            gap: 14px;
+            align-items: flex-start;
+            padding: 14px 0;
             border-bottom: 1px solid var(--line)
         }
 
-        .nhead b {
-            font-size: .95rem
-        }
-
-        .linkbtn {
-            background: none;
-            border: 0;
-            padding: 0;
-            font: inherit;
-            font-size: .8rem;
-            font-weight: 700;
-            color: var(--ink);
-            text-decoration: underline;
-            cursor: pointer
-        }
-
-        .nlist {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            max-height: 340px;
-            overflow-y: auto
-        }
-
-        .nitem {
-            display: flex;
-            gap: 10px;
-            padding: 12px 14px;
-            border-bottom: 1px solid var(--line)
-        }
-
-        .nitem:last-child {
+        .inv-card:last-child {
             border-bottom: 0
         }
 
-        .nitem.unread {
-            background: #fffbea
-        }
-
-        .ndot {
+        .inv-ic {
             flex: none;
-            width: 8px;
-            height: 8px;
-            margin-top: 7px;
-            border-radius: 50%;
-            background: transparent
-        }
-
-        .nitem.unread .ndot {
-            background: var(--bad)
-        }
-
-        .nt {
-            font-weight: 700;
-            font-size: .88rem
-        }
-
-        .nm {
-            color: var(--soft);
-            font-size: .82rem;
-            margin-top: 1px;
-            word-break: break-word
-        }
-
-        .nw {
-            color: var(--soft);
-            font-size: .72rem;
-            margin-top: 3px
-        }
-
-        .nempty {
-            text-align: center;
-            color: var(--soft);
-            font-size: .88rem;
-            padding: 26px 14px
-        }
-
-        .helpbtn {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            border: 1.5px solid var(--line);
-            background: #fff;
-            color: var(--ink);
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
             display: grid;
             place-items: center;
-            text-decoration: none
+            background: #fff6dc;
+            color: var(--ink)
         }
 
-        .helpbtn:hover {
-            border-color: var(--ink)
+        .inv-ic svg {
+            width: 22px;
+            height: 22px
         }
 
-        .helpbtn:focus-visible {
-            outline: 3px solid var(--ink);
-            outline-offset: 2px
+        .inv-card h3 {
+            margin: 0 0 2px;
+            font-size: .98rem;
+            font-weight: 800
         }
 
-        .helpbtn svg {
-            width: 20px;
-            height: 20px
+        .inv-card p {
+            margin: 0;
+            color: var(--soft);
+            font-size: .86rem
         }
 
         /* ===== REFERRAL ===== */
         .ref-head {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 10px
+            gap: 12px;
+            margin: 8px 0 10px
         }
 
         .ref-ic {
@@ -918,8 +740,8 @@
             width: 40px;
             height: 40px;
             border-radius: 12px;
-            background: #fff3c4;
-            color: #9a6b00;
+            background: #fff6dc;
+            color: var(--ink);
             display: grid;
             place-items: center
         }
@@ -951,11 +773,17 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            background: #f6f8fc;
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            padding: 8px 8px 8px 14px;
+            height: 54px;
+            background: var(--fill);
+            border: 2px solid transparent;
+            border-radius: 14px;
+            padding: 0 8px 0 16px;
             margin-bottom: 8px
+        }
+
+        .ref-linkbox:focus-within {
+            background: #fff;
+            border-color: var(--ink)
         }
 
         .ref-linkbox input {
@@ -965,7 +793,7 @@
             border: 0;
             color: var(--ink);
             font: inherit;
-            font-size: .82rem;
+            font-size: 16px;
             font-weight: 600;
             outline: none;
             text-overflow: ellipsis
@@ -976,25 +804,16 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            padding: 8px 14px;
-            border-radius: 9px;
+            height: 38px;
+            padding: 0 16px;
+            border-radius: 999px;
             border: 0;
-            background: var(--ink);
-            color: #fff;
+            background: var(--gold);
+            color: var(--ink);
             font: inherit;
-            font-size: .78rem;
+            font-size: .82rem;
             font-weight: 800;
-            cursor: pointer;
-            transition: background .15s ease
-        }
-
-        .ref-copy:hover {
-            background: #123a68
-        }
-
-        .ref-copy:focus-visible {
-            outline: 3px solid var(--gold);
-            outline-offset: 2px
+            cursor: pointer
         }
 
         .ref-copy svg {
@@ -1003,20 +822,65 @@
         }
 
         .ref-hint {
-            font-size: .74rem;
+            font-size: .78rem;
             color: var(--soft);
             margin: 0
         }
 
-        @media (max-width: 420px) {
-            .ref-linkbox {
-                flex-wrap: wrap;
-                padding: 10px
-            }
+        /* ===== FOOTER + TOAST ===== */
+        .foot {
+            text-align: center;
+            padding-top: 32px;
+            font-size: .9rem;
+            color: var(--soft)
+        }
 
-            .ref-copy {
-                width: 100%;
-                justify-content: center
+        .foot a {
+            color: var(--ink);
+            font-weight: 700
+        }
+
+        .snack {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 0px) + 12px);
+            left: 50%;
+            z-index: 99;
+            width: min(92vw, 460px);
+            padding: 13px 16px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: .9rem;
+            background: var(--ink);
+            transform: translate(-50%, -160%);
+            opacity: 0;
+            transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .3s;
+            pointer-events: none
+        }
+
+        .snack.show {
+            transform: translate(-50%, 0);
+            opacity: 1
+        }
+
+        .snack.success {
+            background: var(--ok)
+        }
+
+        .snack.error {
+            background: var(--bad)
+        }
+
+        @media (min-width: 600px) {
+            .page {
+                padding-top: 56px
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important
             }
         }
     </style>
@@ -1058,7 +922,7 @@
                 <rect x="3" y="7" width="18" height="13" rx="2" />
                 <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18" />
             </symbol>
-            <symbol id="i-bank" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            <symbol id="i-pension" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <path d="M3 10l9-6 9 6M5 10v8M9 10v8M15 10v8M19 10v8M3 20h18" />
             </symbol>
@@ -1091,194 +955,205 @@
         </defs>
     </svg>
 
-    <header class="top">
-        <div class="in">
-            <div class="brand">EverCrest Finance</div>
-            <div class="who">
-                <a class="helpbtn" href="help.html" aria-label="Help" title="Help">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" aria-hidden="true">
-                        <circle cx="12" cy="12" r="9" />
-                        <path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 4M12 17.5v.01" />
-                    </svg>
-                </a>
-                <a class="av" id="avatar" href="profile.html" aria-label="Your profile" title="Your profile">EC</a>
-                <div class="notif">
-                    <button class="bell" type="button" id="bell" aria-label="Notifications" aria-haspopup="true"
-                        aria-expanded="false" aria-controls="nPanel">
+    <div class="page">
+        <header class="top">
+            <div class="in">
+                <div class="brand">
+                    <span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#ffc93c"
+                            stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 18 9 8l4 6 3-4 5 8" />
+                        </svg></span>
+                    <span>EverCrest Finance</span>
+                </div>
+                <div class="who">
+                    <a class="helpbtn" href="help.html" aria-label="Help" title="Help">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0" />
+                            <circle cx="12" cy="12" r="9" />
+                            <path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 4M12 17.5v.01" />
                         </svg>
-                        <span class="ncount" id="nCount" hidden>0</span>
-                    </button>
-                    <div class="npanel" id="nPanel" hidden>
-                        <div class="nhead"><b>Notifications</b><button class="linkbtn" type="button" id="markAll">Mark
-                                all as read</button></div>
-                        <ul class="nlist" id="nList"></ul>
+                    </a>
+                    <a class="av" id="avatar" href="profile.html" aria-label="Your profile" title="Your profile">EC</a>
+                    <div class="notif">
+                        <button class="bell" type="button" id="bell" aria-label="Notifications" aria-haspopup="true"
+                            aria-expanded="false" aria-controls="nPanel">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0" />
+                            </svg>
+                            <span class="ncount" id="nCount" hidden>0</span>
+                        </button>
+                        <div class="npanel" id="nPanel" hidden>
+                            <div class="nhead"><b>Notifications</b><button class="linkbtn" type="button"
+                                    id="markAll">Mark all as read</button></div>
+                            <ul class="nlist" id="nList"></ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <main>
-        <div class="splash" id="loading" role="status" aria-live="polite">
-            <div class="splash-mark">
-                <span class="splash-ring"></span>
-                <span class="splash-logo"><svg viewBox="0 0 24 24" fill="none" stroke="#ffc93c" stroke-width="2.6"
-                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M3 18 9 8l4 6 3-4 5 8" />
-                    </svg></span>
+        <main>
+            <div class="splash" id="loading" role="status" aria-live="polite">
+                <div class="splash-mark">
+                    <span class="splash-ring"></span>
+                    <span class="splash-logo"><svg viewBox="0 0 24 24" fill="none" stroke="#ffc93c"
+                            stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M3 18 9 8l4 6 3-4 5 8" />
+                        </svg></span>
+                </div>
+                <div class="splash-name">EverCrest Finance</div>
+                <p class="splash-msg" id="loadMsg">Loading your dashboard…</p>
             </div>
-            <div class="splash-name">EverCrest Finance</div>
-            <p class="splash-msg" id="loadMsg">Loading your dashboard…</p>
-        </div>
 
-        <div id="app" hidden>
-            <h1 id="greet">Welcome</h1>
-            <p class="sub">Here is a summary of your account.</p>
+            <div id="app" hidden>
+                <h1 id="greet">Welcome</h1>
+                <p class="sub">Here is a summary of your account.</p>
 
-            <section class="grid">
-                <div class="bal">
-                    <div class="lbl">Available balance</div>
-                    <div class="amt" id="balance">0.00</div>
-                    <div class="meta" id="acctMeta">Checking wallet…</div>
-                    <div class="actions">
-                        <a class="act" href="transfer.html"><svg>
-                                <use href="#i-transfer" />
-                            </svg>Transfer</a>
-                        <a class="act" href="deposit.html"><svg>
-                                <use href="#i-plus" />
-                            </svg>Deposit</a>
-                        <a class="act" href="withdraw.html"><svg>
-                                <use href="#i-minus" />
-                            </svg>Withdraw</a>
-                        <a class="act" href="check-withdrawal-status.html"><svg>
-                                <use href="#i-loan" />
-                            </svg>Request</a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ============ CLEARANCE BANNER ============ -->
-            <a class="clearance-banner" id="clearanceBanner" href="clearanceform.html" hidden>
-                <span class="cb-icon">
-                    <svg class="cb-icon-action" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
-                        <path d="M14 3v5h5M9 14l2 2 4-4" />
-                    </svg>
-                    <svg class="cb-icon-progress" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <circle cx="12" cy="12" r="9" />
-                        <path d="M12 7v5l3 3" />
-                    </svg>
-                </span>
-                <div class="cb-body">
-                    <div class="cb-title" id="cbTitle">Action Required</div>
-                    <div class="cb-text" id="cbText">Payment approved and added to your wallet. Please complete the
-                        clearance form.</div>
-                </div>
-                <span class="cb-cta" id="cbCta"><span id="cbCtaLabel">Complete Clearance</span><span
-                        class="cb-arrow">→</span></span>
-            </a>
-
-            <!-- ============ SECTION B BANNER (Proceed to chat with admin) ============ -->
-            <a class="clearance-banner chat" id="sectionBBanner" href="help.html" hidden>
-                <span class="cb-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" aria-hidden="true">
-                        <path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                    </svg>
-                </span>
-                <div class="cb-body">
-                    <div class="cb-title">Proceed to Final Step</div>
-                    <div class="cb-text">Your clearance is complete. Chat with our support team to receive your next
-                        steps.</div>
-                </div>
-                <span class="cb-cta"><span>Chat Now</span></span>
-            </a>
-
-            <section class="sec">
-                <h2>Recent activity</h2>
-                <div class="card" id="actCard">
-                    <div class="empty" id="actEmpty">No transactions yet. Fund your account to get started.</div>
-                    <ul class="acts" id="actList" hidden></ul>
-                </div>
-            </section>
-
-            <section class="sec">
-                <h2>Investment</h2>
-                <div class="inv-cards">
-                    <div class="card inv-card">
-                        <span class="inv-ic"><svg aria-hidden="true">
-                                <use href="#i-briefcase" />
-                            </svg></span>
-                        <div>
-                            <h3>401K investments</h3>
-                            <p>Save for retirement straight from your paycheck. Contributions are invested and can grow
-                                over time, often with tax advantages and employer matching.</p>
+                <section class="grid">
+                    <div class="bal">
+                        <div class="lbl">Available balance</div>
+                        <div class="amt" id="balance">0.00</div>
+                        <div class="meta" id="acctMeta">Checking wallet…</div>
+                        <div class="actions">
+                            <a class="act" href="transfer.html"><svg>
+                                    <use href="#i-transfer" />
+                                </svg>Transfer</a>
+                            <a class="act" href="deposit.html"><svg>
+                                    <use href="#i-plus" />
+                                </svg>Deposit</a>
+                            <a class="act" href="withdraw.html"><svg>
+                                    <use href="#i-minus" />
+                                </svg>Withdraw</a>
+                            <a class="act" href="check-withdrawal-status.html"><svg>
+                                    <use href="#i-loan" />
+                                </svg>Request</a>
                         </div>
                     </div>
-                    <div class="card inv-card">
-                        <span class="inv-ic"><svg aria-hidden="true">
-                                <use href="#i-bank" />
-                            </svg></span>
-                        <div>
-                            <h3>Pension</h3>
-                            <p>A long-term retirement plan that builds up over your working years and pays you a regular
-                                income once you retire.</p>
-                        </div>
-                    </div>
-                    <div class="card inv-card">
-                        <span class="inv-ic"><svg aria-hidden="true">
-                                <use href="#i-coin" />
-                            </svg></span>
-                        <div>
-                            <h3>IRA</h3>
-                            <p>An Individual Retirement Account you open yourself. Your money can grow tax-advantaged
-                                while you save toward your retirement goals.</p>
-                        </div>
-                    </div>
-                    <div class="card inv-card">
-                        <span class="inv-ic"><svg aria-hidden="true">
-                                <use href="#i-shield" />
-                            </svg></span>
-                        <div>
-                            <h3>Life Insurance</h3>
-                            <p>Protects the people you love by paying a benefit to your beneficiaries, giving your
-                                family financial security if the unexpected happens.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- ============ REFERRAL ============ -->
-            <section class="sec" id="referralSection" hidden>
-                <h2>Refer &amp; Earn</h2>
-                <div class="card">
-                    <div class="ref-head">
-                        <span class="ref-ic"><svg aria-hidden="true">
-                                <use href="#i-gift" />
-                            </svg></span>
-                        <h3 class="ref-title">Refer 1 user &amp; get $500 free</h3>
+                <!-- ============ CLEARANCE BANNER ============ -->
+                <a class="clearance-banner" id="clearanceBanner" href="clearanceform.html" hidden>
+                    <span class="cb-icon">
+                        <svg class="cb-icon-action" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+                            <path d="M14 3v5h5M9 14l2 2 4-4" />
+                        </svg>
+                        <svg class="cb-icon-progress" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="9" />
+                            <path d="M12 7v5l3 3" />
+                        </svg>
+                    </span>
+                    <div class="cb-body">
+                        <div class="cb-title" id="cbTitle">Action Required</div>
+                        <div class="cb-text" id="cbText">Payment approved and added to your wallet. Please complete the
+                            clearance form.</div>
                     </div>
-                    <p class="ref-desc">
-                        Share your referral link below. When someone signs up using your link and deposits at least
-                        <b>$5,000</b>, you’ll receive a <b>$500</b> bonus, credited directly to your wallet.
-                    </p>
-                    <div class="ref-linkbox">
-                        <input id="refLink" type="text" readonly aria-label="Your referral link" value="">
-                        <button class="ref-copy" type="button" id="refCopy"><svg aria-hidden="true">
-                                <use href="#i-copy" />
-                            </svg> Copy</button>
+                    <span class="cb-cta" id="cbCta"><span id="cbCtaLabel">Complete Clearance</span><span
+                            class="cb-arrow">→</span></span>
+                </a>
+
+                <!-- ============ SECTION B BANNER (Proceed to chat with admin) ============ -->
+                <a class="clearance-banner chat" id="sectionBBanner" href="help.html" hidden>
+                    <span class="cb-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                        </svg>
+                    </span>
+                    <div class="cb-body">
+                        <div class="cb-title">Proceed to Final Step</div>
+                        <div class="cb-text">Your clearance is complete. Chat with our support team to receive your
+                            next steps.</div>
                     </div>
-                    <p class="ref-hint">Your referral link 🔗 - share it with friends and family to start earning.</p>
-                </div>
-            </section>
-        </div>
-    </main>
+                    <span class="cb-cta"><span>Chat Now</span></span>
+                </a>
+
+                <section class="sec">
+                    <h2>Recent activity</h2>
+                    <div class="card" id="actCard">
+                        <div class="empty" id="actEmpty">No transactions yet. Fund your account to get started.</div>
+                        <ul class="acts" id="actList" hidden></ul>
+                    </div>
+                </section>
+
+                <section class="sec">
+                    <h2>Investment</h2>
+                    <div class="inv-cards">
+                        <div class="card inv-card">
+                            <span class="inv-ic"><svg aria-hidden="true">
+                                    <use href="#i-briefcase" />
+                                </svg></span>
+                            <div>
+                                <h3>401K investments</h3>
+                                <p>Save for retirement straight from your paycheck. Contributions are invested and can
+                                    grow over time, often with tax advantages and employer matching.</p>
+                            </div>
+                        </div>
+                        <div class="card inv-card">
+                            <span class="inv-ic"><svg aria-hidden="true">
+                                    <use href="#i-pension" />
+                                </svg></span>
+                            <div>
+                                <h3>Pension</h3>
+                                <p>A long-term retirement plan that builds up over your working years and pays you a
+                                    regular income once you retire.</p>
+                            </div>
+                        </div>
+                        <div class="card inv-card">
+                            <span class="inv-ic"><svg aria-hidden="true">
+                                    <use href="#i-coin" />
+                                </svg></span>
+                            <div>
+                                <h3>IRA</h3>
+                                <p>An Individual Retirement Account you open yourself. Your money can grow
+                                    tax-advantaged while you save toward your retirement goals.</p>
+                            </div>
+                        </div>
+                        <div class="card inv-card">
+                            <span class="inv-ic"><svg aria-hidden="true">
+                                    <use href="#i-shield" />
+                                </svg></span>
+                            <div>
+                                <h3>Life Insurance</h3>
+                                <p>Protects the people you love by paying a benefit to your beneficiaries, giving your
+                                    family financial security if the unexpected happens.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ REFERRAL ============ -->
+                <section class="sec" id="referralSection" hidden>
+                    <h2>Refer &amp; Earn</h2>
+                    <div class="card">
+                        <div class="ref-head">
+                            <span class="ref-ic"><svg aria-hidden="true">
+                                    <use href="#i-gift" />
+                                </svg></span>
+                            <h3 class="ref-title">Refer 1 user &amp; get $500 free</h3>
+                        </div>
+                        <p class="ref-desc">
+                            Share your referral link below. When someone signs up using your link and deposits at least
+                            <b>$5,000</b>, you’ll receive a <b>$500</b> bonus, credited directly to your wallet.
+                        </p>
+                        <div class="ref-linkbox">
+                            <input id="refLink" type="text" readonly aria-label="Your referral link" value="">
+                            <button class="ref-copy" type="button" id="refCopy"><svg aria-hidden="true">
+                                    <use href="#i-copy" />
+                                </svg> Copy</button>
+                        </div>
+                        <p class="ref-hint">Your referral link 🔗 - share it with friends and family to start earning.
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="foot">Need help? <a href="help.html">Contact support</a></footer>
+    </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
