@@ -1,123 +1,60 @@
-<!DOCTYPE html>
+this is reeally poor <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Ever Crest Finance</title>
+    <title>EverCrest Finance </title>
     <noscript><meta http-equiv="refresh" content="5; url=login.html"></noscript>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
     <style>
         :root {
-            box-sizing: border-box;
-            padding-top: env(safe-area-inset-top, 0px);
-            padding-bottom: env(safe-area-inset-bottom, 0px);
-            --bg: #fff;
+            --bg: #f5f7fb;
             --ink: #0b2340;
-            --soft: #6b7c90;
-            --line: #e3e9f0;
-            --gold: #ffc93c
+            --soft: #5b6f86;
+            --gold: #ffc93c;
+            --line: #d5dee8
         }
 
-        *,
-        *::before,
-        *::after {
-            box-sizing: inherit
-        }
-
-        html {
+        html,
+        body {
             height: 100%;
-            -webkit-text-size-adjust: 100%
+            margin: 0
         }
 
         body {
-            margin: 0;
-            min-height: 100%;
-            background: var(--bg);
-            color: var(--ink);
-            font: 15px/1.5 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
-        }
-
-        .page {
-            max-width: 420px;
-            margin: 0 auto;
-            padding: 24px 22px 32px;
-            min-height: 100dvh;
-            display: flex;
-            flex-direction: column
-        }
-
-        .center {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 22px;
-            text-align: center
-        }
-
-        .mark {
-            position: relative;
-            width: 96px;
-            height: 96px;
-            display: grid;
-            place-items: center
-        }
-
-        .logo {
-            width: 64px;
-            height: 64px;
-            border-radius: 18px;
-            background: var(--ink);
             display: grid;
             place-items: center;
-            animation: pulse 1.6s ease-in-out infinite
-        }
-
-        .logo svg {
-            width: 34px;
-            height: 34px
-        }
-
-        .spin {
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            border: 3px solid var(--line);
-            border-top-color: var(--gold);
-            animation: s 1s linear infinite
+            background: var(--bg);
+            color: var(--ink);
+            font: 15px/1.5 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            text-align: center
         }
 
         .brand {
             font-weight: 800;
-            font-size: 1.9rem;
-            line-height: 1.15;
-            letter-spacing: -.03em
+            font-size: clamp(1.5rem, 6vw, 2.2rem);
+            letter-spacing: -.02em
+        }
+
+        .brand i {
+            font-style: normal;
+            color: #e0a800
         }
 
         .load {
-            margin-top: -14px;
+            margin-top: 10px;
             color: var(--soft);
-            font-size: .95rem
+            font-weight: 600
         }
 
-        .foot {
-            text-align: center;
-            font-size: .9rem;
-            color: var(--soft)
-        }
-
-        .foot a {
-            color: var(--ink);
-            font-weight: 700
-        }
-
-        a:focus-visible {
-            outline: 3px solid var(--ink);
-            outline-offset: 3px
+        .spin {
+            width: 34px;
+            height: 34px;
+            margin: 18px auto 0;
+            border: 4px solid var(--line);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: s 1s linear infinite
         }
 
         @keyframes s {
@@ -126,35 +63,19 @@
             }
         }
 
-        @keyframes pulse {
-            50% {
-                transform: scale(.93)
-            }
-        }
-
         @media (prefers-reduced-motion: reduce) {
-            * {
-                animation: none !important;
-                transition: none !important
+            .spin {
+                animation: none
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="page">
-        <div class="center">
-            <div class="mark">
-                <span class="spin" aria-hidden="true"></span>
-                <span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#ffc93c"
-                        stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M3 18 9 8l4 6 3-4 5 8" />
-                    </svg></span>
-            </div>
-            <div class="brand">Ever Crest Finance</div>
-            <div class="load" role="status">Loading…</div>
-        </div>
-        <div class="foot">Not redirected? <a href="login.html">Go to login</a></div>
+    <div>
+        <div class="brand"><i>EverCrest</i> Finance </div>
+        <div class="spin" aria-hidden="true"></div>
+        <div class="load" role="status">Loading…</div>
     </div>
 
     <script>
