@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Admin Dashboard | EverCrest Finance</title>
+    <title>Admin Dashboard | Ever Crest Finance</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -13,14 +13,17 @@
             box-sizing: border-box;
             padding-top: env(safe-area-inset-top, 0px);
             padding-bottom: env(safe-area-inset-bottom, 0px);
-            --bg: #fff;
+            --bg: #f5f7fb;
+            --surface: #fff;
+            --group: #fbfcfe;
             --ink: #0b2340;
-            --soft: #6b7c90;
-            --line: #e3e9f0;
-            --fill: #f3f5f8;
+            --soft: #5b6f86;
+            --line: #d5dee8;
             --gold: #ffc93c;
             --ok: #12a06b;
             --bad: #d64535;
+            --ring: rgba(11, 35, 64, .14);
+            --shadow: 0 20px 50px -30px rgba(11, 35, 64, .35)
         }
 
         *,
@@ -31,7 +34,6 @@
 
         html {
             height: 100%;
-            scroll-padding-top: env(safe-area-inset-top, 0px);
             -webkit-text-size-adjust: 100%
         }
 
@@ -47,34 +49,20 @@
             display: none !important
         }
 
-        a {
-            color: inherit
-        }
-
-        a:focus-visible,
-        button:focus-visible {
-            outline: 3px solid var(--ink);
-            outline-offset: 3px
-        }
-
-        .sr {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-            clip: rect(0 0 0 0)
-        }
-
-        .page {
-            max-width: 420px;
-            margin: 0 auto;
-            padding: 24px 22px 32px;
-            min-height: 100dvh;
-            display: flex;
-            flex-direction: column
-        }
-
         .top {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            z-index: 20;
+            background: rgba(255, 255, 255, .94);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .top .in {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 10px 18px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -82,47 +70,27 @@
         }
 
         .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
             font-weight: 800;
-            font-size: 1.02rem;
             letter-spacing: -.01em
         }
 
-        .logo {
-            width: 34px;
-            height: 34px;
-            border-radius: 10px;
-            background: var(--ink);
-            display: grid;
-            place-items: center;
-            flex: none
+        .brand i {
+            font-style: normal;
+            color: #e0a800
         }
 
-        .logo svg {
-            width: 20px;
-            height: 20px
-        }
-
-        .tools {
-            display: flex;
-            align-items: center;
-            gap: 8px
-        }
-
-        .btn-mini {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 0;
-            background: var(--fill);
-            color: var(--ink);
-            font-size: 1rem;
-            text-decoration: none;
-            display: grid;
-            place-items: center;
-            position: relative
+        .badge-admin {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: #fff8e6;
+            border: 1px solid var(--gold);
+            color: #b8860b;
+            font-size: .7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            margin-left: 8px
         }
 
         .av {
@@ -138,155 +106,156 @@
             font-size: .82rem
         }
 
-        .chat-badge {
-            position: absolute;
-            top: -6px;
-            right: -6px
+        .btn-mini {
+            height: 34px;
+            padding: 0 14px;
+            border-radius: 999px;
+            border: 1.5px solid var(--ink);
+            background: #fff;
+            color: var(--ink);
+            font: inherit;
+            font-weight: 700;
+            font-size: .82rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            position: relative
         }
 
-        .chat-badge::after {
-            content: attr(data-count);
-            background: var(--bad);
-            color: #fff;
-            font-size: .65rem;
-            font-weight: 800;
-            font-style: normal;
-            min-width: 18px;
-            height: 18px;
-            border-radius: 9px;
-            display: grid;
-            place-items: center;
-            padding: 0 4px
+        .btn-mini:hover {
+            filter: brightness(.96)
         }
 
         main {
-            flex: 1;
-            padding-top: 32px
-        }
-
-        .badge-admin {
-            display: block;
-            font-size: .72rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: .06em;
-            color: var(--soft);
-            margin-bottom: 6px
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 22px 18px 60px
         }
 
         h1 {
-            font-size: 1.9rem;
-            line-height: 1.15;
-            letter-spacing: -.03em;
-            margin: 0 0 8px;
+            font-size: clamp(1.5rem, 4vw, 1.9rem);
+            margin: 0 0 2px;
+            letter-spacing: -.02em;
             font-weight: 800
         }
 
         .sub {
             color: var(--soft);
-            margin: 0 0 24px;
-            font-size: .95rem
+            margin: 0 0 18px;
+            font-size: .9rem
         }
 
         .stats {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0 18px;
-            margin-bottom: 28px
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 22px
         }
 
         .stat {
-            padding: 14px 0;
-            border-bottom: 1px solid var(--line)
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: var(--shadow)
         }
 
         .stat .label {
-            font-size: .85rem;
-            font-weight: 600;
+            font-size: .72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .05em;
             color: var(--soft);
-            margin-bottom: 2px
+            margin-bottom: 6px
         }
 
         .stat .value {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 800;
             letter-spacing: -.02em;
-            line-height: 1.2
+            color: var(--ink);
+            line-height: 1.1
         }
 
         .stat .meta {
             font-size: .78rem;
             color: var(--soft);
-            margin-top: 2px
+            margin-top: 4px
         }
 
-        h2 {
-            margin: 0;
-            font-size: 1.1rem;
-            font-weight: 800;
-            letter-spacing: -.02em
+        .stat.gold {
+            background: linear-gradient(135deg, #fff 0%, #fff8e6 100%);
+            border-color: #ffe9a8
         }
 
-        .section-head {
-            margin: 0 0 6px
-        }
-
-        .ph-sub {
-            font-size: .85rem;
-            color: var(--soft)
+        .stat.gold .value {
+            color: #b8860b
         }
 
         .actions {
-            margin-bottom: 28px
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin-bottom: 22px
         }
 
         .action-card {
-            display: grid;
-            grid-template-columns: 40px 1fr auto;
-            column-gap: 14px;
-            align-items: center;
-            padding: 14px 0;
-            border-bottom: 1px solid var(--line);
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 18px;
+            box-shadow: var(--shadow);
             text-decoration: none;
-            color: var(--ink)
+            color: var(--ink);
+            transition: transform .15s, border-color .2s;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            position: relative
+        }
+
+        .action-card:hover {
+            border-color: var(--ink);
+            transform: translateY(-1px)
         }
 
         .action-card:active {
-            opacity: .7
+            transform: scale(.99)
         }
 
-        .ac-icon {
-            grid-row: 1 / span 2;
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            background: var(--fill);
-            display: grid;
-            place-items: center;
-            font-size: 1.1rem;
-            font-weight: 800
+        .action-card .ac-title {
+            font-weight: 800;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px
         }
 
-        .ac-title {
-            grid-column: 2;
-            font-weight: 700;
-            font-size: .95rem;
-            line-height: 1.3
-        }
-
-        .ac-sub {
-            grid-column: 2;
+        .action-card .ac-sub {
             font-size: .8rem;
             color: var(--soft);
-            line-height: 1.4
+            line-height: 1.5
         }
 
-        .ac-count {
-            grid-column: 3;
-            grid-row: 1 / span 2;
+        .action-card .ac-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--group);
+            border: 1px solid var(--line);
+            display: grid;
+            place-items: center;
+            font-size: 1.1rem
+        }
+
+        .action-card .ac-count {
+            position: absolute;
+            top: 14px;
+            right: 14px;
             background: var(--gold);
             color: var(--ink);
-            font-size: .72rem;
+            font-size: .7rem;
             font-weight: 800;
             padding: 3px 10px;
             border-radius: 999px;
@@ -294,9 +263,40 @@
             text-align: center
         }
 
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 18px 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 18px
+        }
+
+        .panel-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+            flex-wrap: wrap
+        }
+
+        .panel-head h2 {
+            margin: 0;
+            font-size: 1.05rem;
+            font-weight: 800;
+            letter-spacing: -.01em
+        }
+
+        .panel-head .ph-sub {
+            font-size: .82rem;
+            color: var(--soft)
+        }
+
         .list {
             display: flex;
-            flex-direction: column
+            flex-direction: column;
+            gap: 8px
         }
 
         .list-item {
@@ -304,11 +304,19 @@
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            padding: 14px 0;
-            border-bottom: 1px solid var(--line);
+            padding: 12px 14px;
+            background: var(--group);
+            border: 1px solid var(--line);
+            border-radius: 12px;
             text-decoration: none;
             color: inherit;
-            width: 100%
+            width: 100%;
+            transition: border-color .2s, background .2s
+        }
+
+        .list-item:hover {
+            border-color: var(--ink);
+            background: #fff
         }
 
         .li-left {
@@ -334,6 +342,7 @@
 
         .li-name {
             font-weight: 700;
+            color: var(--ink);
             font-size: .92rem;
             word-break: break-word
         }
@@ -348,7 +357,9 @@
             flex: none;
             display: flex;
             align-items: center;
-            gap: 8px
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end
         }
 
         .pill {
@@ -362,13 +373,13 @@
         }
 
         .pill.pending {
-            background: #fff6dc;
-            color: #8a6400
+            background: #fff8e6;
+            color: #b8860b
         }
 
         .pill.processing {
-            background: var(--fill);
-            color: var(--ink)
+            background: #e0f2fe;
+            color: #0369a1
         }
 
         .pill.completed,
@@ -382,24 +393,18 @@
             color: #a3291c
         }
 
-        .empty,
-        .loading-row {
+        .empty {
             text-align: center;
             padding: 28px 12px;
             color: var(--soft);
-            font-size: .9rem
+            font-size: .88rem
         }
 
-        .foot {
+        .loading-row {
+            padding: 24px;
             text-align: center;
-            padding-top: 24px;
-            font-size: .9rem;
-            color: var(--soft)
-        }
-
-        .foot a {
-            color: var(--ink);
-            font-weight: 700
+            color: var(--soft);
+            font-size: .88rem
         }
 
         .snack {
@@ -414,6 +419,7 @@
             font-weight: 600;
             font-size: .9rem;
             background: var(--ink);
+            box-shadow: 0 14px 34px -12px rgba(11, 35, 64, .6);
             transform: translate(-50%, -160%);
             opacity: 0;
             transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .3s;
@@ -433,16 +439,36 @@
             background: var(--bad)
         }
 
-        @media (min-width:600px) {
-            .page {
-                padding-top: 56px
-            }
+        .chat-badge {
+            position: relative
         }
 
-        @media (prefers-reduced-motion:reduce) {
-            * {
-                transition: none !important;
-                animation: none !important
+        .chat-badge::after {
+            content: attr(data-count);
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--bad);
+            color: #fff;
+            font-size: .65rem;
+            font-weight: 800;
+            min-width: 18px;
+            height: 18px;
+            border-radius: 9px;
+            display: grid;
+            place-items: center;
+            padding: 0 4px
+        }
+
+        @media(max-width:560px) {
+            .li-right {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 6px
+            }
+
+            .stat .value {
+                font-size: 1.5rem
             }
         }
     </style>
@@ -451,153 +477,144 @@
 <body>
     <div class="snack" id="snack" role="status" aria-live="polite"></div>
 
-    <div class="page">
-        <header class="top">
-            <div class="brand">
-                <span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#ffc93c"
-                        stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M3 18 9 8l4 6 3-4 5 8" />
-                    </svg></span>
-                <span>EverCrest Finance</span>
-            </div>
-            <div class="tools">
-                <a class="btn-mini" href="help-center.html" aria-label="Help Center">
-                    <span aria-hidden="true">💬</span>
+    <header class="top">
+        <div class="in">
+            <div class="brand"><i>Ever</i> Crest Finance <span class="badge-admin">Admin</span></div>
+            <div style="display:flex;align-items:center;gap:8px;">
+                <a class="btn-mini" href="help-center.html">
+                    💬 Help Center
                     <span id="chatUnreadBadge" class="chat-badge" data-count="New" style="display:none;"></span>
                 </a>
                 <a class="av" id="avatar" href="#">AD</a>
             </div>
-        </header>
+        </div>
+    </header>
 
-        <main>
-            <span class="badge-admin">Admin</span>
-            <h1>Admin Dashboard</h1>
-            <p class="sub">Overview of users and withdrawal activity.</p>
+    <main>
+        <h1>Admin Dashboard</h1>
+        <p class="sub">Overview of users and withdrawal activity.</p>
 
-            <div class="stats">
-                <div class="stat">
-                    <div class="label">Total Users</div>
-                    <div class="value" id="statUsers">—</div>
-                    <div class="meta">Registered accounts</div>
-                </div>
-                <div class="stat">
-                    <div class="label">Withdrawal Requests</div>
-                    <div class="value" id="statWithdrawals">—</div>
-                    <div class="meta">All time</div>
-                </div>
-                <div class="stat">
-                    <div class="label">Pending Requests</div>
-                    <div class="value" id="statPending">—</div>
-                    <div class="meta">Awaiting action</div>
-                </div>
-                <div class="stat">
-                    <div class="label">Approved Requests</div>
-                    <div class="value" id="statApproved">—</div>
-                    <div class="meta">Granted successfully</div>
-                </div>
-                <div class="stat">
-                    <div class="label">Clearance Forms</div>
-                    <div class="value" id="statClearance">—</div>
-                    <div class="meta">Forms submitted</div>
-                </div>
-                <div class="stat">
-                    <div class="label">Clearance Fee Payments</div>
-                    <div class="value" id="statFeePayments">—</div>
-                    <div class="meta">Pending approval</div>
-                </div>
+        <div class="stats">
+            <div class="stat gold">
+                <div class="label">Total Users</div>
+                <div class="value" id="statUsers">—</div>
+                <div class="meta">Registered accounts</div>
             </div>
-
-            <div class="section-head">
-                <h2>Quick actions</h2>
+            <div class="stat">
+                <div class="label">Withdrawal Requests</div>
+                <div class="value" id="statWithdrawals">—</div>
+                <div class="meta">All time</div>
             </div>
-            <div class="actions">
-                <a class="action-card" href="users.html">
-                    <div class="ac-icon">👥</div>
-                    <div class="ac-title">Manage Users</div>
-                    <div class="ac-sub">View all users and their withdrawal requests.</div>
-                </a>
-                <a class="action-card" href="wallet.html">
-                    <div class="ac-icon">💳</div>
-                    <div class="ac-title">Assign Wallet Address</div>
-                    <div class="ac-sub">Set or update a user's wallet address.</div>
-                </a>
-                <a class="action-card" href="percent.html">
-                    <div class="ac-icon">%</div>
-                    <div class="ac-title">Update User Percent</div>
-                    <div class="ac-sub">Change the asset percentage for a user.</div>
-                </a>
-                <a class="action-card" href="deposits.html">
-                    <div class="ac-icon">🖼️</div>
-                    <div class="ac-title">View Upload Cards</div>
-                    <div class="ac-sub">View and approve gift card deposits.</div>
-                </a>
-                <a class="action-card" href="update-balance.html">
-                    <div class="ac-icon">💰</div>
-                    <div class="ac-title">Update User Account Balance</div>
-                    <div class="ac-sub">Add or adjust a user's account balance.</div>
-                </a>
-                <a class="action-card" href="all-transactions.html">
-                    <div class="ac-icon">📊</div>
-                    <div class="ac-title">View All Transactions</div>
-                    <div class="ac-sub">See all deposit transactions from users.</div>
-                </a>
-                <a class="action-card" href="clearance-data-preview.html">
-                    <div class="ac-icon">📋</div>
-                    <div class="ac-title">Clearance Form</div>
-                    <div class="ac-sub">Users whose clearance form has been submitted.</div>
-                    <span class="ac-count" id="clearanceCountCard" hidden>0</span>
-                </a>
-
-                <!-- Add/Update Clearance Processing Fee -->
-                <a class="action-card" href="processing-fee.html">
-                    <div class="ac-icon">⚙️</div>
-                    <div class="ac-title">Add/Update Clearance Processing Fee</div>
-                    <div class="ac-sub">Set the wire transfer clearance fee shown to users.</div>
-                    <span class="ac-count" id="feeCountCard" hidden>0</span>
-                </a>
-
-                <!-- Clearance Fee Payments (users who clicked Have Paid) -->
-                <a class="action-card" href="clearance-payments.html">
-                    <div class="ac-icon">🧾</div>
-                    <div class="ac-title">Clearance Fee Payments</div>
-                    <div class="ac-sub">Review users who have paid and approve clearance.</div>
-                    <span class="ac-count" id="feePaymentsCountCard" hidden>0</span>
-                </a>
-
-                <!-- Withdrawal Fixed Amount -->
-                <a class="action-card" href="pre-list-all-users.html">
-                    <div class="ac-icon">🔒</div>
-                    <div class="ac-title">Withdrawal Fixed Amount</div>
-                    <div class="ac-sub">Assign the fixed amount each user can withdraw.</div>
-                </a>
-
-                <!-- View and Activate Section B -->
-                <a class="action-card" href="section-b.html">
-                    <div class="ac-icon">💬</div>
-                    <div class="ac-title">View and Activate Section B</div>
-                    <div class="ac-sub">Users with Clearance Completed. Activate chat with admin.</div>
-                    <span class="ac-count" id="sectionBCountCard" hidden>0</span>
-                </a>
-
-                <!-- Delete User -->
-                <a class="action-card" href="delete-user.html">
-                    <div class="ac-icon">🗑️</div>
-                    <div class="ac-title">Delete/Block User</div>
-                    <div class="ac-sub">Remove a user and all their data from the database.</div>
-                </a>
+            <div class="stat">
+                <div class="label">Pending Requests</div>
+                <div class="value" id="statPending">—</div>
+                <div class="meta">Awaiting action</div>
             </div>
+            <div class="stat">
+                <div class="label">Approved Requests</div>
+                <div class="value" id="statApproved">—</div>
+                <div class="meta">Granted successfully</div>
+            </div>
+            <div class="stat gold">
+                <div class="label">Clearance Forms</div>
+                <div class="value" id="statClearance">—</div>
+                <div class="meta">Forms submitted</div>
+            </div>
+            <div class="stat gold">
+                <div class="label">Clearance Fee Payments</div>
+                <div class="value" id="statFeePayments">—</div>
+                <div class="meta">Pending approval</div>
+            </div>
+        </div>
 
-            <div class="section-head">
+        <div class="actions">
+            <a class="action-card" href="users.html">
+                <div class="ac-icon">👥</div>
+                <div class="ac-title">Manage Users</div>
+                <div class="ac-sub">View all users and their withdrawal requests.</div>
+            </a>
+            <a class="action-card" href="wallet.html">
+                <div class="ac-icon">💳</div>
+                <div class="ac-title">Assign Wallet Address</div>
+                <div class="ac-sub">Set or update a user's wallet address.</div>
+            </a>
+            <a class="action-card" href="percent.html">
+                <div class="ac-icon">%</div>
+                <div class="ac-title">Update User Percent</div>
+                <div class="ac-sub">Change the asset percentage for a user.</div>
+            </a>
+            <a class="action-card" href="deposits.html">
+                <div class="ac-icon">🖼️</div>
+                <div class="ac-title">View Upload Cards</div>
+                <div class="ac-sub">View and approve gift card deposits.</div>
+            </a>
+            <a class="action-card" href="update-balance.html">
+                <div class="ac-icon">💰</div>
+                <div class="ac-title">Update User Account Balance</div>
+                <div class="ac-sub">Add or adjust a user's account balance.</div>
+            </a>
+            <a class="action-card" href="all-transactions.html">
+                <div class="ac-icon">📊</div>
+                <div class="ac-title">View All Transactions</div>
+                <div class="ac-sub">See all deposit transactions from users.</div>
+            </a>
+            <a class="action-card" href="clearance-data-preview.html">
+                <div class="ac-icon">📋</div>
+                <div class="ac-title">Clearance Form</div>
+                <div class="ac-sub">Users whose clearance form has been submitted.</div>
+                <span class="ac-count" id="clearanceCountCard" hidden>0</span>
+            </a>
+
+            <!-- Add/Update Clearance Processing Fee -->
+            <a class="action-card" href="processing-fee.html">
+                <div class="ac-icon">⚙️</div>
+                <div class="ac-title">Add/Update Clearance Processing Fee</div>
+                <div class="ac-sub">Set the wire transfer clearance fee shown to users.</div>
+                <span class="ac-count" id="feeCountCard" hidden>0</span>
+            </a>
+
+            <!-- Clearance Fee Payments (users who clicked Have Paid) -->
+            <a class="action-card" href="clearance-payments.html">
+                <div class="ac-icon"></div>
+                <div class="ac-title">Clearance Fee Payments</div>
+                <div class="ac-sub">Review users who have paid and approve clearance.</div>
+                <span class="ac-count" id="feePaymentsCountCard" hidden>0</span>
+            </a>
+
+            <!-- Withdrawal Fixed Amount -->
+            <a class="action-card" href="pre-list-all-users.html">
+                <div class="ac-icon">🔒</div>
+                <div class="ac-title">Withdrawal Fixed Amount</div>
+                <div class="ac-sub">Assign the fixed amount each user can withdraw.</div>
+            </a>
+
+            <!--  NEW CARD: View and Activate Section B -->
+            <a class="action-card" href="section-b.html">
+                <div class="ac-icon">💬</div>
+                <div class="ac-title">View and Activate Section B</div>
+                <div class="ac-sub">Users with Clearance Completed. Activate chat with admin.</div>
+                <span class="ac-count" id="sectionBCountCard" hidden>0</span>
+            </a>
+
+
+            <!-- Delete User -->
+            <a class="action-card" href="delete-user.html">
+                <div class="ac-icon">🗑️</div>
+                <div class="ac-title">Delete/Block User</div>
+                <div class="ac-sub">Remove a user and all their data from the database.</div>
+            </a>
+        </div>
+
+        <div class="panel">
+            <div class="panel-head">
                 <h2>Recent Withdrawal Requests</h2>
                 <div class="ph-sub">Latest across all users</div>
             </div>
             <div id="recentWithdrawals">
                 <div class="loading-row">Loading…</div>
             </div>
-        </main>
-
-        <footer class="foot">Need help? <a href="help-center.html">Open Help Center</a></footer>
-    </div>
+        </div>
+    </main>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
@@ -607,7 +624,6 @@
         const firebaseConfig = {
             apiKey: "AIzaSyBH0n84QTvGBWaSlJdO6AoUU6IRuJETHLA",
             authDomain: "ever-crest-finance-bank.firebaseapp.com",
-            databaseURL: "https://ever-crest-finance-bank-default-rtdb.firebaseio.com",
             projectId: "ever-crest-finance-bank",
             storageBucket: "ever-crest-finance-bank.firebasestorage.app",
             messagingSenderId: "469287844559",
