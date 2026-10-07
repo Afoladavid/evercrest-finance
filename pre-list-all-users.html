@@ -145,15 +145,17 @@
         (async () => {
             await auth.authStateReady();
             if (!auth.currentUser) { location.replace('login.html'); return; }
-            onValue(ref(db, 'users'), snap => {
-                const arr = [];
-                snap.forEach(child => arr.push({ uid: child.key, profile: child.val() || {} }));
-                arr.sort((a, b) => fullName(a.profile).localeCompare(fullName(b.profile)));
-                users = arr;
-                render();
-            }, err => {
-                $('listWrap').innerHTML = '<div class="empty">Could not load users: ' + esc(err.message) + '</div>';
-            });
+          onValue(ref(db, 'users'), snap => {
+    const arr = [];
+    snap.forEach(child => {
+        arr.push({ uid: child.key, profile: child.val() || {} });
+    });
+    arr.sort((a, b) => fullName(a.profile).localeCompare(fullName(b.profile)));
+    users = arr;
+    render();
+}, err => {
+    $('listWrap').innerHTML = '<div class="empty">Could not load users: ' + esc(err.message) + '</div>';
+});
         })();
     </script>
 </body>
