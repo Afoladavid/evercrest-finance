@@ -651,7 +651,7 @@
             const snap = await get(ref(db, 'users'));
             if (!snap.exists()) { allUsers = []; return; }
             const arr = [];
-            snap.forEach(child => arr.push({ uid: child.key, profile: child.val() || {} }));
+            snap.forEach(child => { arr.push({ uid: child.key, profile: child.val() || {} }); });
             arr.sort((a, b) => fullName(a.profile).localeCompare(fullName(b.profile)));
             allUsers = arr;
         }
@@ -664,7 +664,7 @@
             ));
             results.forEach(({ uid, snap }) => {
                 allTransactions[uid] = {};
-                if (snap && snap.exists()) snap.forEach(child => allTransactions[uid][child.key] = child.val() || {});
+                if (snap && snap.exists()) snap.forEach(child => { allTransactions[uid][child.key] = child.val() || {}; });
             });
         }
 
